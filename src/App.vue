@@ -6,12 +6,17 @@
     /></TopBar>
 
     <v-main class="fill-height">
-      <v-container fluid style="overflow: hidden;" class="d-flex flex-column fill-height">
+      <v-container
+        fluid
+        style="overflow: hidden"
+        class="d-flex flex-column fill-height"
+      >
         <v-row style="height: 60%; max-height: 60%; min-height: 60%">
           <v-col style="width: 20%; max-width: 20%; height: 100%" class=""
             ><InstrumentModule
               @selectInstrument="selectInstrument"
               :devMode="devMode"
+              :loggedIn="loggedIn"
           /></v-col>
           <v-col class=""
             ><ProductModule
@@ -53,7 +58,6 @@ import TradeModule from "./components/TradeModule.vue";
 import openapiService from "./services/openapiService";
 import LoginButton from "./components/LoginButton.vue";
 
-
 export default {
   name: "App",
 
@@ -63,7 +67,7 @@ export default {
     ProductModule,
     DevSwitch,
     TradeModule,
-    LoginButton
+    LoginButton,
   },
 
   data: () => ({
@@ -71,7 +75,7 @@ export default {
     instrument: null,
     devMode: false,
     instrumentDetails: null,
-    loggedIn: null
+    loggedIn: null,
   }),
 
   watch: {
@@ -91,8 +95,8 @@ export default {
       };
     },
     handleLoggedInChange(loggedIn) {
-      this.loggedIn = loggedIn
-    }
+      this.loggedIn = loggedIn;
+    },
   },
 };
 </script>
