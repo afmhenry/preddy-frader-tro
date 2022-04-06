@@ -6,8 +6,9 @@
       class="ma-1"
       size="small"
       color="secondary"
-      >mdi-information-outline</v-icon
     >
+      mdi-information-outline
+    </v-icon>
     <v-text-field
       class="ma-2"
       v-model="keyword"
@@ -17,7 +18,8 @@
       clearable
       hide-details="true"
       @focus="$event.target.select()"
-    ></v-text-field>
+    >
+    </v-text-field>
     <v-divider></v-divider>
     <div style="height: 100%; overflow: auto">
       <v-list dense>
