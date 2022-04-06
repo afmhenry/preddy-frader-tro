@@ -46,14 +46,21 @@
             </v-list-item-title>
             <v-list-item-subtitle style="font-size: 0.7rem">
               <span>
-                {{ instrument.Symbol }}&nbsp;-&nbsp;
+                {{ instrument.Symbol }}
+                &nbsp;-&nbsp;
                 {{ instrument.CurrencyCode }}
               </span>
-              &nbsp;-
+              &nbsp;-&nbsp;
               <span v-if="instrument.IssuerCountry">
-                &nbsp;<flag :iso="instrument.IssuerCountry" />
+                <i
+                  :class="[
+                    'em',
+                    'em-flag-' + instrument.IssuerCountry.toLowerCase(),
+                  ]"
+                  style="height: 1.4em"
+                >
+                </i>
               </span>
-              &nbsp;({{ instrument.Identifier }})
             </v-list-item-subtitle>
           </v-list-item-header>
         </v-list-item>

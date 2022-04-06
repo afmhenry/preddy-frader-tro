@@ -34,7 +34,15 @@
             &nbsp;&nbsp;|&nbsp;&nbsp;
           </span>
           <span v-if="instrumentDetails.Exchange.ExchangeId != 'SBFX'">
-            <flag :iso="instrumentDetails.Exchange.CountryCode" />
+            <i
+              :class="[
+                'mr-1',
+                'em',
+                'em-flag-' +
+                  instrumentDetails.Exchange.CountryCode.toLowerCase(),
+              ]"
+              style="height: 1.4em"
+            ></i>
             {{ instrumentDetails.Exchange.CountryCode }}
             ({{ instrumentDetails.CurrencyCode }}) &nbsp;&nbsp;|&nbsp;&nbsp;
           </span>
@@ -43,10 +51,14 @@
           </span>
           <span>
             {{ instrumentDetails.Exchange.Name }}
+            <span class="text-overline" style="font-size: 0.875rem !important">
+              ({{ instrumentDetails.Exchange.ExchangeId }})
+            </span>
           </span>
           <span style="float: right">
             {{ instrumentDetails.TradingSessions.Sessions[0].State }}
           </span>
+          <span class="fi fi-gr"></span>
         </div>
       </v-card-text>
     </div>
