@@ -70,12 +70,10 @@ export default {
   }),
   watch: {
     instrument: async function (value) {
-      console.log(value.uic, value.assetType);
       this.instrumentDetails = await openapiService().instrumentDetails(
         value.uic,
         value.assetType
       );
-      console.log(this);
     },
   },
   methods: {
