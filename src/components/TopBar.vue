@@ -8,7 +8,7 @@
     max-width="50"
     contain
   ></v-img>
-    <v-app-bar-title>PreddyFraderTro</v-app-bar-title>
+    <v-app-bar-title class="font-weight-bold">PreddyFraderTro</v-app-bar-title>
          <v-text-field v-model="accessToken"
             density="compact"
             label="24-Hour Token"
