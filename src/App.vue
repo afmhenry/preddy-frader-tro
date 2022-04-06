@@ -18,7 +18,6 @@ export default {
     TopBar,
   },
 
-  data: () => ({
-  }),
+  data: () => ({}),
 };
 </script>

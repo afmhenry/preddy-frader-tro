@@ -11,7 +11,6 @@
     <v-app-bar-title class="font-weight-bold">PreddyFraderTro</v-app-bar-title>
          <LoginButton />
     <!-- <v-btn color="primary">Status</v-btn> -->
-    <v-btn color="light" variant="contained-text">Login</v-btn>
   </v-app-bar>
 </template>
 
