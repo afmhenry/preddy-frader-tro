@@ -45,11 +45,15 @@
               {{ instrument.Description }}
             </v-list-item-title>
             <v-list-item-subtitle style="font-size: 0.7rem">
-              {{ instrument.Symbol }}&nbsp;-&nbsp;{{
-                instrument.CurrencyCode
-              }}&nbsp;-&nbsp;&nbsp;
-              <flag :iso="instrument.IssuerCountry" />
-              &nbsp;&nbsp;&nbsp;({{ instrument.Identifier }})
+              <span>
+                {{ instrument.Symbol }}&nbsp;-&nbsp;
+                {{ instrument.CurrencyCode }}
+              </span>
+              &nbsp;-
+              <span v-if="instrument.IssuerCountry">
+                &nbsp;<flag :iso="instrument.IssuerCountry" />
+              </span>
+              &nbsp;({{ instrument.Identifier }})
             </v-list-item-subtitle>
           </v-list-item-header>
         </v-list-item>
@@ -81,7 +85,15 @@ export default {
   },
   methods: {
     search: _.debounce(async function (value) {
-      this.search_result = await openapiService().searchInstrument(value);
+      const search_result = await openapiService().searchInstrument(value);
+      const filtered = search_result.filter(function (result) {
+        if (result.AssetType === "Stock") {
+          return result.PrimaryListing === result.Identifier;
+        } else {
+          return true;
+        }
+      });
+      this.search_result = filtered;
     }, 200),
   },
 };
