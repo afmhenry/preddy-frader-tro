@@ -7,7 +7,9 @@
     variant="outlined"
   >
   </v-text-field>
-  <v-btn color="light" variant="contained-text">Login</v-btn>
+  <v-btn flat class="mx-2 font-weight-regular" color="light" variant="outlined"
+    ><v-icon left>mdi-account-arrow-right</v-icon>Login</v-btn
+  >
 </template>
 
 <script>
