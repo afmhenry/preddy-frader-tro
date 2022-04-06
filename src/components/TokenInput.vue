@@ -14,12 +14,12 @@
 export default {
   name: "TokenInput",
   data: () => ({
-    accessToken: "Paste token here...",
+    accessToken: "",
   }),
   watch: {
     accessToken: function (value) {
       localStorage.setItem("accessToken", value);
-      localStorage.setItem("environment", "sim")
+      localStorage.setItem("environment", "sim");
     },
   },
 };
