@@ -5,7 +5,7 @@ import 'vuetify/styles'
 // Vuetify
 import { createVuetify } from 'vuetify'
 
-const Theme = {
+const SaxoTheme = {
   dark: true,
   colors: {
     background: '#031329',
@@ -24,9 +24,9 @@ const Theme = {
 
 export default createVuetify({
   theme: {
-    defaultTheme: 'Theme',
+    defaultTheme: 'SaxoTheme',
     themes: {
-      Theme,
+      SaxoTheme,
     }
   }
 })
