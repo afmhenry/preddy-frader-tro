@@ -27,7 +27,7 @@
           v-for="instrument in search_result"
           :key="instrument.Identifier"
           two-line
-          class="pa-2"
+          class="py-0 px-3"
           active-color="primary"
           @click="
             $emit(
@@ -38,12 +38,18 @@
           "
         >
           <v-list-item-header>
-            <v-list-item-title style="font-size: 0.9rem">{{
-              instrument.Description
-            }}</v-list-item-title>
-            <v-list-item-subtitle style="font-size: 0.8rem">
-              {{ instrument.Symbol }} -
-              {{ instrument.Identifier }}
+            <v-list-item-title
+              style="font-size: 0.8rem"
+              class="font-weight-bold"
+            >
+              {{ instrument.Description }}
+            </v-list-item-title>
+            <v-list-item-subtitle style="font-size: 0.7rem">
+              {{ instrument.Symbol }}&nbsp;-&nbsp;{{
+                instrument.CurrencyCode
+              }}&nbsp;-&nbsp;&nbsp;
+              <flag :iso="instrument.IssuerCountry" />
+              &nbsp;&nbsp;&nbsp;({{ instrument.Identifier }})
             </v-list-item-subtitle>
           </v-list-item-header>
         </v-list-item>
