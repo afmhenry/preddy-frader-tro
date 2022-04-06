@@ -14,18 +14,21 @@ const apps = {
 }
 
 const openapiService = () => {
-    const environment = localStorage.get('environment')
+    const environment = localStorage.getItem('environment')
     const app = apps[environment]
     const client = axios.create({
         baseURL: app.OpenApiBaseUrl,
         timeout: 5000,
-        headers: {'Authorization': `Bearer ${localStorage.get('accessToken')}`}
+        headers: {'Authorization': `Bearer ${localStorage.getItem('accessToken')}`}
       });
       
     return {
         searchInstrument(keyword) {
-            return client.get(`/ref/v1/instruments?Keyword=${keyword}`)
-        }
+            return client.get(`/ref/v1/instruments?Keywords=${keyword}&AssetTypes=FxSpot,Stock`).then(result => result.data.Data)
+        },
+        instrumentDetails(uic, assetType) {
+            return client.get(`/ref/v1/instruments/details/${uic}/${assetType}`).then(result => result.data)
+        },
     }
 }
 
