@@ -13,6 +13,16 @@ const apps = {
     }
 }
 
+const getAuthUrl = (environment, state="initial") => {
+    const app = apps[environment]
+    return `${app.AuthorizationEndpoint}?client_id=${app.AppKey}&response_type=token&state=${state}&redirect_uri=${window.location.href}`
+}
+
+const getLogoutUrl = (environment) => {
+    const app = apps[environment]
+    return app.LogoutEndpoint
+}
+
 const openapiService = () => {
     const environment = localStorage.getItem('environment')
     const app = apps[environment]
@@ -29,7 +39,14 @@ const openapiService = () => {
         instrumentDetails(uic, assetType) {
             return client.get(`/ref/v1/instruments/details/${uic}/${assetType}`).then(result => result.data)
         },
+        currentClientDetails() {
+            return client.get('/port/v1/clients/me').then(result => result.data)
+        }
     }
 }
 
 export default openapiService
+export {
+    getAuthUrl,
+    getLogoutUrl
+}

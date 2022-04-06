@@ -12,15 +12,13 @@
         >DEV</span
       ></v-app-bar-title
     >
-    <TokenInput />
+    <!-- <TokenInput /> -->
     <slot></slot>
-    <LoginButton />
   </v-app-bar>
 </template>
 
 <script>
-import LoginButton from "./LoginButton.vue";
-import TokenInput from "./TokenInput.vue";
+// import TokenInput from "./TokenInput.vue";
 
 export default {
   name: "TopBar",
@@ -28,8 +26,7 @@ export default {
     accessToken: "Paste token here...",
   }),
   components: {
-    LoginButton,
-    TokenInput,
+    // TokenInput,
   },
 };
 </script>

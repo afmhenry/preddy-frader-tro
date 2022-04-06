@@ -1,8 +1,9 @@
 <template>
   <v-app class="fill-height">
     <TopBar
-      ><DevSwitch :devMode="devMode" @click="devMode = !devMode"></DevSwitch
-    ></TopBar>
+      ><DevSwitch :devMode="devMode" @click="devMode = !devMode"></DevSwitch>
+      <LoginButton :loggedIn="loggedIn" @loggedIn="handleLoggedInChange"
+    /></TopBar>
 
     <v-main class="fill-height">
       <v-container fluid class="d-flex flex-column fill-height">
@@ -50,6 +51,8 @@ import TopBar from "./components/TopBar.vue";
 import DevSwitch from "./components/DevSwitch.vue";
 import TradeModule from "./components/TradeModule.vue";
 import openapiService from "./services/openapiService";
+import LoginButton from "./components/LoginButton.vue";
+
 
 export default {
   name: "App",
@@ -60,6 +63,7 @@ export default {
     ProductModule,
     DevSwitch,
     TradeModule,
+    LoginButton
   },
 
   data: () => ({
@@ -67,7 +71,9 @@ export default {
     instrument: null,
     devMode: false,
     instrumentDetails: null,
+    loggedIn: null
   }),
+
   watch: {
     instrument: async function (value) {
       this.instrumentDetails = await openapiService().instrumentDetails(
@@ -76,6 +82,7 @@ export default {
       );
     },
   },
+  
   methods: {
     selectInstrument(uic, assetType) {
       this.instrument = {
@@ -83,6 +90,9 @@ export default {
         assetType,
       };
     },
+    handleLoggedInChange(loggedIn) {
+      this.loggedIn = loggedIn
+    }
   },
 };
 </script>
