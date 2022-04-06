@@ -23,7 +23,10 @@
 
   <v-dialog v-model="dialog">
     <v-card>
-      <v-card-text> Select your environment </v-card-text>
+      <v-card-text> 
+        Select your environment or paste in a 24h token <br>
+        <TokenInput @setToken="setToken" />
+      </v-card-text>
       <v-card-actions class="d-flex">
         <v-btn color="primary" class="flex-grow-1" @click="() => login('sim')"
           >SIM</v-btn
@@ -42,6 +45,7 @@ import openapiService, {
   getAuthUrl,
   getLogoutUrl,
 } from "../services/openapiService";
+import TokenInput from './TokenInput'
 
 function removeHash() {
   history.pushState(
@@ -55,6 +59,9 @@ export default {
   name: "LoginButton",
   props: ["loggedIn"],
   emits: ["loggedIn"],
+  components: { 
+    TokenInput
+},
   data: () => ({
     dialog: false,
     clientDetails: null,
@@ -64,11 +71,25 @@ export default {
       localStorage.setItem("environment", environment);
       window.location = getAuthUrl(environment);
     },
+    setToken: async function(token) {
+      localStorage.setItem("environment", "sim")
+      localStorage.setItem("accessToken", token)
+      try {
+        await this.getClientDetails();
+        this.dialog = false;
+        this.$emit("loggedIn", true)
+      } catch (e) {
+        localStorage.removeItem("environment")
+        localStorage.removeItem("accessToken")
+        this.$emit("loggedIn", false)
+      }
+    },
     logout() {
       const environment = localStorage.getItem("environment");
       window.localStorage.removeItem("accessToken");
       window.localStorage.removeItem("expiresIn");
       this.clientDetails = null;
+      this.$emit('loggedIn', false)
       window.open(getLogoutUrl(environment));
     },
     refresh() {
