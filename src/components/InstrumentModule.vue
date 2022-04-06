@@ -1,34 +1,54 @@
 <template>
-  <v-card>
+  <v-card height="100%">
     <v-icon
       v-if="devMode"
       style="float: right"
       class="ma-1"
       size="small"
       color="secondary"
-      >mdi-information-outline</v-icon
     >
-    <v-card-title>Search</v-card-title>
+      mdi-information-outline
+    </v-icon>
     <v-text-field
-      class="mx-2"
+      class="ma-2"
       v-model="keyword"
       density="compact"
       label="Instrument Search"
       variant="outlined"
+      clearable
+      hide-details="true"
+      @focus="$event.target.select()"
     >
     </v-text-field>
-    <v-card
-      class="d-flex"
-      @click="
-        $emit('selectInstrument', instrument.Identifier, instrument.AssetType)
-      "
-      v-for="instrument in instruments"
-      :key="instrument.Identifier"
-    >
-      <div>{{ instrument.Description }}</div>
-      <div>{{ instrument.Symbol }}</div>
-      <div>{{ instrument.Identifier }}</div>
-    </v-card>
+    <v-divider></v-divider>
+    <div style="height: 100%; overflow: auto">
+      <v-list dense>
+        <v-list-item
+          v-for="instrument in search_result"
+          :key="instrument.Identifier"
+          two-line
+          class="pa-2"
+          active-color="primary"
+          @click="
+            $emit(
+              'selectInstrument',
+              instrument.Identifier,
+              instrument.AssetType
+            )
+          "
+        >
+          <v-list-item-header>
+            <v-list-item-title style="font-size: 0.9rem">{{
+              instrument.Description
+            }}</v-list-item-title>
+            <v-list-item-subtitle style="font-size: 0.8rem">
+              {{ instrument.Symbol }} -
+              {{ instrument.Identifier }}
+            </v-list-item-subtitle>
+          </v-list-item-header>
+        </v-list-item>
+      </v-list>
+    </div>
   </v-card>
 </template>
 
@@ -42,17 +62,20 @@ export default {
   props: ["devMode"],
   data: () => ({
     keyword: "",
-    instruments: [],
+    search_result: [],
   }),
   watch: {
     keyword: function (value) {
-      console.log(value);
-      this.search(value);
+      if (value) {
+        this.search(value);
+      } else {
+        this.search_result = [];
+      }
     },
   },
   methods: {
     search: _.debounce(async function (value) {
-      this.instruments = await openapiService().searchInstrument(value);
+      this.search_result = await openapiService().searchInstrument(value);
     }, 200),
   },
 };
