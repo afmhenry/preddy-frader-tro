@@ -19,6 +19,7 @@ export default {
   watch: {
     accessToken: function (value) {
       localStorage.setItem("accessToken", value);
+      localStorage.setItem("environment", "sim")
     },
   },
 };

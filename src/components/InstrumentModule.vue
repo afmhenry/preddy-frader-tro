@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import openapiService from '../services/openapiService'
+
 export default {
   name: "InstrumentModule",
   data: () => ({
@@ -21,6 +23,7 @@ export default {
   watch: {
     keyword: function (value) {
       console.log(value);
+      openapiService().searchInstrument(value)
     },
   },
 };

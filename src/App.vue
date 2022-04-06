@@ -35,6 +35,8 @@
 <script>
 import InstrumentModule from "./components/InstrumentModule.vue";
 import TopBar from "./components/TopBar.vue";
+import openapiService from './services/openapiService'
+
 export default {
   name: "App",
 
@@ -43,6 +45,11 @@ export default {
     InstrumentModule,
   },
 
-  data: () => ({}),
+  data: () => ({
+    environment: 'sim',
+  }),
+
+  methods: {
+  }
 };
 </script>
