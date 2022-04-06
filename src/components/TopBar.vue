@@ -3,7 +3,7 @@
   image="/topbar-background.svg">
      <v-img
     class="mx-2"
-    src="https://www.home.saxo/-/media/global/logos/saxobank/saxobank.svg?h=1&w=1&la=en&hash=B7EF4C6FC7C9823028101C89D2431798"
+    src="/saxo-icon.svg"
     max-height="50"
     max-width="50"
     contain
