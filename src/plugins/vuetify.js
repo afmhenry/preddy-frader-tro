@@ -8,7 +8,7 @@ import { createVuetify } from 'vuetify'
 const SaxoTheme = {
   dark: true,
   colors: {
-    background: '#031329',
+    background: '#000000',
     surface: '#031329',
     primary: '#52D887',
     'primary-darken-1': '#2AB762',
