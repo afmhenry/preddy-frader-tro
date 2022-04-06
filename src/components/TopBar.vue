@@ -13,14 +13,13 @@
       ></v-app-bar-title
     >
     <TokenInput />
-    <DevSwitch />
+    <slot></slot>
     <LoginButton />
   </v-app-bar>
 </template>
 
 <script>
 import LoginButton from "./LoginButton.vue";
-import DevSwitch from "./DevSwitch.vue";
 import TokenInput from "./TokenInput.vue";
 
 export default {
@@ -30,7 +29,6 @@ export default {
   }),
   components: {
     LoginButton,
-    DevSwitch,
     TokenInput,
   },
 };

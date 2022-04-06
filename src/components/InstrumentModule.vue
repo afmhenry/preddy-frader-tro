@@ -1,5 +1,13 @@
 <template>
   <v-card>
+    <v-icon
+      v-if="devMode"
+      style="float: right"
+      class="ma-1"
+      size="small"
+      color="secondary"
+      >mdi-information-outline</v-icon
+    >
     <v-card-title>Search</v-card-title>
     <v-text-field
       class="mx-2"
@@ -9,7 +17,14 @@
       variant="outlined"
     >
     </v-text-field>
-    <v-card class="d-flex" @click="$emit('selectInstrument', instrument.Identifier, instrument.AssetType)" v-for="instrument in instruments" :key="instrument.Identifier">
+    <v-card
+      class="d-flex"
+      @click="
+        $emit('selectInstrument', instrument.Identifier, instrument.AssetType)
+      "
+      v-for="instrument in instruments"
+      :key="instrument.Identifier"
+    >
       <div>{{ instrument.Description }}</div>
       <div>{{ instrument.Symbol }}</div>
       <div>{{ instrument.Identifier }}</div>
@@ -18,26 +33,27 @@
 </template>
 
 <script>
-import openapiService from '../services/openapiService'
-import _ from 'lodash'
+import openapiService from "../services/openapiService";
+import _ from "lodash";
 
 export default {
   name: "InstrumentModule",
-  emits: ['selectInstrument'],
+  emits: ["selectInstrument"],
+  props: ["devMode"],
   data: () => ({
     keyword: "",
-    instruments: []
+    instruments: [],
   }),
   watch: {
     keyword: function (value) {
       console.log(value);
-      this.search(value)
-    }
+      this.search(value);
+    },
   },
   methods: {
-    search: _.debounce(async function(value) { 
-        this.instruments = await openapiService().searchInstrument(value)
-      }, 200)
-  }
+    search: _.debounce(async function (value) {
+      this.instruments = await openapiService().searchInstrument(value);
+    }, 200),
+  },
 };
 </script>
