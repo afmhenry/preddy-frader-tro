@@ -3,7 +3,7 @@
     <TopBar
       ><DevSwitch
         :devMode="devMode"
-        @toggleDevMode="(newDevMode) => (devMode = newDevMode)"
+        @click="devMode = !devMode"
       ></DevSwitch
     ></TopBar>
 
