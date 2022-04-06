@@ -1,13 +1,12 @@
 <template>
   <v-card>
-    <h1>Instruments</h1>
+    <v-card-title>Search</v-card-title>
     <v-text-field
       class="mx-2"
       v-model="keyword"
       density="compact"
-      label="Instrument"
+      label="Instrument Search"
       variant="outlined"
-      placeholder="Search..."
     >
     </v-text-field>
   </v-card>
@@ -22,7 +21,6 @@ export default {
   watch: {
     keyword: function (value) {
       console.log(value);
-      
     },
   },
 };
