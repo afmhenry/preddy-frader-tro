@@ -3,17 +3,25 @@
     <v-img
       class="mx-2"
       src="/saxo-icon.svg"
-      max-height="50"
-      max-width="50"
+      max-height="60"
+      max-width="60"
       contain
     ></v-img>
-    <v-app-bar-title class="font-weight-bold">PreddyFraderTro</v-app-bar-title>
+    <v-app-bar-title class="font-weight-bold"
+      >SaxoTrader<span class="font-weight-black text-primary-darken-1"
+        >DEV</span
+      ></v-app-bar-title
+    >
+    <TokenInput />
+    <DevSwitch />
     <LoginButton />
   </v-app-bar>
 </template>
 
 <script>
 import LoginButton from "./LoginButton.vue";
+import DevSwitch from "./DevSwitch.vue";
+import TokenInput from "./TokenInput.vue";
 
 export default {
   name: "TopBar",
@@ -22,6 +30,8 @@ export default {
   }),
   components: {
     LoginButton,
+    DevSwitch,
+    TokenInput,
   },
 };
 </script>

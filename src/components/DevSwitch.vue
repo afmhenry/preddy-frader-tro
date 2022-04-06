@@ -1,11 +1,11 @@
 <template>
   <v-btn flat class="mx-2 font-weight-regular" color="light" variant="outlined"
-    ><v-icon left>mdi-account-arrow-right</v-icon>Login</v-btn
+    ><v-icon left>mdi-magnify-scan</v-icon>Dev Mode</v-btn
   >
 </template>
 
 <script>
 export default {
-  name: "LoginButton",
+  name: "DevSwitch",
 };
 </script>
