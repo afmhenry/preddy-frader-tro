@@ -1,23 +1,25 @@
 <template>
   <v-app>
+    <TopBar></TopBar>
+
     <v-main>
-      <HelloWorld/>
+      <v-container> </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TopBar from "./components/TopBar.vue";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
-    HelloWorld,
+    TopBar,
   },
 
   data: () => ({
     //
   }),
-}
+};
 </script>
