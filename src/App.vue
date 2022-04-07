@@ -96,6 +96,7 @@ export default {
     },
     handleLoggedInChange(loggedIn) {
       this.loggedIn = loggedIn;
+      this.instrument = { uic: 211, assetType: "Stock" };
     },
   },
 };
