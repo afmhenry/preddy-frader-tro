@@ -47,6 +47,10 @@
             ({{ instrumentDetails.CurrencyCode }}) &nbsp;&nbsp;|&nbsp;&nbsp;
           </span>
           <span v-else>
+            <i
+              :class="['mr-1', 'em', 'em-globe_with_meridians']"
+              style="height: 1.4em"
+            ></i>
             {{ instrumentDetails.CurrencyCode }} &nbsp;&nbsp;|&nbsp;&nbsp;
           </span>
           <span>
@@ -58,13 +62,24 @@
           <span style="float: right; line-height: 2rem">
             <i
               v-if="
-                instrumentDetails.TradingSessions.Sessions[0].State !=
+                instrumentDetails.TradingSessions.Sessions[0].State ==
                 'AutomatedTrading'
+              "
+              class="em em-zap mr-1"
+              style="height: 1.4em"
+            ></i>
+            <i
+              v-else-if="
+                instrumentDetails.TradingSessions.Sessions[0].State == 'Closed'
               "
               class="em em-first_quarter_moon_with_face mr-1"
               style="height: 1.4em"
             ></i>
-            <i v-else class="em em-zap mr-1" style="height: 1.4em"></i>
+            <i
+              v-else
+              class="em em-small_orange_diamond mr-1"
+              style="height: 1.4em"
+            ></i>
             {{
               parse_exchange_state(instrumentDetails.TradingSessions.Sessions)
             }}

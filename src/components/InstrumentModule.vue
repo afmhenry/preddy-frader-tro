@@ -63,6 +63,12 @@
                 >
                 </i>
               </span>
+              <span v-else>
+                <i
+                  :class="['mr-1', 'em', 'em-globe_with_meridians']"
+                  style="height: 1.4em"
+                ></i>
+              </span>
             </v-list-item-subtitle>
           </v-list-item-header>
         </v-list-item>
