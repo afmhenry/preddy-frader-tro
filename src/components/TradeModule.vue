@@ -44,7 +44,7 @@
       <v-row>
         <v-text-field
           class="ma-2"
-          v-model="amount"
+          v-model="quantity"
           type="number"
           density="compact"
           label="Quantity"
@@ -61,8 +61,9 @@
           label="Order Type"
           variant="outlined"
           hide-details="true"
-          append-inner-icon="mdi-axis-x-array"
+          append-inner-icon="mdi-axis-x-arrow"
         ></v-autocomplete>
+
         <v-text-field
           v-if="orderType === 'Limit'"
           class="ma-2"
@@ -87,7 +88,7 @@
                 'Buy',
                 this.orderType,
                 this.orderPrice,
-                this.amount,
+                this.quantity,
                 this.accountKeys[0]
               )
             "
@@ -105,7 +106,7 @@
                 'Sell',
                 this.orderType,
                 this.orderPrice,
-                this.amount,
+                this.quantity,
                 this.accountKeys[0]
               )
             "
@@ -137,7 +138,7 @@ export default {
     timeDelayed: null,
     orderId: null,
     orderPrice: null,
-    amount: null,
+    quantity: null,
     BuySellDisabled: true,
     orderType: "Market",
     items: ["Market", "Limit"],
@@ -146,17 +147,21 @@ export default {
     this.getPrice(this.instrumentDetails.Uic, this.instrumentDetails.AssetType);
   },
   watch: {
-    amount: function (value) {
+    quantity: function (value) {
       console.log(value);
-      if (value > 0) {
+      if (value) {
         this.BuySellDisabled = false;
       } else {
         this.BuySellDisabled = true;
       }
     },
     orderType: function () {
-      if (this.orderPrice > 0) {
-        this.BuySellDisabled = false;
+      if (this.quantity > 0) {
+        if (this.orderType === "Limit" && !this.orderPrice) {
+          this.BuySellDisabled = true;
+        } else {
+          this.BuySellDisabled = false;
+        }
       } else {
         this.BuySellDisabled = true;
       }
@@ -186,7 +191,7 @@ export default {
       BuyOrSell,
       MarketOrLimit,
       price,
-      amount,
+      quantity,
       accountKey
     ) {
       const response = await openapiService().placeOrder(
@@ -195,7 +200,7 @@ export default {
         BuyOrSell,
         MarketOrLimit,
         price,
-        amount,
+        quantity,
         accountKey
       );
       //save order id for display
@@ -203,7 +208,7 @@ export default {
     },
     prepareAnotherOrder: function () {
       this.orderId = null;
-      this.amount = null;
+      this.quantity = null;
     },
   },
 };

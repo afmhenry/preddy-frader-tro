@@ -127,7 +127,7 @@ export default {
   }),
   methods: {
     parse_exchange_state(sessions) {
-      console.log(sessions);
+      //console.log(sessions);
       var displayText = "";
       switch (sessions[0].State) {
         case "Closed":
