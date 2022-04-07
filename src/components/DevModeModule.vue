@@ -14,8 +14,8 @@
   <v-dialog v-model="dialog">
     <v-card>
       <v-card-text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+        {{ parentModule }} ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </v-card-text>
       <v-card-actions>
         <v-btn color="primary" block @click="dialog = false"
@@ -29,11 +29,16 @@
 <script>
 export default {
   name: "DevModeModule",
-  props: ["devMode"],
+  props: ["devMode", "parentModule"],
   methods: {
     showDevTooltip() {
       console.log("show me");
     },
+  },
+  data() {
+    return {
+      dialog: false,
+    };
   },
 };
 </script>

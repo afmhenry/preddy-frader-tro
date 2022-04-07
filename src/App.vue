@@ -22,7 +22,10 @@
           ></v-col>
           <v-col class=""
             ><ProductModule :instrumentDetails="instrumentDetails"
-              ><DevModeModule :devMode="devMode"></DevModeModule></ProductModule
+              ><DevModeModule
+                :devMode="devMode"
+                :parentModule="'ProductModule'"
+              ></DevModeModule></ProductModule
           ></v-col>
           <v-col style="width: 20%; max-width: 20%; height: 100%" class=""
             ><TradeModule
