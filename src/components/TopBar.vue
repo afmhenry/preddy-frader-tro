@@ -3,8 +3,8 @@
     <v-img
       class="mx-2"
       src="/saxo-icon.svg"
-      max-height="60"
-      max-width="60"
+      max-height="70"
+      max-width="70"
       contain
     ></v-img>
     <v-app-bar-title class="font-weight-bold"

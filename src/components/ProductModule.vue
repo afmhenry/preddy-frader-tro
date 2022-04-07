@@ -55,10 +55,20 @@
               ({{ instrumentDetails.Exchange.ExchangeId }})
             </span>
           </span>
-          <span style="float: right">
-            {{ instrumentDetails.TradingSessions.Sessions[0].State }}
+          <span style="float: right; line-height: 2rem">
+            <i
+              v-if="
+                instrumentDetails.TradingSessions.Sessions[0].State !=
+                'AutomatedTrading'
+              "
+              class="em em-first_quarter_moon_with_face mr-1"
+              style="height: 1.4em"
+            ></i>
+            <i v-else class="em em-zap mr-1" style="height: 1.4em"></i>
+            {{
+              parse_exchange_state(instrumentDetails.TradingSessions.Sessions)
+            }}
           </span>
-          <span class="fi fi-gr"></span>
         </div>
       </v-card-text>
     </div>
@@ -69,5 +79,35 @@
 export default {
   name: "ProductModule",
   props: ["instrumentDetails", "devMode"],
+  methods: {
+    parse_exchange_state(sessions) {
+      console.log(sessions);
+      var displayText = "";
+      switch (sessions[0].State) {
+        case "Closed":
+          displayText += "Closed";
+          break;
+        case "AutomatedTrading":
+          displayText += "Open";
+          break;
+        case "PreTrading":
+          displayText += "Pre-trade";
+          break;
+        default:
+          displayText += "Closed";
+      }
+      const next_sessions_start = new Date(
+        sessions[1].StartTime
+      ).toLocaleTimeString();
+      return (
+        displayText +
+        " (" +
+        sessions[1].State +
+        " at " +
+        next_sessions_start +
+        ")"
+      );
+    },
+  },
 };
 </script>

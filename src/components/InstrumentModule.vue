@@ -11,6 +11,7 @@
     </v-icon>
     <v-text-field
       class="ma-2"
+      style="width: 85%"
       v-model="keyword"
       density="compact"
       label="Instrument Search"
@@ -18,6 +19,7 @@
       clearable
       hide-details="true"
       @focus="$event.target.select()"
+      append-inner-icon="mdi-magnify"
     >
     </v-text-field>
     <v-divider></v-divider>
