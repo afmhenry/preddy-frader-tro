@@ -41,15 +41,15 @@
                 'em-flag-' +
                   instrumentDetails.Exchange.CountryCode.toLowerCase(),
               ]"
-              style="height: 1.4em"
+              style="height: 1.4em; position: relative; top: -0.5px"
             ></i>
             {{ instrumentDetails.Exchange.CountryCode }}
             ({{ instrumentDetails.CurrencyCode }}) &nbsp;&nbsp;|&nbsp;&nbsp;
           </span>
           <span v-else>
             <i
-              :class="['mr-1', 'em', 'em-globe_with_meridians']"
-              style="height: 1.4em"
+              class="mr-1 em em-globe_with_meridians"
+              style="height: 1.4em; position: relative; top: -0.5px"
             ></i>
             {{ instrumentDetails.CurrencyCode }} &nbsp;&nbsp;|&nbsp;&nbsp;
           </span>
@@ -66,19 +66,19 @@
                 'AutomatedTrading'
               "
               class="em em-zap mr-1"
-              style="height: 1.4em"
+              style="height: 1.4em; position: relative; top: -0.5px"
             ></i>
             <i
               v-else-if="
                 instrumentDetails.TradingSessions.Sessions[0].State == 'Closed'
               "
               class="em em-first_quarter_moon_with_face mr-1"
-              style="height: 1.4em"
+              style="height: 1.4em; position: relative; top: -0.5px"
             ></i>
             <i
               v-else
               class="em em-small_orange_diamond mr-1"
-              style="height: 1.4em"
+              style="height: 1.4em; position: relative; top: -0.5px"
             ></i>
             {{
               parse_exchange_state(instrumentDetails.TradingSessions.Sessions)

@@ -59,14 +59,14 @@
                     'em',
                     'em-flag-' + instrument.IssuerCountry.toLowerCase(),
                   ]"
-                  style="height: 1.4em"
+                  style="height: 1.4em; position: relative; top: -0.5px"
                 >
                 </i>
               </span>
               <span v-else>
                 <i
                   :class="['mr-1', 'em', 'em-globe_with_meridians']"
-                  style="height: 1.4em"
+                  style="height: 1.4em; position: relative; top: -0.5px"
                 ></i>
               </span>
             </v-list-item-subtitle>
