@@ -14,11 +14,9 @@
   <v-dialog v-model="dialog">
     <v-card>
       <v-toolbar color="primary">
-        <v-card-text>
-          <div class="text-h3 pa-12 ma-12" style="color: black">
-            <i>{{ parentModule }} </i>
-          </div>
-        </v-card-text></v-toolbar
+        <v-card-header class="font-weight-bold text-h6">
+          {{ parentModule }}
+        </v-card-header></v-toolbar
       >
       <v-card-text>
         <div class="text-h6 pa-12">
