@@ -41,6 +41,9 @@ const openapiService = () => {
         },
         currentClientDetails() {
             return client.get('/port/v1/clients/me').then(result => result.data)
+        },
+        searchInstrumentPrice(uic, assetType) {
+            return client.get(`/trade/v1/infoprices/?Uic=${uic}&AssetType=${assetType}`).then(result => result.data)
         }
     }
 }

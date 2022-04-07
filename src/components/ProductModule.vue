@@ -9,7 +9,7 @@
       >mdi-information-outline</v-icon
     >
     <div v-if="!instrumentDetails">
-      <v-card-title>Select a instrument...</v-card-title>
+      <v-card-title>Select an instrument...</v-card-title>
       <v-divider></v-divider>
     </div>
     <div v-else>

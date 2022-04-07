@@ -8,14 +8,33 @@
       color="secondary"
       >mdi-information-outline</v-icon
     >
-    <v-card-title>Trade</v-card-title>
-    <div v-if="!instrumentDetails">No instrument selected</div>
-    <div v-else>
-      <div>{{ uic }}</div>
-      <div>{{ instrumentDetails?.Exchange?.Name }}</div>
-      <v-btn>Buy</v-btn>
-      <v-btn>Sell</v-btn>
-    </div>
+    <v-card-header>
+      <div>
+        <div class="font-weight-bold text-h6">Trade</div>
+        <br />
+
+        <div v-if="!instrumentDetails">No instrument selected</div>
+        <div v-else>
+          <div
+            class="text-overline text-primary"
+            style="font-size: 0.7rem !important; line-height: 0.8rem"
+          >
+            {{ instrumentDetails.Symbol }}
+          </div>
+          <div class="font-weight-bold text-h6">
+            {{ instrumentDetails.Description }}
+          </div>
+          <div>
+            <span> Ask&nbsp;|&nbsp;{{ ask }}</span>
+            <br />
+            <span> Bid&nbsp;|&nbsp;{{ bid }}</span>
+          </div>
+        </div>
+      </div>
+    </v-card-header>
+
+    <v-btn>Buy</v-btn>
+    <v-btn>Sell</v-btn>
   </v-card>
 </template>
 
@@ -25,13 +44,25 @@ import openapiService from "../services/openapiService";
 export default {
   name: "TradeModule",
   props: ["instrumentDetails", "devMode"],
-  methods: {
-    sendOrder: async function () {
-      this.instrumentDetailz = await openapiService().instrumentDetails(
-        this.uic,
-        this.assetType
-      );
-    },
+  data: () => ({
+    instrumentPrice: null,
+    ask: null,
+    bid: null,
+    timeDelayed: null,
+  }),
+  beforeUpdate() {
+    this.getPrice(this.instrumentDetails.Uic, this.instrumentDetails.AssetType);
   },
-};
+  methods: {
+    getPrice: async function (uic, assetType) {
+      const response = await openapiService().searchInstrumentPrice(
+        uic,
+        assetType
+      );
+      this.ask = response.Quote.Ask;
+      this.bid = response.Quote.Bid;
+      return true
+    },
+  }
+  };
 </script>
