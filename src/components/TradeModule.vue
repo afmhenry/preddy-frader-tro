@@ -87,6 +87,9 @@
     </v-card-text>
     <v-card-text v-else>
       Your order {{ orderId }} has been placed.
+      <v-btn color="secondary" @click="prepareAnotherOrder()"
+        >Place Another Order</v-btn
+      >
     </v-card-text>
   </v-card>
 </template>
@@ -127,6 +130,10 @@ export default {
       );
       console.log(response);
       this.orderId = response.OrderId;
+    },
+    prepareAnotherOrder: function () {
+      this.orderId = null;
+      this.amount = null;
     },
   },
 };
