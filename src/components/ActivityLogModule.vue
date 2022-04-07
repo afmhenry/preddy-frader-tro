@@ -1,13 +1,6 @@
 <template>
   <v-card height="100%">
-    <v-icon
-      v-if="devMode"
-      style="float: right"
-      class="ma-1"
-      size="small"
-      color="secondary"
-      >mdi-information-outline</v-icon
-    >
+    <slot></slot>
     <v-card-header>
       <div>
         <div class="font-weight-bold text-h6">Activity Log</div>

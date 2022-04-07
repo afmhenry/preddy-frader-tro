@@ -5,7 +5,7 @@
       <LoginButton :loggedIn="loggedIn" @loggedIn="handleLoggedInChange"
     /></TopBar>
 
-    <v-main class="fill-height">
+    <v-main>
       <v-container
         fluid
         style="overflow: hidden"
@@ -15,20 +15,20 @@
           <v-col style="width: 20%; max-width: 20%; height: 100%" class=""
             ><InstrumentModule
               @selectInstrument="selectInstrument"
-              :devMode="devMode"
               :loggedIn="loggedIn"
-          /></v-col>
+              ><DevModeModule
+                :devMode="devMode"
+              ></DevModeModule></InstrumentModule
+          ></v-col>
           <v-col class=""
-            ><ProductModule
-              :instrumentDetails="instrumentDetails"
-              :devMode="devMode"
-          /></v-col>
-          <v-col style="width: 20%; max-width: 20%" class=""
+            ><ProductModule :instrumentDetails="instrumentDetails"
+              ><DevModeModule :devMode="devMode"></DevModeModule></ProductModule
+          ></v-col>
+          <v-col style="width: 20%; max-width: 20%; height: 100%" class=""
             ><TradeModule
               :instrumentDetails="instrumentDetails"
               :accountKeys="accountKeys"
-              :devMode="devMode"
-            />
+            ></TradeModule>
           </v-col>
         </v-row>
         <v-row style="">
@@ -44,8 +44,11 @@
             </v-row>
           </v-col>
           <v-col style="width: 30%; max-width: 30%"
-            ><ActivityLogModule :devMode="devMode"
-          /></v-col>
+            ><ActivityLogModule
+              ><DevModeModule
+                :devMode="devMode"
+              ></DevModeModule></ActivityLogModule
+          ></v-col>
         </v-row>
       </v-container>
     </v-main>
@@ -61,6 +64,7 @@ import TradeModule from "./components/TradeModule.vue";
 import openapiService from "./services/openapiService";
 import LoginButton from "./components/LoginButton.vue";
 import ActivityLogModule from "./components/ActivityLogModule.vue";
+import DevModeModule from "./components/DevModeModule.vue";
 
 export default {
   name: "App",
@@ -73,6 +77,7 @@ export default {
     TradeModule,
     LoginButton,
     ActivityLogModule,
+    DevModeModule,
   },
 
   data: () => ({

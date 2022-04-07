@@ -1,13 +1,6 @@
 <template>
   <v-card height="100%">
-    <v-icon
-      v-if="devMode"
-      style="float: right"
-      class="ma-1"
-      size="small"
-      color="secondary"
-      >mdi-information-outline</v-icon
-    >
+   <slot></slot>
     <div v-if="!instrumentDetails">
       <v-card-title>Select an instrument...</v-card-title>
       <v-divider></v-divider>

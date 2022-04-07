@@ -1,18 +1,8 @@
 <template>
-  <v-card>
-    <v-icon
-      v-if="devMode"
-      style="float: right"
-      class="ma-1"
-      size="small"
-      color="secondary"
-      >mdi-information-outline</v-icon
-    >
+  <v-card height="100%">
     <v-card-header>
       <div>
-        <div class="font-weight-bold text-h6">Trade</div>
-        <br />
-
+        <h1>Trade</h1>
         <div v-if="!instrumentDetails">No instrument selected</div>
         <div v-else>
           <div
@@ -40,80 +30,82 @@
         </div>
       </div>
     </v-card-header>
+
     <v-card-text v-if="!orderId">
-      <v-row>
-        <v-text-field
-          class="ma-2"
-          v-model="quantity"
-          type="number"
-          density="compact"
-          label="Quantity"
-          variant="outlined"
-          hide-details="true"
-          append-inner-icon="mdi-counter"
-        ></v-text-field>
+      <v-text-field
+        class="ma-2"
+        v-model="quantity"
+        type="number"
+        density="compact"
+        label="Quantity"
+        variant="outlined"
+        hide-details="true"
+        append-inner-icon="mdi-counter"
+      ></v-text-field>
 
-        <v-autocomplete
-          class="ma-2"
-          v-model="orderType"
-          :items="items"
-          density="compact"
-          label="Order Type"
-          variant="outlined"
-          hide-details="true"
-          append-inner-icon="mdi-axis-x-arrow"
-        ></v-autocomplete>
+      <v-autocomplete
+        class="ma-2"
+        v-model="orderType"
+        :items="items"
+        density="compact"
+        label="Order Type"
+        variant="outlined"
+        hide-details="true"
+        append-inner-icon="mdi-axis-x-arrow"
+      ></v-autocomplete>
 
-        <v-text-field
-          v-if="orderType === 'Limit'"
-          class="ma-2"
-          v-model="orderPrice"
-          type="number"
-          density="compact"
-          label="Limit Price"
-          variant="outlined"
-          hide-details="true"
-          append-inner-icon="mdi-counter"
-        ></v-text-field>
-      </v-row>
-      <v-row>
-        <v-col
-          ><v-btn
-            color="primary"
-            :disabled="BuySellDisabled"
-            @click="
-              placeOrder(
-                this.instrumentDetails.Uic,
-                this.instrumentDetails.AssetType,
-                'Buy',
-                this.orderType,
-                this.orderPrice,
-                this.quantity,
-                this.accountKeys[0]
-              )
-            "
-            >Buy</v-btn
-          ></v-col
-        >
-        <v-col>
-          <v-btn
-            color="error"
-            :disabled="BuySellDisabled"
-            @click="
-              placeOrder(
-                this.instrumentDetails.Uic,
-                this.instrumentDetails.AssetType,
-                'Sell',
-                this.orderType,
-                this.orderPrice,
-                this.quantity,
-                this.accountKeys[0]
-              )
-            "
-            >Sell</v-btn
-          >
-        </v-col>
-      </v-row>
+      <v-text-field
+        v-if="orderType === 'Limit'"
+        class="ma-2"
+        v-model="orderPrice"
+        type="number"
+        density="compact"
+        label="Limit Price"
+        variant="outlined"
+        hide-details="true"
+        append-inner-icon="mdi-counter"
+      ></v-text-field>
+
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-btn
+              color="primary"
+              :disabled="BuySellDisabled"
+              @click="
+                placeOrder(
+                  this.instrumentDetails.Uic,
+                  this.instrumentDetails.AssetType,
+                  'Buy',
+                  this.orderType,
+                  this.orderPrice,
+                  this.quantity,
+                  this.accountKeys[0]
+                )
+              "
+              >Buy</v-btn
+            >
+          </v-col>
+          <v-col>
+            <v-btn
+              color="error"
+              :disabled="BuySellDisabled"
+              @click="
+                placeOrder(
+                  this.instrumentDetails.Uic,
+                  this.instrumentDetails.AssetType,
+                  'Sell',
+                  this.orderType,
+                  this.orderPrice,
+                  this.quantity,
+                  this.accountKeys[0]
+                )
+              "
+              >Sell</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-container>
     </v-card-text>
     <v-card-text v-else>
       Your order {{ orderId }} has been placed.
@@ -129,7 +121,7 @@ import openapiService from "../services/openapiService";
 
 export default {
   name: "TradeModule",
-  props: ["instrumentDetails", "devMode", "accountKeys"],
+  props: ["instrumentDetails", "accountKeys"],
   data: () => ({
     instrumentPrice: null,
     ask: null,
