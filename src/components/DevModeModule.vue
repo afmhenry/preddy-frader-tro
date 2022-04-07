@@ -14,8 +14,8 @@
   <v-dialog v-model="dialog">
     <v-card>
       <v-card-text>
-        {{ parentModule }} ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Here you can understand more about how we built the
+        <span style="font-weight-bold">{{ parentModule }} </span>
       </v-card-text>
       <v-card-actions>
         <v-btn color="primary" block @click="dialog = false"

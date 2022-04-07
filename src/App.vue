@@ -18,6 +18,7 @@
               :loggedIn="loggedIn"
               ><DevModeModule
                 :devMode="devMode"
+                :parentModule="'InstrumentModule'"
               ></DevModeModule></InstrumentModule
           ></v-col>
           <v-col class=""
@@ -37,7 +38,7 @@
         <v-row style="">
           <v-col class="d-flex flex-column">
             <v-row>
-              <v-col>ORDERS</v-col>
+              <v-col>Orders</v-col>
             </v-row>
             <v-row>
               <v-col>Positions</v-col>
@@ -50,6 +51,7 @@
             ><ActivityLogModule
               ><DevModeModule
                 :devMode="devMode"
+                :parentModule="'TradeModule'"
               ></DevModeModule></ActivityLogModule
           ></v-col>
         </v-row>
