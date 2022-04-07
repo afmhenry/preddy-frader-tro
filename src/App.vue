@@ -43,7 +43,9 @@
               <v-col>Account stuff</v-col>
             </v-row>
           </v-col>
-          <v-col style="width: 30%; max-width: 30%">Events</v-col>
+          <v-col style="width: 30%; max-width: 30%"
+            ><ActivityLogModule :devMode="devMode"
+          /></v-col>
         </v-row>
       </v-container>
     </v-main>
@@ -58,6 +60,7 @@ import DevSwitch from "./components/DevSwitch.vue";
 import TradeModule from "./components/TradeModule.vue";
 import openapiService from "./services/openapiService";
 import LoginButton from "./components/LoginButton.vue";
+import ActivityLogModule from "./components/ActivityLogModule.vue";
 
 export default {
   name: "App",
@@ -69,6 +72,7 @@ export default {
     DevSwitch,
     TradeModule,
     LoginButton,
+    ActivityLogModule,
   },
 
   data: () => ({
