@@ -154,6 +154,20 @@ export default {
         this.BuySellDisabled = true;
       }
     },
+    orderType: function () {
+      if (this.orderPrice > 0) {
+        this.BuySellDisabled = false;
+      } else {
+        this.BuySellDisabled = true;
+      }
+    },
+    orderPrice: function () {
+      if (this.orderPrice > 0) {
+        this.BuySellDisabled = false;
+      } else {
+        this.BuySellDisabled = true;
+      }
+    },
   },
   methods: {
     getPrice: async function (uic, assetType) {
@@ -175,7 +189,6 @@ export default {
       amount,
       accountKey
     ) {
-      console.log(price);
       const response = await openapiService().placeOrder(
         uic,
         assetType,
