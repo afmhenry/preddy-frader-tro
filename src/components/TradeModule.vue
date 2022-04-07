@@ -24,17 +24,70 @@
           <div class="font-weight-bold text-h6">
             {{ instrumentDetails.Description }}
           </div>
-          <div>
-            <span> Ask&nbsp;|&nbsp;{{ ask }}</span>
+          <div v-if="ask">
+            <span>
+              Ask&nbsp;|&nbsp;{{ ask }}&nbsp;{{
+                instrumentDetails.CurrencyCode
+              }}</span
+            >
             <br />
-            <span> Bid&nbsp;|&nbsp;{{ bid }}</span>
+            <span>
+              Bid&nbsp;|&nbsp;{{ bid }} &nbsp;{{
+                instrumentDetails.CurrencyCode
+              }}</span
+            >
           </div>
         </div>
       </div>
     </v-card-header>
-
-    <v-btn>Buy</v-btn>
-    <v-btn>Sell</v-btn>
+    <v-card-text v-if="!orderId">
+      <v-row>
+        <v-text-field
+          class="ma-2"
+          style="width: 30%"
+          v-model="amount"
+          type="number"
+          density="compact"
+          label="Quantity"
+          variant="outlined"
+          hide-details="true"
+          append-inner-icon="mdi-counter"
+        ></v-text-field>
+      </v-row>
+      <v-row>
+        <v-col
+          ><v-btn
+            color="primary"
+            @click="
+              marketOrder(
+                this.instrumentDetails.Uic,
+                this.instrumentDetails.AssetType,
+                'Buy',
+                this.amount
+              )
+            "
+            >Buy</v-btn
+          ></v-col
+        >
+        <v-col>
+          <v-btn
+            color="error"
+            @click="
+              marketOrder(
+                this.instrumentDetails.Uic,
+                this.instrumentDetails.AssetType,
+                'Sell',
+                this.amount
+              )
+            "
+            >Sell</v-btn
+          >
+        </v-col>
+      </v-row>
+    </v-card-text>
+    <v-card-text v-else>
+      Your order {{ orderId }} has been placed.
+    </v-card-text>
   </v-card>
 </template>
 
@@ -48,7 +101,9 @@ export default {
     instrumentPrice: null,
     ask: null,
     bid: null,
+    currency: null,
     timeDelayed: null,
+    orderId: null,
   }),
   beforeUpdate() {
     this.getPrice(this.instrumentDetails.Uic, this.instrumentDetails.AssetType);
@@ -61,8 +116,18 @@ export default {
       );
       this.ask = response.Quote.Ask;
       this.bid = response.Quote.Bid;
-      return true
+      this.currency = response.Quote.Currency;
     },
-  }
-  };
+    marketOrder: async function (uic, assetType, BuyOrSell, amount) {
+      const response = await openapiService().placeMarketOrder(
+        uic,
+        assetType,
+        BuyOrSell,
+        amount
+      );
+      console.log(response);
+      this.orderId = response.OrderId;
+    },
+  },
+};
 </script>
