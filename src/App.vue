@@ -26,6 +26,7 @@
           <v-col style="width: 20%; max-width: 20%" class=""
             ><TradeModule
               :instrumentDetails="instrumentDetails"
+              :accountKeys="accountKeys"
               :devMode="devMode"
             />
           </v-col>
@@ -76,6 +77,9 @@ export default {
     devMode: false,
     instrumentDetails: null,
     loggedIn: null,
+    clientKey: null,
+    accountKey: null,
+    accountKeys: [],
   }),
 
   watch: {
@@ -94,9 +98,18 @@ export default {
         assetType,
       };
     },
-    handleLoggedInChange(loggedIn) {
+    async handleLoggedInChange(loggedIn) {
       this.loggedIn = loggedIn;
+      //default instrument so we have something to look at
       this.instrument = { uic: 211, assetType: "Stock" };
+      const unparsed_accounts = await openapiService().accountDetails();
+      //default account key, advanced logic
+      this.accountKey = unparsed_accounts[0]["AccountKey"];
+      //support multiple accounts someplaces?
+      this.accountKeys = [];
+      for (var i in unparsed_accounts) {
+        this.accountKeys.push(unparsed_accounts[i]["AccountKey"]);
+      }
     },
   },
 };

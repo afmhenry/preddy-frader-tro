@@ -42,14 +42,17 @@ const openapiService = () => {
         currentClientDetails() {
             return client.get('/port/v1/clients/me').then(result => result.data)
         },
+        accountDetails() {
+            return client.get('/port/v1/accounts/me').then(result => result.data.Data)
+        },
         searchInstrumentPrice(uic, assetType) {
             return client.get(`/trade/v1/infoprices/?Uic=${uic}&AssetType=${assetType}`).then(result => result.data)
         },
-        placeMarketOrder(uic, assetType, BuyOrSell, amount) {
+        placeMarketOrder(uic, assetType, BuyOrSell, amount, accountKey) {
             const request_object = 
             {
                 "ManualOrder": true,
-                "AccountKey": "xtZluPlGvj-KZSPaf2GI7A==",
+                "AccountKey":accountKey,
                 "Amount": amount,
                 "AssetType": assetType,
                 "BuySell": BuyOrSell,
