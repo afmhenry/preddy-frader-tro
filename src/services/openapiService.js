@@ -34,25 +34,70 @@ const getOpenapiService = () => {
     const subscriptions = {}
 
     const handleMessage = (newMessage) => {
-        console.log("NewMessage", newMessage)
-        const referenceId = newMessage.referenceId
-        const handler = subscriptions[referenceId]
-        handler.newMessage(newMessage)
+        let action = "Uknown"
+        console.log("HandleMessage", newMessage, newMessage["payload"].length)
+        let referenceId = newMessage.referenceId
+        if(referenceId === "_heartbeat"){
+            referenceId = newMessage["payload"][0]["Heartbeats"][0]["OriginatingReferenceId"]
+            console.log("This message is a heartbeat: ",referenceId,newMessage["payload"][0]["Heartbeats"][0]["Reason"])
+            action = "HeartBeat"
+        }else{
+            for(var i in newMessage["payload"]){
+                if(newMessage["payload"][i]["__meta_deleted"]){
+                    action = "Delete"
+                    console.log("This message is a delete: ",referenceId,newMessage["payload"][i]["OrderId"])
+                }else{
+                    console.log("This message is a create or update: ", referenceId,newMessage["payload"][i]["OrderId"])
+                }
+                console.log(referenceId)
+                const handler = subscriptions[referenceId]
+                handler.newMessage(newMessage)
+            }
+        }
+
+        //make sure to actually handle heartbeats...im skipping that
+       
     }
 
-    const subscriptionHandler = (initialSnapshot, callback) => {
+    const subscriptionHandler = (initialSnapshot, callback, identifier) => {
         let snapshot = initialSnapshot
 
         callback(snapshot)
 
         const newMessage = function(newMessage) {
-            snapshot = _.merge(snapshot, newMessage.payload)
+            snapshot = snapshotMerger(newMessage, snapshot, identifier)
+            //snapshot = _.merge(snapshot, newMessage.payload)
             callback(snapshot)
         }
 
         return {
             newMessage
         }
+    }
+
+    const snapshotMerger = (message, snapshot,identifier) =>{
+        let exists = false
+        for(let i in message["payload"]){
+            for(let j in snapshot){
+                if (snapshot[j][identifier] === message["payload"][i][identifier]){
+                    if(message["payload"][i]["__meta_deleted"]){
+                        console.log("Delete ", identifier,message["payload"][i][identifier])
+                        delete snapshot[j];
+                    }else{
+                        console.log("Update ", identifier,message["payload"][i][identifier])
+                        snapshot[j] = _.merge(snapshot[j], message["payload"][i])
+
+                    }
+                    exists = true
+                }
+            }
+            if(!exists){
+                console.log("Create ", identifier,message["payload"][i][identifier])
+                snapshot.push(message["payload"][i])
+            }
+        }
+        return snapshot
+        
     }
 
     const { createConnection,
@@ -135,13 +180,13 @@ const getOpenapiService = () => {
                 const snapshot = await client.post('/port/v1/orders/subscriptions', 
                     {
                         "Arguments": {
-                            "ClientKey": "zbezdgK1kqALuqYTQBZIbQ=="
+                            "ClientKey": "xtZluPlGvj-KZSPaf2GI7A=="
                         },
                         "ContextId": contextId,
                         "ReferenceId": referenceId
                     }
                 ).then(result => result.data.Snapshot.Data)
-                subscriptions[referenceId] = subscriptionHandler(snapshot, callback)
+                subscriptions[referenceId] = subscriptionHandler(snapshot, callback, "OrderId")
             }
         }
     }

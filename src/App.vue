@@ -38,10 +38,11 @@
         <v-row style="">
           <v-col class="d-flex flex-column">
             <v-row>
-              <v-col><OrdersModule
-              :devMode="devMode"
-              :openapiService="openapiService"
-            /></v-col>
+              <v-col
+                ><OrdersModule
+                  :devMode="devMode"
+                  :openapiService="openapiService"
+              /></v-col>
             </v-row>
             <v-row>
               <v-col>Positions</v-col>
@@ -114,8 +115,8 @@ export default {
   },
 
   created() {
-    const { openapiService } = getOpenapiService()
-    this.openapiService = openapiService
+    const { openapiService } = getOpenapiService();
+    this.openapiService = openapiService;
   },
 
   methods: {

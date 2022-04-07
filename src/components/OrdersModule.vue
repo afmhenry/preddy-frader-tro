@@ -6,20 +6,20 @@
 </template>
 
 <script>
-
 export default {
   name: "OrdersModule",
   props: ["devMode", "openapiService"],
   data: () => ({
-    orders: []
+    orders: [],
   }),
   mounted() {
-    this.openapiService().subscribeOrders(this.handleNewOrders)
+    this.openapiService().subscribeOrders(this.handleNewOrders);
   },
   methods: {
     handleNewOrders(newOrders) {
-      this.orders = newOrders
-    }
+      this.orders = newOrders;
+      console.log(newOrders);
+    },
   },
 };
 </script>
