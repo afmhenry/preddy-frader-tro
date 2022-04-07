@@ -71,7 +71,6 @@
           density="compact"
           label="Limit Price"
           variant="outlined"
-          default="{{ask}}"
           hide-details="true"
           append-inner-icon="mdi-counter"
         ></v-text-field>
@@ -82,10 +81,12 @@
             color="primary"
             :disabled="BuySellDisabled"
             @click="
-              marketOrder(
+              placeOrder(
                 this.instrumentDetails.Uic,
                 this.instrumentDetails.AssetType,
                 'Buy',
+                this.orderType,
+                this.orderPrice,
                 this.amount,
                 this.accountKeys[0]
               )
@@ -98,10 +99,12 @@
             color="error"
             :disabled="BuySellDisabled"
             @click="
-              marketOrder(
+              placeOrder(
                 this.instrumentDetails.Uic,
                 this.instrumentDetails.AssetType,
                 'Sell',
+                this.orderType,
+                this.orderPrice,
                 this.amount,
                 this.accountKeys[0]
               )
@@ -163,26 +166,27 @@ export default {
       this.bid = response.Quote.Bid;
       this.currency = response.Quote.Currency;
     },
-    marketOrder: async function (
+    placeOrder: async function (
       uic,
       assetType,
       BuyOrSell,
+      MarketOrLimit,
+      price,
       amount,
       accountKey
     ) {
-      if (amount) {
-        const response = await openapiService().placeMarketOrder(
-          uic,
-          assetType,
-          BuyOrSell,
-          amount,
-          accountKey
-        );
-        console.log(response);
-        this.orderId = response.OrderId;
-      } else {
-        console.log("you need an amount to trade");
-      }
+      console.log(price);
+      const response = await openapiService().placeOrder(
+        uic,
+        assetType,
+        BuyOrSell,
+        MarketOrLimit,
+        price,
+        amount,
+        accountKey
+      );
+      //save order id for display
+      this.orderId = response.OrderId;
     },
     prepareAnotherOrder: function () {
       this.orderId = null;

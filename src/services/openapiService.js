@@ -63,6 +63,30 @@ const openapiService = () => {
                 "Uic": uic
               }
             return client.post(`trade/v2/orders`, request_object).then(result => result.data)
+        },
+        placeOrder(uic, assetType, BuyOrSell, MarketOrLimit, price, amount, accountKey) {
+            var request_object = 
+            {
+                "ManualOrder": true,
+                "AccountKey":accountKey,
+                "Amount": amount,
+                "AssetType": assetType,
+                "BuySell": BuyOrSell,
+                "OrderDuration": {
+                  "DurationType": "DayOrder"
+                },
+                "OrderType": "Market",
+                "Uic": uic
+              }
+
+            if(MarketOrLimit === "Limit"){
+                request_object.OrderDuration.DurationType = "GoodTillCancel"
+                request_object.OrderPrice = price
+                request_object.OrderType = MarketOrLimit
+                console.log(price)
+            }
+
+            return client.post(`trade/v2/orders`, request_object).then(result => result.data)
         }
     }
 }
