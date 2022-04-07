@@ -85,6 +85,7 @@
             }}
           </span>
         </div>
+        <!-- <div><highcharts :options="chartOptions"></highcharts></div> -->
       </v-card-text>
     </div>
   </v-card>
@@ -94,6 +95,36 @@
 export default {
   name: "ProductModule",
   props: ["instrumentDetails", "devMode"],
+  data: () => ({
+    chartOptions: {
+      title: null,
+      legend: {
+        enabled: false,
+      },
+      yAxis: {
+        title: {
+          text: null,
+        },
+      },
+      series: [
+        {
+          name: "Close",
+          data: [
+            1, 2, 3, 6, 21, 5, 89, 0, 3, 12, 45, 7, 1, 21, 6, 8, 5, 23, 4, 8, 0,
+          ], // sample data
+        },
+      ],
+      credits: {
+        enabled: false,
+      },
+      chart: {
+        height: "auto",
+        style: {
+          fontFamily: "courier",
+        },
+      },
+    },
+  }),
   methods: {
     parse_exchange_state(sessions) {
       console.log(sessions);
