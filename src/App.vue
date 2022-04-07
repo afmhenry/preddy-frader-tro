@@ -51,7 +51,7 @@
             ><ActivityLogModule
               ><DevModeModule
                 :devMode="devMode"
-                :parentModule="'TradeModule'"
+                :parentModule="'ActivityLogModule'"
               ></DevModeModule></ActivityLogModule
           ></v-col>
         </v-row>

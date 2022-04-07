@@ -13,14 +13,20 @@
 
   <v-dialog v-model="dialog">
     <v-card>
+      <v-toolbar color="primary">
+        <v-card-text>
+          <div class="text-h3 pa-12 ma-12" style="color: black">
+            <i>{{ parentModule }} </i>
+          </div>
+        </v-card-text></v-toolbar
+      >
       <v-card-text>
-        Here you can understand more about how we built the
-        <span style="font-weight-bold">{{ parentModule }} </span>
+        <div class="text-h6 pa-12">
+          Dive into how the <i>{{ parentModule }} </i> is built
+        </div>
       </v-card-text>
-      <v-card-actions>
-        <v-btn color="primary" block @click="dialog = false"
-          >Close Dialog</v-btn
-        >
+      <v-card-actions class="justify-end">
+        <v-btn text @click="dialog = false">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -43,4 +49,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.v-overlay__scrim {
+  opacity: 0% !important;
+}
+</style>

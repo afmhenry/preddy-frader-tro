@@ -36,7 +36,7 @@ export default {
   props: ["devMode"],
 
   data: () => ({
-    subscriptionActive: false,
+    subscriptionActive: true,
   }),
   beforeUpdate() {},
   watch: {
