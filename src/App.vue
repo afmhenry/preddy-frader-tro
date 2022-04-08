@@ -137,7 +137,7 @@ export default {
       this.loggedIn = loggedIn;
       //default instrument so we have something to look at
       this.instrument = { uic: 211, assetType: "Stock" };
-      const unparsed_accounts = await openapiService().accountDetails();
+      const unparsed_accounts = await this.openapiService().accountDetails();
       //default account key, advanced logic
       this.accountKey = unparsed_accounts[0]["AccountKey"];
       //support multiple accounts someplaces?

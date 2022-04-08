@@ -117,11 +117,11 @@
 </template>
 
 <script>
-import openapiService from "../services/openapiService";
 
 export default {
   name: "TradeModule",
   props: ["instrumentDetails", "accountKeys"],
+  inject: ["openapiService"],
   data: () => ({
     instrumentPrice: null,
     ask: null,
@@ -168,7 +168,7 @@ export default {
   },
   methods: {
     getPrice: async function (uic, assetType) {
-      const response = await openapiService().searchInstrumentPrice(
+      const response = await this.openapiService().searchInstrumentPrice(
         uic,
         assetType
       );
@@ -186,7 +186,7 @@ export default {
       quantity,
       accountKey
     ) {
-      const response = await openapiService().placeOrder(
+      const response = await this.openapiService().placeOrder(
         uic,
         assetType,
         BuyOrSell,
