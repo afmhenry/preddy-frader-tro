@@ -101,6 +101,17 @@ const getOpenapiService = () => {
     createConnection(accessToken, contextId)
     startListener()
 
+    const reauthorizeStreaming = () => {
+        const environment = localStorage.getItem('environment')
+        const accessToken = localStorage.getItem('accessToken')
+        const app = apps[environment]
+
+        axios.put(`${app.OpenApiBaseUrl}/streamingws/authorize?contextId=${contextId}`, {}, {
+            headers: { 'Authorization': `Bearer ${accessToken}` }
+
+        })
+    }
+
     const openapiService = () => {
         const environment = localStorage.getItem('environment')
         const accessToken = localStorage.getItem('accessToken')
@@ -201,7 +212,8 @@ const getOpenapiService = () => {
     }
 
     return {
-        openapiService
+        openapiService,
+        reauthorizeStreaming
     }
 }
 

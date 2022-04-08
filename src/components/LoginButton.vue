@@ -23,10 +23,7 @@
 
   <v-dialog v-model="dialog">
     <v-card>
-      <v-card-text>
-        Select your environment or paste in a 24h token <br />
-        <TokenInput @setToken="setToken" />
-      </v-card-text>
+      <v-card-text> Select your environment <br /> </v-card-text>
       <v-card-actions class="d-flex">
         <v-btn color="primary" class="flex-grow-1" @click="() => login('sim')"
           >SIM</v-btn
@@ -42,7 +39,6 @@
 
 <script>
 import { getAuthUrl, getLogoutUrl } from "../services/openapiService";
-import TokenInput from "./TokenInput";
 
 function removeHash() {
   history.pushState(
@@ -52,35 +48,29 @@ function removeHash() {
   );
 }
 
+function parseAndStoreAccessToken(hash) {
+  const urlParams = new URLSearchParams(hash.replace("#", "?"));
+  const accessToken = urlParams.get("access_token");
+  const expiresInSeconds = urlParams.get("expires_in");
+
+  window.localStorage.setItem("accessToken", accessToken);
+  window.localStorage.setItem("expiresIn", expiresInSeconds);
+}
+
 export default {
   name: "LoginButton",
   props: ["loggedIn"],
-  emits: ["loggedIn", "clientKey"],
-  inject: ['openapiService'],
-  components: {
-    TokenInput,
-  },
+  emits: ["loggedIn", "clientKey", "refreshedToken"],
+  inject: ["openapiService"],
   data: () => ({
     dialog: false,
     clientDetails: null,
+    iframe: null,
   }),
   methods: {
     login(environment) {
       localStorage.setItem("environment", environment);
       window.location = getAuthUrl(environment);
-    },
-    setToken: async function (token) {
-      localStorage.setItem("environment", "sim");
-      localStorage.setItem("accessToken", token);
-      try {
-        await this.getClientDetails();
-        this.dialog = false;
-        this.$emit("loggedIn", true);
-      } catch (e) {
-        localStorage.removeItem("environment");
-        localStorage.removeItem("accessToken");
-        this.$emit("loggedIn", false);
-      }
     },
     logout() {
       const environment = localStorage.getItem("environment");
@@ -95,8 +85,7 @@ export default {
       const environment = localStorage.getItem("environment");
       const refreshUrl = getAuthUrl(environment, "refresh") + "&prompt=none";
 
-      const iframe = document.getElementById("refreshIFrame");
-      iframe.setAttribute("src", refreshUrl);
+      this.iframe.setAttribute("src", refreshUrl);
 
       const nextRefresh =
         window.localStorage.getItem("expiresIn") * 1000 - 300000;
@@ -104,7 +93,7 @@ export default {
     },
     getClientDetails: async function () {
       this.clientDetails = await this.openapiService().currentClientDetails();
-      this.$emit("clientKey", this.clientDetails.ClientKey)
+      this.$emit("clientKey", this.clientDetails.ClientKey);
     },
   },
 
@@ -112,55 +101,49 @@ export default {
     if (this.loggedIn === false) {
       this.dialog = true;
     }
+
+    if (this.loggedIn && !this.clientDetails) {
+      this.getClientDetails();
+    }
   },
 
   mounted: async function () {
-    // If we have a hash this is a callback after auth/refresh
-    if (window.location.hash) {
-      if (window.location.hash.includes("access_token")) {
-        const urlParams = new URLSearchParams(
-          window.location.hash.replace("#", "?")
-        );
-        const accessToken = urlParams.get("access_token");
-        const expiresInSeconds = urlParams.get("expires_in");
+    // Add refresh handler to iframe
+    this.iframe = document.getElementById("refreshIFrame");
 
-        window.localStorage.setItem("accessToken", accessToken);
-        window.localStorage.setItem("expiresIn", expiresInSeconds);
+    const emit = this.$emit;
 
-        if (window.location.hash.includes("refresh")) {
-          // We're in the iframe, do nothing
-          return;
-        } else {
-          // Newly logged in
-          this.$emit("loggedIn", true);
-          removeHash();
-          this.getClientDetails();
-        }
+    this.iframe.addEventListener("load", function (e) {
+      const hash = e.target.contentWindow.location.hash;
+
+      if (hash.includes("access_token")) {
+        parseAndStoreAccessToken(hash);
       }
 
+      emit("refreshedToken");
+    });
+
+    // If we have a hash this is a callback after auth/refresh
+    if (window.location.hash) {
       if (window.location.hash.includes("error")) {
         // Something went wrong, removing access token
         window.localStorage.removeItem("accessToken");
         window.localStorage.removeItem("expiresIn");
+        return;
+      }
+
+      if (window.location.hash.includes("access_token")) {
+        parseAndStoreAccessToken(window.location.hash);
+        this.$emit("loggedIn", true);
+        removeHash();
+        this.refresh();
       }
     } else {
-      if (window.localStorage.getItem("accessToken")) {
-        // Test if it's a valid token
-        try {
-          await this.getClientDetails();
-          this.$emit("loggedIn", true);
-        } catch (error) {
-          if (error.response && error.response.status === 401) {
-            window.localStorage.removeItem("accessToken");
-            window.localStorage.removeItem("expiresIn");
-            this.$emit("loggedIn", false);
-          } else {
-            throw error;
-          }
-        }
-      } else {
-        this.$emit("loggedIn", false);
-      }
+      if (this.loggedIn) return; // We're already logged in
+
+      window.localStorage.removeItem("accessToken");
+      window.localStorage.removeItem("expiresIn");
+      this.$emit("loggedIn", false);
     }
   },
 };
