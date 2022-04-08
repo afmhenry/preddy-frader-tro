@@ -8,12 +8,19 @@
 <script>
 export default {
   name: "OrdersModule",
-  props: ["devMode", "openapiService"],
+  props: ["devMode", "openapiService", "clientKey"],
   data: () => ({
+    subscribed: false,
     orders: [],
   }),
-  mounted() {
-    this.openapiService().subscribeOrders(this.handleNewOrders);
+  beforeUpdate() {
+    if (this.clientKey && !this.subscribed) {
+      this.openapiService().subscribeOrders(
+        this.handleNewOrders,
+        this.clientKey
+      );
+      this.subscribed = true;
+    }
   },
   methods: {
     handleNewOrders(newOrders) {

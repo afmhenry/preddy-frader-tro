@@ -171,12 +171,12 @@ const getOpenapiService = () => {
     
                 return client.post(`trade/v2/orders`, request_object).then(result => result.data)
             },
-            async subscribeOrders(callback) {
+            async subscribeOrders(callback, clientKey) {
                 const referenceId = "orders_ref_" + Date.now()
                 const snapshot = await client.post('/port/v1/orders/subscriptions',
                     {
                         "Arguments": {
-                            "ClientKey": "xtZluPlGvj-KZSPaf2GI7A=="
+                            "ClientKey": clientKey
                         },
                         "ContextId": contextId,
                         "ReferenceId": referenceId

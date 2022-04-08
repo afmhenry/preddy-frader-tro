@@ -42,6 +42,7 @@
                 ><OrdersModule
                   :devMode="devMode"
                   :openapiService="openapiService"
+                  :clientKey="clientKey"
               /></v-col>
             </v-row>
             <v-row>
@@ -103,6 +104,7 @@ export default {
     accountKey: null,
     accountKeys: [],
     openapiService: null,
+    clientKey: null,
   }),
 
   watch: {
