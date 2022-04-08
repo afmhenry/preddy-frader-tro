@@ -1,6 +1,6 @@
 <template>
   <v-app class="fill-height">
-    <!-- <TopBar
+    <TopBar
       ><DevSwitch :devMode="devMode" @click="devMode = !devMode"></DevSwitch>
       <LoginButton :loggedIn="loggedIn" @loggedIn="handleLoggedInChange" @clientKey="setClientKey"
     /></TopBar>

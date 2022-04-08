@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import openapiService, {
+import {
   getAuthUrl,
   getLogoutUrl,
 } from "../services/openapiService";
@@ -105,7 +105,7 @@ export default {
       setTimeout(this.refresh, nextRefresh);
     },
     getClientDetails: async function () {
-      this.clientDetails = await openapiService().currentClientDetails();
+      this.clientDetails = await this.openapiService().currentClientDetails();
       this.$emit("clientKey", this.clientDetails.ClientKey)
     },
   },
