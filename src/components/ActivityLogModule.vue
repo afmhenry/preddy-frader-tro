@@ -29,24 +29,26 @@
 </template>
 
 <script>
-//import openapiService from "../services/openapiService";
-
 export default {
   name: "ActivityLogModule",
   props: ["devMode"],
+  inject: ["openapiService"],
 
   data: () => ({
     subscriptionActive: true,
+    subscribed: false,
+    ENSMessages: [],
   }),
-  beforeUpdate() {},
-  watch: {
-    quantity: function (value) {
-      console.log(value);
-      if (value) {
-        this.BuySellDisabled = false;
-      } else {
-        this.BuySellDisabled = true;
-      }
+  beforeUpdate() {
+    if (this.clientKey && !this.subscribed) {
+      this.openapiService().subscribeENS(this.handleNewENS);
+      this.subscribed = true;
+    }
+  },
+  methods: {
+    handleNewENS(newENSMessage) {
+      this.ensMessages.push(newENSMessage);
+      console.log(newENSMessage);
     },
   },
 };

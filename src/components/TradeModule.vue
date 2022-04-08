@@ -117,7 +117,6 @@
 </template>
 
 <script>
-
 export default {
   name: "TradeModule",
   props: ["instrumentDetails", "accountKeys"],
