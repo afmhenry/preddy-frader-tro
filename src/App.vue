@@ -2,7 +2,7 @@
   <v-app class="fill-height">
     <TopBar
       ><DevSwitch :devMode="devMode" @click="devMode = !devMode"></DevSwitch>
-      <LoginButton :loggedIn="loggedIn" @loggedIn="handleLoggedInChange"
+      <LoginButton :loggedIn="loggedIn" @loggedIn="handleLoggedInChange" @clientKey="setClientKey"
     /></TopBar>
 
     <v-main>
@@ -125,6 +125,9 @@ export default {
         this.accountKeys.push(unparsed_accounts[i]["AccountKey"]);
       }
     },
+    setClientKey(value){
+      this.clientKey = value
+    }
   },
 };
 </script>

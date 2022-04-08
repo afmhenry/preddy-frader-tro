@@ -58,7 +58,7 @@ function removeHash() {
 export default {
   name: "LoginButton",
   props: ["loggedIn"],
-  emits: ["loggedIn"],
+  emits: ["loggedIn","clientKey"],
   components: { 
     TokenInput
 },
@@ -106,6 +106,7 @@ export default {
     },
     getClientDetails: async function () {
       this.clientDetails = await openapiService().currentClientDetails();
+      this.$emit("clientKey", this.clientDetails.ClientKey)
     },
   },
 
