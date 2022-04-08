@@ -29,7 +29,8 @@
               ><DevModeModule
                 :devMode="devMode"
                 :parentModule="'ProductModule'"
-              ></DevModeModule></ProductModule
+              >
+              </DevModeModule> </ProductModule
           ></v-col>
           <v-col style="width: 20%; max-width: 20%; height: 100%" class=""
             ><TradeModule
@@ -41,9 +42,13 @@
         <v-row style="">
           <v-col class="d-flex flex-column">
             <v-row>
-              <v-col
-                ><OrdersModule :devMode="devMode" :clientKey="clientKey"
-              /></v-col>
+              <v-col>
+                <OrdersModule :clientKey="clientKey"
+                  ><DevModeModule
+                    :devMode="devMode"
+                    :parentModule="'ProductModule'"
+                  ></DevModeModule></OrdersModule
+              ></v-col>
             </v-row>
             <v-row>
               <v-col>Positions</v-col>

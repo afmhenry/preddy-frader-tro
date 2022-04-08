@@ -1,5 +1,6 @@
 <template>
   <v-card>
+    <div><slot></slot></div>
     <v-table density="compact">
       <thead>
         <tr>
