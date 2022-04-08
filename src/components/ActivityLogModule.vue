@@ -20,8 +20,8 @@
           <template v-slot:activator="{ props }">
             <span v-bind="props"
               ><v-icon style="float: left" size="small" color="error"
-                >mdi-alert-decagram</v-icon
-              ></span
+                >mdi-alert-decagram
+              </v-icon></span
             >
           </template>
           <span style="opacity: 0%">ENS Inactive</span>

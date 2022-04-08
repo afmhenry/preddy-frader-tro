@@ -52,17 +52,16 @@ export default {
   }),
   beforeUpdate() {
     if (this.clientKey && !this.subscribed) {
-      // this.openapiService().subscribeOrders(
-      //   this.handleNewOrders,
-      //   this.clientKey
-      // );
+      this.openapiService().subscribeOrders(
+        this.handleNewOrders,
+        this.clientKey
+      );
       this.subscribed = true;
     }
   },
   methods: {
     handleNewOrders(newOrders) {
       this.orders = newOrders;
-      console.log(newOrders);
     },
     deleteOrder: async function (accountKey, orderId) {
       await this.openapiService().deleteOrder(accountKey, orderId);
