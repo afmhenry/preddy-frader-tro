@@ -40,16 +40,8 @@ const getOpenapiService = () => {
             referenceId = newMessage["payload"][0]["Heartbeats"][0]["OriginatingReferenceId"]
             console.log("This message is a heartbeat: ", referenceId, newMessage["payload"][0]["Heartbeats"][0]["Reason"])
         } else {
-            for (var i in newMessage["payload"]) {
-                if (newMessage["payload"][i]["__meta_deleted"]) {
-                    console.log("This message is a delete: ", referenceId, newMessage["payload"][i]["OrderId"])
-                } else {
-                    console.log("This message is a create or update: ", referenceId, newMessage["payload"][i]["OrderId"])
-                }
-                console.log(referenceId)
-                const handler = subscriptions[referenceId]
-                handler.newMessage(newMessage)
-            }
+            const handler = subscriptions[referenceId]
+            handler.newMessage(newMessage)
         }
 
         //make sure to actually handle heartbeats...im skipping that
@@ -63,7 +55,6 @@ const getOpenapiService = () => {
 
         const newMessage = function (newMessage) {
             snapshot = mergeMessageWithSnapshot(newMessage, snapshot, identifier)
-            //snapshot = _.merge(snapshot, newMessage.payload)
             callback(snapshot)
         }
 
@@ -73,27 +64,29 @@ const getOpenapiService = () => {
     }
 
     const mergeMessageWithSnapshot = (message, snapshot, identifier) => {
-        let exists = false
-        for (let i in message["payload"]) {
-            for (let j in snapshot) {
-                if (snapshot[j][identifier] === message["payload"][i][identifier]) {
-                    if (message["payload"][i]["__meta_deleted"]) {
-                        console.log("Delete ", identifier, message["payload"][i][identifier])
-                        delete snapshot[j];
-                    } else {
-                        console.log("Update ", identifier, message["payload"][i][identifier])
-                        snapshot[j] = _.merge(snapshot[j], message["payload"][i])
-                    }
-                    exists = true
+        const payload = message.payload
+        if (Array.isArray(payload)) {
+            // Loop over array items and merge
+            payload.forEach(item => {
+                // Handle deleted
+                if (item.__meta_deleted) {
+                    snapshot = snapshot.filter(snapshotItem => snapshotItem[identifier] !== item[identifier])
                 }
-            }
-            if (!exists) {
-                console.log("Create ", identifier, message["payload"][i][identifier])
-                snapshot.push(message["payload"][i])
-            }
-        }
-        return snapshot
 
+                // Handle new or updated
+                const index = snapshot.findindex(snapshotItem => snapshotItem[identifier] === item[identifier])
+
+                if (index) {
+                    // Update
+                    snapshot[index] = _.merge(snapshot[index], item)
+                } else {
+                    // Insert new
+                    snapshot.push(item)
+                }  
+            })
+        } else {
+            _.merge(snapshot, payload)
+        }
     }
 
     const { createConnection,
