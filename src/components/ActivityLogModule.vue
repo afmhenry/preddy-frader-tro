@@ -38,7 +38,8 @@
           two-line
           class="py-0 px-3"
           active-color="secondary"
-          min-width="75%"
+          min-width="50%"
+          max-width="60%"
         >
           <v-list-item-header>
             <v-list-item-title
