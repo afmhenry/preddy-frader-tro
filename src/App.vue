@@ -53,7 +53,7 @@
             </v-row>
           </v-col>
           <v-col style="width: 30%; max-width: 30%"
-            ><ActivityLogModule
+            ><ActivityLogModule :clientKey="clientKey"
               ><DevModeModule
                 :devMode="devMode"
                 :parentModule="'ActivityLogModule'"

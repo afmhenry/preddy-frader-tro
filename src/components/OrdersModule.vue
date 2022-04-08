@@ -16,10 +16,10 @@ export default {
   }),
   beforeUpdate() {
     if (this.clientKey && !this.subscribed) {
-      this.openapiService().subscribeOrders(
-        this.handleNewOrders,
-        this.clientKey
-      );
+      // this.openapiService().subscribeOrders(
+      //   this.handleNewOrders,
+      //   this.clientKey
+      // );
       this.subscribed = true;
     }
   },
