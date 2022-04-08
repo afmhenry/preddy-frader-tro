@@ -65,6 +65,9 @@ const getOpenapiService = () => {
 
     const mergeMessageWithSnapshot = (message, snapshot, identifier) => {
         const payload = message.payload
+        if (identifier === "ENS") {
+            console.log(message)
+        }
         if (Array.isArray(payload)) {
             // Loop over array items and merge
             payload.forEach(item => {
@@ -74,7 +77,7 @@ const getOpenapiService = () => {
                 }
 
                 // Handle new or updated
-                const index = snapshot.findindex(snapshotItem => snapshotItem[identifier] === item[identifier])
+                const index = snapshot.findIndex(snapshotItem => snapshotItem[identifier] === item[identifier])
 
                 if (index) {
                     // Update
@@ -82,11 +85,12 @@ const getOpenapiService = () => {
                 } else {
                     // Insert new
                     snapshot.push(item)
-                }  
+                }
             })
         } else {
-            _.merge(snapshot, payload)
+            snapshot = _.merge(snapshot, payload)
         }
+        return snapshot
     }
 
     const { createConnection,
@@ -154,14 +158,14 @@ const getOpenapiService = () => {
                     "OrderType": "Market",
                     "Uic": uic
                 }
-    
+
                 if (MarketOrLimit === "Limit") {
                     request_object.OrderDuration.DurationType = "GoodTillCancel"
                     request_object.OrderPrice = price
                     request_object.OrderType = MarketOrLimit
                     console.log(price)
                 }
-    
+
                 return client.post(`trade/v2/orders`, request_object).then(result => result.data)
             },
             async subscribeOrders(callback, clientKey) {
@@ -176,6 +180,19 @@ const getOpenapiService = () => {
                     }
                 ).then(result => result.data.Snapshot.Data)
                 subscriptions[referenceId] = subscriptionHandler(snapshot, callback, "OrderId")
+            },
+            async subscribeENS(callback, clientKey) {
+                const referenceId = "ens_ref_" + Date.now()
+                const snapshot = await client.post('/ens/v1/activities/subscriptions',
+                    {
+                        "Arguments": {
+                            "ClientKey": clientKey
+                        },
+                        "ContextId": contextId,
+                        "ReferenceId": referenceId
+                    }
+                ).then(result => result.data.Snapshot.Data)
+                subscriptions[referenceId] = subscriptionHandler(snapshot, callback, "ENS")
             }
         }
     }
