@@ -138,16 +138,19 @@ export default {
     this.getPrice(this.instrumentDetails.Uic, this.instrumentDetails.AssetType);
   },
   watch: {
-    quantity: function (value) {
-      console.log(value);
-      if (value) {
-        this.BuySellDisabled = false;
-      } else {
-        this.BuySellDisabled = true;
-      }
+    quantity: function () {
+      this.controlTradeOptions();
     },
     orderType: function () {
-      if (this.quantity > 0) {
+      this.controlTradeOptions();
+    },
+    orderPrice: function () {
+      this.controlTradeOptions();
+    },
+  },
+  methods: {
+    controlTradeOptions() {
+      if (this.quantity) {
         if (this.orderType === "Limit" && !this.orderPrice) {
           this.BuySellDisabled = true;
         } else {
@@ -157,15 +160,6 @@ export default {
         this.BuySellDisabled = true;
       }
     },
-    orderPrice: function () {
-      if (this.orderPrice > 0) {
-        this.BuySellDisabled = false;
-      } else {
-        this.BuySellDisabled = true;
-      }
-    },
-  },
-  methods: {
     getPrice: async function (uic, assetType) {
       const response = await this.openapiService().searchInstrumentPrice(
         uic,
