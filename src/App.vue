@@ -38,7 +38,11 @@
         <v-row style="">
           <v-col class="d-flex flex-column">
             <v-row>
-              <v-col>Orders</v-col>
+              <v-col
+                ><OrdersModule
+                  :devMode="devMode"
+                  :clientKey="clientKey"
+              /></v-col>
             </v-row>
             <v-row>
               <v-col>Positions</v-col>
@@ -61,15 +65,18 @@
 </template>
 
 <script>
+/* eslint-disable */
+import { computed } from 'vue'
 import InstrumentModule from "./components/InstrumentModule.vue";
 import ProductModule from "./components/ProductModule.vue";
 import TopBar from "./components/TopBar.vue";
 import DevSwitch from "./components/DevSwitch.vue";
 import TradeModule from "./components/TradeModule.vue";
-import openapiService from "./services/openapiService";
+import getOpenapiService from "./services/openapiService";
 import LoginButton from "./components/LoginButton.vue";
 import ActivityLogModule from "./components/ActivityLogModule.vue";
 import DevModeModule from "./components/DevModeModule.vue";
+import OrdersModule from "./components/OrdersModule.vue";
 
 export default {
   name: "App",
@@ -83,6 +90,7 @@ export default {
     LoginButton,
     ActivityLogModule,
     DevModeModule,
+    OrdersModule
   },
 
   data: () => ({
@@ -94,15 +102,28 @@ export default {
     clientKey: null,
     accountKey: null,
     accountKeys: [],
+    openapiService: null,
+    clientKey: null,
   }),
 
   watch: {
     instrument: async function (value) {
-      this.instrumentDetails = await openapiService().instrumentDetails(
+      this.instrumentDetails = await this.openapiService().instrumentDetails(
         value.uic,
         value.assetType
       );
     },
+  },
+
+  created() {
+    const { openapiService } = getOpenapiService();
+    this.openapiService = openapiService;
+  },
+
+  provide() {
+    return {
+      openapiService: computed(() => this.openapiService)
+    }
   },
 
   methods: {
@@ -116,7 +137,7 @@ export default {
       this.loggedIn = loggedIn;
       //default instrument so we have something to look at
       this.instrument = { uic: 211, assetType: "Stock" };
-      const unparsed_accounts = await openapiService().accountDetails();
+      const unparsed_accounts = await this.openapiService().accountDetails();
       //default account key, advanced logic
       this.accountKey = unparsed_accounts[0]["AccountKey"];
       //support multiple accounts someplaces?

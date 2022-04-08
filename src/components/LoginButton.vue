@@ -23,8 +23,8 @@
 
   <v-dialog v-model="dialog">
     <v-card>
-      <v-card-text> 
-        Select your environment or paste in a 24h token <br>
+      <v-card-text>
+        Select your environment or paste in a 24h token <br />
         <TokenInput @setToken="setToken" />
       </v-card-text>
       <v-card-actions class="d-flex">
@@ -41,11 +41,8 @@
 </template>
 
 <script>
-import openapiService, {
-  getAuthUrl,
-  getLogoutUrl,
-} from "../services/openapiService";
-import TokenInput from './TokenInput'
+import { getAuthUrl, getLogoutUrl } from "../services/openapiService";
+import TokenInput from "./TokenInput";
 
 function removeHash() {
   history.pushState(
@@ -58,10 +55,11 @@ function removeHash() {
 export default {
   name: "LoginButton",
   props: ["loggedIn"],
-  emits: ["loggedIn","clientKey"],
-  components: { 
-    TokenInput
-},
+  emits: ["loggedIn", "clientKey"],
+  inject: ['openapiService'],
+  components: {
+    TokenInput,
+  },
   data: () => ({
     dialog: false,
     clientDetails: null,
@@ -71,17 +69,17 @@ export default {
       localStorage.setItem("environment", environment);
       window.location = getAuthUrl(environment);
     },
-    setToken: async function(token) {
-      localStorage.setItem("environment", "sim")
-      localStorage.setItem("accessToken", token)
+    setToken: async function (token) {
+      localStorage.setItem("environment", "sim");
+      localStorage.setItem("accessToken", token);
       try {
         await this.getClientDetails();
         this.dialog = false;
-        this.$emit("loggedIn", true)
+        this.$emit("loggedIn", true);
       } catch (e) {
-        localStorage.removeItem("environment")
-        localStorage.removeItem("accessToken")
-        this.$emit("loggedIn", false)
+        localStorage.removeItem("environment");
+        localStorage.removeItem("accessToken");
+        this.$emit("loggedIn", false);
       }
     },
     logout() {
@@ -89,7 +87,7 @@ export default {
       window.localStorage.removeItem("accessToken");
       window.localStorage.removeItem("expiresIn");
       this.clientDetails = null;
-      this.$emit('loggedIn', false)
+      this.$emit("loggedIn", false);
       window.open(getLogoutUrl(environment));
     },
     refresh() {
@@ -105,14 +103,14 @@ export default {
       setTimeout(this.refresh, nextRefresh);
     },
     getClientDetails: async function () {
-      this.clientDetails = await openapiService().currentClientDetails();
+      this.clientDetails = await this.openapiService().currentClientDetails();
       this.$emit("clientKey", this.clientDetails.ClientKey)
     },
   },
 
   beforeUpdate() {
     if (this.loggedIn === false) {
-      this.dialog = true
+      this.dialog = true;
     }
   },
 
