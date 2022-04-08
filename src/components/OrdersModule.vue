@@ -27,7 +27,7 @@
           <td>{{ order.OrderId }}</td>
           <td>
             <v-btn
-              color="error"
+              color="secondary"
               height="50%"
               width="70px"
               @click="deleteOrder(order.OrderId, order.AccountKey)"
