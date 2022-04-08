@@ -38,7 +38,6 @@
           two-line
           class="py-0 px-3"
           active-color="secondary"
-          @click="copyURL(message.content)"
         >
           <v-list-item-header>
             <v-list-item-title
@@ -47,6 +46,16 @@
             >
               {{ message.id }} - {{ message.content.Status }} -
               {{ message.ENSType }}
+              <v-btn
+                flat
+                class="mx-2 font-weight-regular"
+                color="dark"
+                @click="copyURL(message.content)"
+              >
+                <v-icon style="float: right" size="small" color="secondary"
+                  >mdi-clipboard-text-multiple</v-icon
+                ></v-btn
+              >
             </v-list-item-title>
             <v-list-item-subtitle style="font-size: 0.7rem">
               <span>
@@ -96,7 +105,7 @@ export default {
     },
     async copyURL(value) {
       try {
-        await navigator.clipboard.writeText(JSON.stringify(value));
+        await navigator.clipboard.writeText(JSON.stringify(value, null, 2));
       } catch ($e) {
         alert("Cannot copy");
       }
