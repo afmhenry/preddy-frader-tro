@@ -82,7 +82,7 @@ const getOpenapiService = () => {
                 } else {
                     // Insert new
                     snapshot.push(item)
-                }  
+                }
             })
         } else {
             _.merge(snapshot, payload)
@@ -154,22 +154,26 @@ const getOpenapiService = () => {
                     "OrderType": "Market",
                     "Uic": uic
                 }
-    
+
                 if (MarketOrLimit === "Limit") {
                     request_object.OrderDuration.DurationType = "GoodTillCancel"
                     request_object.OrderPrice = price
                     request_object.OrderType = MarketOrLimit
                     console.log(price)
                 }
-    
+
                 return client.post(`trade/v2/orders`, request_object).then(result => result.data)
+            },
+            deleteOrder(orderId, accountKey) {
+                return client.delete(`trade/v2/orders/` + orderId + "?AccountKey=" + accountKey).then(result => result.data)
             },
             async subscribeOrders(callback, clientKey) {
                 const referenceId = "orders_ref_" + Date.now()
                 const snapshot = await client.post('/port/v1/orders/subscriptions',
                     {
                         "Arguments": {
-                            "ClientKey": clientKey
+                            "ClientKey": clientKey,
+                            "FieldGroups": ["DisplayAndFormat"]
                         },
                         "ContextId": contextId,
                         "ReferenceId": referenceId
