@@ -29,7 +29,6 @@
 </template>
 
 <script>
-
 export default {
   name: "ActivityLogModule",
   props: ["devMode"],
@@ -37,20 +36,19 @@ export default {
 
   data: () => ({
     subscriptionActive: true,
+    subscribed: false,
+    ENSMessages: [],
   }),
   beforeUpdate() {
     if (this.clientKey && !this.subscribed) {
-      this.openapiService().subscribeOrders(
-        this.handleNewOrders,
-        this.clientKey
-      );
+      this.openapiService().subscribeENS(this.handleNewENS);
       this.subscribed = true;
     }
   },
   methods: {
-    handleNewOrders(newOrders) {
-      this.orders = newOrders;
-      console.log(newOrders);
+    handleNewENS(newENSMessage) {
+      this.ensMessages.push(newENSMessage);
+      console.log(newENSMessage);
     },
   },
 };
