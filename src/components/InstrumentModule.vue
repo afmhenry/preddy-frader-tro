@@ -70,13 +70,13 @@
 </template>
 
 <script>
-import openapiService from "../services/openapiService";
 import _ from "lodash";
 
 export default {
   name: "InstrumentModule",
   emits: ["selectInstrument"],
   props: ["devMode"],
+  inject: ["openapiService"],
   data: () => ({
     keyword: "",
     search_result: [],
@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     search: _.debounce(async function (value) {
-      const search_result = await openapiService().searchInstrument(value);
+      const search_result = await this.openapiService().searchInstrument(value);
       const filtered = search_result.filter(function (result) {
         if (result.AssetType === "Stock") {
           return result.PrimaryListing === result.Identifier;

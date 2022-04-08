@@ -2,7 +2,10 @@
   <v-app class="fill-height">
     <TopBar
       ><DevSwitch :devMode="devMode" @click="devMode = !devMode"></DevSwitch>
-      <LoginButton :loggedIn="loggedIn" @loggedIn="handleLoggedInChange" @clientKey="setClientKey"
+      <LoginButton
+        :loggedIn="loggedIn"
+        @loggedIn="handleLoggedInChange"
+        @clientKey="setClientKey"
     /></TopBar>
 
     <v-main>
@@ -39,9 +42,7 @@
           <v-col class="d-flex flex-column">
             <v-row>
               <v-col
-                ><OrdersModule
-                  :devMode="devMode"
-                  :clientKey="clientKey"
+                ><OrdersModule :devMode="devMode" :clientKey="clientKey"
               /></v-col>
             </v-row>
             <v-row>
@@ -66,7 +67,7 @@
 
 <script>
 /* eslint-disable */
-import { computed } from 'vue'
+import { computed } from "vue";
 import InstrumentModule from "./components/InstrumentModule.vue";
 import ProductModule from "./components/ProductModule.vue";
 import TopBar from "./components/TopBar.vue";
@@ -90,7 +91,7 @@ export default {
     LoginButton,
     ActivityLogModule,
     DevModeModule,
-    OrdersModule
+    OrdersModule,
   },
 
   data: () => ({
@@ -122,8 +123,8 @@ export default {
 
   provide() {
     return {
-      openapiService: computed(() => this.openapiService)
-    }
+      openapiService: computed(() => this.openapiService),
+    };
   },
 
   methods: {
@@ -146,9 +147,9 @@ export default {
         this.accountKeys.push(unparsed_accounts[i]["AccountKey"]);
       }
     },
-    setClientKey(value){
-      this.clientKey = value
-    }
+    setClientKey(value) {
+      this.clientKey = value;
+    },
   },
 };
 </script>
