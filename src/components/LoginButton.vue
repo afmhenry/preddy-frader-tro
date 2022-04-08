@@ -55,10 +55,11 @@ function removeHash() {
 export default {
   name: "LoginButton",
   props: ["loggedIn"],
-  emits: ["loggedIn","clientKey"],
-  components: { 
-    TokenInput
-},
+  emits: ["loggedIn", "clientKey"],
+  inject: ['openapiService'],
+  components: {
+    TokenInput,
+  },
   data: () => ({
     dialog: false,
     clientDetails: null,

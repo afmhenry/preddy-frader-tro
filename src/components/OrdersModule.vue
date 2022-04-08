@@ -8,7 +8,8 @@
 <script>
 export default {
   name: "OrdersModule",
-  props: ["devMode", "openapiService", "clientKey"],
+  props: ["devMode", "clientKey"],
+  inject: ["openapiService"],
   data: () => ({
     subscribed: false,
     orders: [],

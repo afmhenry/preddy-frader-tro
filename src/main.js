@@ -6,7 +6,8 @@ import HighchartsVue from 'highcharts-vue'
 
 loadFonts()
 
-createApp(App)
-  .use(vuetify)
+const app = createApp(App)
+app.config.unwrapInjectedRef = true
+app.use(vuetify)
   .use(HighchartsVue)
   .mount('#app')
