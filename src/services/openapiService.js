@@ -101,6 +101,17 @@ const getOpenapiService = () => {
     createConnection(accessToken, contextId)
     startListener()
 
+    const reauthorizeStreaming = () => {
+        const environment = localStorage.getItem('environment')
+        const accessToken = localStorage.getItem('accessToken')
+        const app = apps[environment]
+
+        axios.put(`${app.OpenApiBaseUrl}/streamingws/authorize?contextId=${contextId}`, {}, {
+            headers: { 'Authorization': `Bearer ${accessToken}` }
+
+        })
+    }
+
     const openapiService = () => {
         const environment = localStorage.getItem('environment')
         const accessToken = localStorage.getItem('accessToken')
@@ -151,12 +162,16 @@ const getOpenapiService = () => {
 
                 return client.post(`trade/v2/orders`, request_object).then(result => result.data)
             },
+            deleteOrder(orderId, accountKey) {
+                return client.delete(`trade/v2/orders/` + orderId + "?AccountKey=" + accountKey).then(result => result.data)
+            },
             async subscribeOrders(callback, clientKey) {
                 const referenceId = "orders_ref_" + Date.now()
                 const snapshot = await client.post('/port/v1/orders/subscriptions',
                     {
                         "Arguments": {
-                            "ClientKey": clientKey
+                            "ClientKey": clientKey,
+                            "FieldGroups": ["DisplayAndFormat"]
                         },
                         "ContextId": contextId,
                         "ReferenceId": referenceId
@@ -181,7 +196,8 @@ const getOpenapiService = () => {
     }
 
     return {
-        openapiService
+        openapiService,
+        reauthorizeStreaming
     }
 }
 

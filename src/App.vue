@@ -6,6 +6,7 @@
         :loggedIn="loggedIn"
         @loggedIn="handleLoggedInChange"
         @clientKey="setClientKey"
+        @refreshedToken="handleRefreshedToken"
     /></TopBar>
 
     <v-main>
@@ -13,6 +14,7 @@
         fluid
         style="overflow: hidden"
         class="d-flex flex-column fill-height"
+        v-if="loggedIn && openapiService"
       >
         <v-row style="height: 60%; max-height: 60%; min-height: 60%">
           <v-col style="width: 20%; max-width: 20%; height: 100%" class=""
@@ -29,7 +31,8 @@
               ><DevModeModule
                 :devMode="devMode"
                 :parentModule="'ProductModule'"
-              ></DevModeModule></ProductModule
+              >
+              </DevModeModule> </ProductModule
           ></v-col>
           <v-col style="width: 20%; max-width: 20%; height: 100%" class=""
             ><TradeModule
@@ -41,9 +44,13 @@
         <v-row style="">
           <v-col class="d-flex flex-column">
             <v-row>
-              <v-col
-                ><OrdersModule :devMode="devMode" :clientKey="clientKey"
-              /></v-col>
+              <v-col>
+                <OrdersModule :clientKey="clientKey"
+                  ><DevModeModule
+                    :devMode="devMode"
+                    :parentModule="'ProductModule'"
+                  ></DevModeModule></OrdersModule
+              ></v-col>
             </v-row>
             <v-row>
               <v-col>Positions</v-col>
@@ -116,11 +123,6 @@ export default {
     },
   },
 
-  created() {
-    const { openapiService } = getOpenapiService();
-    this.openapiService = openapiService;
-  },
-
   provide() {
     return {
       openapiService: computed(() => this.openapiService),
@@ -135,21 +137,40 @@ export default {
       };
     },
     async handleLoggedInChange(loggedIn) {
-      this.loggedIn = loggedIn;
-      //default instrument so we have something to look at
-      this.instrument = { uic: 211, assetType: "Stock" };
-      const unparsed_accounts = await this.openapiService().accountDetails();
-      //default account key, advanced logic
-      this.accountKey = unparsed_accounts[0]["AccountKey"];
-      //support multiple accounts someplaces?
-      this.accountKeys = [];
-      for (var i in unparsed_accounts) {
-        this.accountKeys.push(unparsed_accounts[i]["AccountKey"]);
+      if (loggedIn) {
+        // Set openapiService
+        const { openapiService, reauthorizeStreaming } = getOpenapiService();
+        this.openapiService = openapiService;
+        this.reauthorizeStreaming = reauthorizeStreaming
+
+        //default instrument so we have something to look at
+        this.instrument = { uic: 211, assetType: "Stock" };
+        const unparsed_accounts = await this.openapiService().accountDetails();
+        //default account key, advanced logic
+        this.accountKey = unparsed_accounts[0]["AccountKey"];
+        //support multiple accounts someplaces?
+        this.accountKeys = [];
+        for (var i in unparsed_accounts) {
+          this.accountKeys.push(unparsed_accounts[i]["AccountKey"]);
+        }
+      } else {
+        if (this.openapiService) {
+          this.openapiService().teardown()
+        }
       }
+
+      this.loggedIn = loggedIn;
     },
+
     setClientKey(value) {
       this.clientKey = value;
     },
+
+    handleRefreshedToken() {
+      if (this.reauthorizeStreaming) {
+        this.reauthorizeStreaming()
+      }
+    }
   },
 };
 </script>
