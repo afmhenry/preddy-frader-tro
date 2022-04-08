@@ -38,6 +38,7 @@
           two-line
           class="py-0 px-3"
           active-color="secondary"
+          min-width="75%"
         >
           <v-list-item-header>
             <v-list-item-title
@@ -47,12 +48,13 @@
               {{ message.id }} - {{ message.content.Status }} -
               {{ message.ENSType }}
               <v-btn
+                style="float: right"
                 flat
                 class="mx-2 font-weight-regular"
                 color="dark"
                 @click="copyURL(message.content)"
               >
-                <v-icon style="float: right" size="small" color="secondary"
+                <v-icon size="small" color="secondary"
                   >mdi-clipboard-text-multiple</v-icon
                 ></v-btn
               >
@@ -95,7 +97,8 @@ export default {
       }
     },
     parseENS(message) {
-      console.log(message);
+      this.subscribed = true;
+
       var ENSType = message.payload[0].ActivityType.slice(0, -1);
       return {
         id: message.messageId,

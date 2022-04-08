@@ -39,6 +39,7 @@
       </tbody>
     </v-table>
   </v-card>
+  <div v-if="count" />
 </template>
 
 <script>
@@ -49,6 +50,7 @@ export default {
   data: () => ({
     subscribed: false,
     orders: [],
+    count: 0,
   }),
   beforeUpdate() {
     if (this.clientKey && !this.subscribed) {
@@ -62,6 +64,7 @@ export default {
   methods: {
     handleNewOrders(newOrders) {
       this.orders = newOrders;
+      this.count += 1;
     },
     deleteOrder: async function (accountKey, orderId) {
       await this.openapiService().deleteOrder(accountKey, orderId);
