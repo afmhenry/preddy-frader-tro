@@ -17,7 +17,7 @@
               ></span
             >
           </template>
-          <span>Balance Subscription Active</span>
+          <span>Active</span>
         </v-tooltip>
       </div>
       <div v-else>

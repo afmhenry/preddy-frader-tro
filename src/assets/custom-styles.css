@@ -49,6 +49,7 @@
     margin: 5px;
   }
   .max-v-list-height {
-    max-height:250px;
+    min-height:200px;
+    max-height:350px;
     overflow-y: auto;
 }

@@ -17,7 +17,7 @@
               ></span
             >
           </template>
-          <span>Positions Subscription Active</span>
+          <span>Active</span>
         </v-tooltip>
       </div>
 
