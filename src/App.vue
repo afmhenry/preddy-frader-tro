@@ -17,7 +17,7 @@
         v-if="loggedIn && openapiService"
       >
         <v-row style="height: 60%; max-height: 60%; min-height: 60%">
-          <v-col style="width: 20%; max-width: 20%; height: 100%" class=""
+          <v-col style="width: 20%; max-width: 20%; " class=""
             ><InstrumentModule
               @selectInstrument="selectInstrument"
               :loggedIn="loggedIn"
@@ -31,14 +31,16 @@
               ><DevModeModule
                 :devMode="devMode"
                 :parentModule="'ProductModule'"
-              >
-              </DevModeModule> </ProductModule
+              /> </ProductModule
           ></v-col>
-          <v-col style="width: 20%; max-width: 20%; height: 100%" class=""
+          <v-col style="width: 20%; max-width: 20%; " class=""
             ><TradeModule
               :instrumentDetails="instrumentDetails"
               :accountKeys="accountKeys"
-            ></TradeModule>
+            ><DevModeModule
+                :devMode="devMode"
+                :parentModule="'TradeModule'"
+              /></TradeModule>
           </v-col>
         </v-row>
         <v-row style="">
@@ -82,7 +84,7 @@ import DevSwitch from "./components/DevSwitch.vue";
 import TradeModule from "./components/TradeModule.vue";
 import getOpenapiService from "./services/openapiService";
 import LoginButton from "./components/LoginButton.vue";
-import ActivityLogModule from "./components/ActivityLogModule.vue";
+import ActivityLogModule from "./components/EventNotificationLog.vue";
 import DevModeModule from "./components/DevModeModule.vue";
 import OrdersModule from "./components/OrdersModule.vue";
 
@@ -174,3 +176,27 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@keyframes glowing {
+
+  0% {
+    background-color: #52d88800;
+    box-shadow:  0px 0px 15px #52d88819;
+    border-radius: 50%;
+  }
+  50% {
+    background-color: #52d88852;
+    box-shadow:  0px 0px 15px #52d888ff;
+    border-radius: 50%;
+  }
+  100% {
+    background-color: #52d88800;
+    box-shadow:  0px 0px 15px #52d88819;
+    border-radius: 50%;
+  }
+}
+.glow-green {
+  animation: glowing 2000ms infinite;
+}
+</style>

@@ -2,11 +2,11 @@
   <v-btn
     @click="dialog = true"
     v-if="devMode"
-    style="float: right"
+    style="float: right;padding: 5px 5px"
     class="ma-1"
     size="medium"
   >
-    <v-icon style="float: right" size="small" color="secondary"
+    <v-icon style="float: right" size="large" color="secondary"
       >mdi-information-outline</v-icon
     ></v-btn
   >

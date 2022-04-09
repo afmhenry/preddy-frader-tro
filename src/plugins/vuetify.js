@@ -10,6 +10,7 @@ const SaxoTheme = {
   colors: {
     background: '#000000',
     surface: '#031329',
+    "surface-lighten-1": '#052354',
     primary: '#52D887',
     'primary-darken-1': '#2AB762',
     secondary: '#8F8AFF',
@@ -20,6 +21,7 @@ const SaxoTheme = {
     success: '#4CAF50',
     warning: '#FB8C00',
   }
+  
 }
 
 export default createVuetify({

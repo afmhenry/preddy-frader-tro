@@ -179,12 +179,26 @@ const getOpenapiService = () => {
                 ).then(result => result.data.Snapshot.Data)
                 subscriptions[referenceId] = subscriptionHandler(snapshot, callback, "OrderId")
             },
+            async subscribePositions(callback, clientKey) {
+                const referenceId = "positions_ref_" + Date.now()
+                const snapshot = await client.post('/port/v1/positions/subscriptions',
+                    {
+                        "Arguments": {
+                            "ClientKey": clientKey,
+                            "FieldGroups": ["DisplayAndFormat"]
+                        },
+                        "ContextId": contextId,
+                        "ReferenceId": referenceId
+                    }
+                ).then(result => result.data.Snapshot.Data)
+                subscriptions[referenceId] = subscriptionHandler(snapshot, callback, "PositionId")
+            },
             async subscribeENS(callback) {
                 const referenceId = "ens_ref_" + Date.now()
                 const snapshot = await client.post('/ens/v1/activities/subscriptions',
                     {
                         "Arguments": {
-                            "Activities": ["Orders", "Positions", "CorporateActions"]
+                            "Activities": ["Orders", "Positions"]
                         },
                         "ContextId": contextId,
                         "ReferenceId": referenceId
@@ -200,7 +214,6 @@ const getOpenapiService = () => {
         reauthorizeStreaming
     }
 }
-
 
 
 export default getOpenapiService

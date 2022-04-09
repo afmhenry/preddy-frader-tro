@@ -17,7 +17,7 @@
               ></span
             >
           </template>
-          <span>Order Subscription Active</span>
+          <span>Positions Subscription Active</span>
         </v-tooltip>
       </div>
 
@@ -30,10 +30,10 @@
               </v-icon></span
             >
           </template>
-          <span>ENS Subscription Inactive</span>
+          <span>Positions Subscription Inactive</span>
         </v-tooltip>
       </div>
-      <div class="font-weight-bold text-h6">&nbsp;&nbsp;Active Orders</div>
+      <div class="font-weight-bold text-h6">&nbsp;&nbsp;Positions</div>
     </v-card-header>
     <v-table density="compact">
       <thead>
@@ -51,21 +51,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="order in orders" :key="order.OrderId">
-          <td>{{ order.AccountId }}</td>
-          <td>{{ order.DisplayAndFormat.Description }}</td>
-          <td>{{ order.DisplayAndFormat.Symbol }}</td>
-          <td>{{ order.AssetType }}</td>
-          <td>{{ order.BuySell }}</td>
-          <td>{{ order.Amount }}</td>
-          <td>{{ order.OpenOrderType }}</td>
-          <td>{{ order.Price }}</td>
-          <td>{{ order.OrderId }}</td>
+        <tr v-for="position in positions" :key="position.PositionId">
+          <td>{{ position.AccountId }}</td>
+          <td>{{ position.DisplayAndFormat.Description }}</td>
+          <td>{{ position.DisplayAndFormat.Symbol }}</td>
+          <td>{{ position.AssetType }}</td>
+          <td>{{ position.BuySell }}</td>
+          <td>{{ position.Amount }}</td>
+          <td>{{ position.OpenOrderType }}</td>
+          <td>{{ position.Price }}</td>
+          <td>{{ position.OrderId }}</td>
           <td>
                 <v-icon
                   size='large'
                   color="error"
-                  @click="deleteOrder(order.OrderId, order.AccountKey)"
+                  @click="deleteOrder(position.OrderId, position.AccountKey)"
                   >mdi-close-circle-outline</v-icon
                 >
           </td>
@@ -80,31 +80,29 @@
 import "@/assets/custom-styles.css";
 
 export default {
-  name: "OrdersModule",
+  name: "PositionsModule",
   props: ["devMode", "clientKey"],
   inject: ["openapiService"],
   data: () => ({
     subscribed: false,
-    orders: [],
+    positions: [],
     refresh: false,
   }),
   beforeUpdate() {
     if (this.clientKey && !this.subscribed) {
-      this.openapiService().subscribeOrders(
-        this.handleNewOrders,
+      this.openapiService().subscribePositions(
+        this.handlePositionStreaming,
         this.clientKey
       );
       this.subscribed = true;
     }
   },
   methods: {
-    handleNewOrders(newOrders) {
-      this.orders = newOrders;
+    handlePositionStreaming(positionSnapshot) {
+      this.positions = positionSnapshot;
       this.refresh = !this.refresh;
     },
-    deleteOrder: async function (accountKey, orderId) {
-      await this.openapiService().deleteOrder(accountKey, orderId);
-    },
+
   },
 };
 </script>

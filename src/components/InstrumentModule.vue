@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%">
+  <v-card >
     <slot></slot>
     <v-text-field
       class="ma-2"
@@ -15,8 +15,8 @@
     >
     </v-text-field>
     <v-divider></v-divider>
-    <div style="height: 100%; overflow: auto">
-      <v-list dense>
+    <div style="overflow: auto">
+      <v-list dense class="max-v-list-height">
         <v-list-item
           v-for="instrument in search_result"
           :key="instrument.Identifier"
@@ -105,3 +105,11 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+.max-v-list-height {
+    max-height: 50%;
+    overflow-y: auto;
+}
+</style>

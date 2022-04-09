@@ -3,15 +3,21 @@
     <slot></slot>
     <v-card-header style="width: 70%">
       <div v-if="subscribed">
-        <v-tooltip top>
-          <template v-slot:activator="{ props }">
+        <v-tooltip anchor="top">
+          <template v-slot:activator="{ props }"  >
             <span v-bind="props"
-              ><v-icon style="float: left" size="small" color="primary"
-                >mdi-apache-kafka</v-icon
+              ><Transition>
+                <v-icon
+                  class="glow-green"
+                  style="float: left"
+                  size="small"
+                  color="primary"
+                  >mdi-apache-kafka</v-icon
+                ></Transition
               ></span
             >
           </template>
-          <span>ENS Connection Active</span>
+          <span>Order Subscription Active</span>
         </v-tooltip>
       </div>
 
@@ -19,15 +25,18 @@
         <v-tooltip bottom>
           <template v-slot:activator="{ props }">
             <span v-bind="props"
-              ><v-icon style="float: left" size="small" color="error"
+              ><v-icon
+                style="float: left"
+                size="small"
+                color="error"
                 >mdi-alert-decagram
               </v-icon></span
             >
           </template>
-          <span style="opacity: 0%">ENS Inactive</span>
+          <span>ENS Subscription Inactive</span>
         </v-tooltip>
       </div>
-      <div class="font-weight-bold text-h6">&nbsp;&nbsp;&nbsp;Activity Log</div>
+      <div class="font-weight-bold text-h6">&nbsp;&nbsp;Event Notifications</div>
     </v-card-header>
 
     <v-card-text v-if="subscribed && ENSMessages.length > 0">
@@ -38,8 +47,7 @@
           two-line
           class="py-0 px-3"
           active-color="secondary"
-          min-width="50%"
-          max-width="60%"
+          width="80%"
         >
           <v-list-item-header>
             <v-list-item-title
@@ -74,13 +82,16 @@
       </v-list>
     </v-card-text>
   </v-card>
+
 </template>
 
 <script>
+import '@/assets/styles.css';
+
 export default {
   name: "ActivityLogModule",
   props: ["devMode", "clientKey"],
-  inject: ["openapiService"],
+  inject: ["openapiService"], 
   data: () => ({
     subscribed: false,
     ENSMessages: [],
@@ -91,15 +102,15 @@ export default {
       this.subscribed = true;
     }
   },
+
   methods: {
     handleNewENS(newENSMessage) {
       if (newENSMessage.messageId) {
         this.ENSMessages.unshift(this.parseENS(newENSMessage));
+        this.subscribed = true;
       }
     },
     parseENS(message) {
-      this.subscribed = true;
-
       var ENSType = message.payload[0].ActivityType.slice(0, -1);
       return {
         id: message.messageId,
