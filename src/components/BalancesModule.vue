@@ -32,20 +32,32 @@
           <span>Balance Subscription Inactive</span>
         </v-tooltip>
       </div>
-      <div class="font-weight-bold text-h6">&nbsp;&nbsp;Balances due</div>
+      <div class="font-weight-bold text-h6">&nbsp;&nbsp;Balances</div>
     </v-card-header>
+    <v-row>
+      <v-col>
+                 Total Value: {{ balance.TotalValue }} {{balance.Currency}}
+
+      </v-col>
+      <v-col>
+                 Cash Balance: {{ balance.CashBalance }} {{balance.Currency}}
+      </v-col>
+      <v-col>
+          Other
+      </v-col>
+      <v-col>
+      </v-col>
+    </v-row>
     <div>
-         Total Value: {{ balance.TotalValue }} {{balance.Currency}}
     </div>
     <div>
-         Cash Balance: {{ balance.CashBalance }} {{balance.Currency}}
     </div>
   </v-card>
   <div v-if="refresh" />
 </template>
 
 <script>
-import "@/assets/styles.css";
+import "@/assets/custom-styles.css";
 
 export default {
   name: "BalancesModule",

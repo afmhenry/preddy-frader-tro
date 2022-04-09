@@ -1,14 +1,14 @@
 <template>
-  <v-btn
-    @click="dialog = true"
-    v-if="devMode"
-    style="float: right;padding: 5px 5px"
-    class="ma-1"
-    size="medium"
-  >
-    <v-icon style="float: right" size="large" color="secondary"
+  <Transition>
+    <v-icon
+      v-if="devMode"
+      @click="dialog = true"
+      class="glow-purple"
+      style="float: right;  margin: 12px 5px"
+      size="large"
+      color="secondary"
       >mdi-information-outline</v-icon
-    ></v-btn
+    ></Transition
   >
 
   <v-dialog v-model="dialog">
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import "@/assets/custom-styles.css";
+
 export default {
   name: "DevModeModule",
   props: ["devMode", "parentModule"],
@@ -47,7 +49,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-overlay__scrim {
   opacity: 0% !important;
 }

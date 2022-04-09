@@ -50,7 +50,7 @@
                 <OrdersModule :clientKey="clientKey"
                   ><DevModeModule
                     :devMode="devMode"
-                    :parentModule="'ProductModule'"
+                    :parentModule="'OrdersModule'"
                   ></DevModeModule></OrdersModule
               ></v-col>
             </v-row>
@@ -66,7 +66,7 @@
               <v-col><BalancesModule :clientKey="clientKey"
                   ><DevModeModule
                     :devMode="devMode"
-                    :parentModule="'PositionsModule'"
+                    :parentModule="'BalancesModule'"
                   ></DevModeModule></BalancesModule
               ></v-col>
             </v-row>

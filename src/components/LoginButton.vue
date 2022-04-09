@@ -23,15 +23,25 @@
 
   <v-dialog v-model="dialog">
     <v-card>
+      <v-toolbar color="primary">
+        <v-card-header class="font-weight-bold text-h6">
+          Login
+        </v-card-header>
+        </v-toolbar
+      >
       <v-card-text> Select your environment <br /> </v-card-text>
       <v-card-actions class="d-flex">
-        <v-btn color="primary" class="flex-grow-1" @click="() => login('sim')"
+        <v-btn color="primary" variant="outlined" class="flex-grow-1" @click="() => login('sim')"
           >SIM</v-btn
         >
-        <v-btn color="primary" class="flex-grow-1" @click="dialog = false"
+        <v-btn color="warning" variant="outlined" class="flex-grow-1" @click="dialog = false"
           >LIVE</v-btn
         >
       </v-card-actions>
+
+<br>
+      <v-card-text> If you don't have an account, get one for free: <a target="_blank" href="https://www.developer.saxo/accounts/sim/signup">Developer Account</a> <br /> </v-card-text>
+
     </v-card>
   </v-dialog>
   <iframe style="display: none" id="refreshIFrame" src=""></iframe>

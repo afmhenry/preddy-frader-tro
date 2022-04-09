@@ -1,5 +1,6 @@
 <template>
   <v-card height="100%">
+    <slot></slot>
     <v-card-header>
       <div>
         <h1>Trade</h1>
@@ -70,24 +71,6 @@
         <v-row>
           <v-col>
             <v-btn
-              color="primary"
-              :disabled="BuySellDisabled"
-              @click="
-                placeOrder(
-                  this.instrumentDetails.Uic,
-                  this.instrumentDetails.AssetType,
-                  'Buy',
-                  this.orderType,
-                  this.orderPrice,
-                  this.quantity,
-                  this.accountKeys[0]
-                )
-              "
-              >Buy</v-btn
-            >
-          </v-col>
-          <v-col>
-            <v-btn
               color="error"
               :disabled="BuySellDisabled"
               @click="
@@ -102,6 +85,24 @@
                 )
               "
               >Sell</v-btn
+            >
+          </v-col>
+          <v-col>
+            <v-btn
+              color="primary"
+              :disabled="BuySellDisabled"
+              @click="
+                placeOrder(
+                  this.instrumentDetails.Uic,
+                  this.instrumentDetails.AssetType,
+                  'Buy',
+                  this.orderType,
+                  this.orderPrice,
+                  this.quantity,
+                  this.accountKeys[0]
+                )
+              "
+              >Buy</v-btn
             >
           </v-col>
         </v-row>

@@ -3,7 +3,7 @@
     <slot></slot>
     <v-card-header style="width: 70%">
       <div v-if="subscribed">
-        <v-tooltip anchor="top">
+        <v-tooltip anchor="end">
           <template v-slot:activator="{ props }">
             <span v-bind="props"
               ><Transition>

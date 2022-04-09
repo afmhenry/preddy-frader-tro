@@ -3,7 +3,7 @@
     <slot></slot>
     <v-card-header style="width: 70%">
       <div v-if="subscribed">
-        <v-tooltip anchor="top">
+        <v-tooltip anchor="end">
           <template v-slot:activator="{ props }">
             <span v-bind="props"
               ><Transition>
@@ -30,7 +30,7 @@
               </v-icon></span
             >
           </template>
-          <span>ENS Subscription Inactive</span>
+          <span>Order Subscription Inactive</span>
         </v-tooltip>
       </div>
       <div class="font-weight-bold text-h6">&nbsp;&nbsp;Active Orders</div>

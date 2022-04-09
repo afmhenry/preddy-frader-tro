@@ -1,7 +1,7 @@
 <template>
   <v-card height="100%">
-    <slot></slot>
-    <v-card-header style="width: 70%">
+        <slot></slot>
+    <v-card-header style="width: 80%">
       <div v-if="subscribed">
         <v-tooltip anchor="top">
           <template v-slot:activator="{ props }">
@@ -17,7 +17,7 @@
               ></span
             >
           </template>
-          <span>Order Subscription Active</span>
+          <span>ENS Subscription Active</span>
         </v-tooltip>
       </div>
 
@@ -36,54 +36,72 @@
       <div class="font-weight-bold text-h6">
         &nbsp;&nbsp;Event Notifications
       </div>
+    
+    
+    
     </v-card-header>
+    <v-divider></v-divider>
 
-    <v-list dense class="max-v-list-height" width="80%">
-      <v-list-item
-        v-for="message in ENSMessages"
-        :key="message.id"
-        two-line
-        class="py-0 px-3"
-        active-color="primary"
-        @click="doNothing()"
-      >
-        <v-list-item-header>
-          <v-list-item-title style="font-size: 0.8rem" class="font-weight-bold">
-            {{ message.id }} - {{ message.content.Status }} -
-            {{ message.ENSType }}
-            
-          </v-list-item-title>
-          <v-list-item-subtitle style="font-size: 0.7rem">
-            <span>
-              {{ message.content?.BuySell }}
-              {{ message.content?.AssetType }}
-              {{ message.content?.Symbol }}
-              {{ message.content?.Uic }}
-              {{ message.content.ActivityTime.split("T")[1].split(".")[0] }}
-            </span>
-          </v-list-item-subtitle>
-        </v-list-item-header>
-<v-btn
+    <v-row>
+      <v-col cols="8">
+        <v-list dense class="max-v-list-height">
+          <v-list-item
+            v-for="message in ENSMessages"
+            :key="message.id"
+            two-line
+            class="py-0 px-3"
+            active-color="primary"
+            @click="doNothing()"
+          >
+            <v-list-item-header>
+              <v-list-item-title
+                style="font-size: 0.8rem"
+                class="font-weight-bold"
+              >
+                {{ message.id }} - {{ message.content.Status }} -
+                {{ message.ENSType }}
+              </v-list-item-title>
+              <v-list-item-subtitle style="font-size: 0.7rem">
+                <span>
+                  {{ message.content?.BuySell }}
+                  {{ message.content?.AssetType }}
+                  {{ message.content?.Symbol }}
+                  {{ message.content?.Uic }}
+                  {{ message.content.ActivityTime.split("T")[1].split(".")[0] }}
+                </span>
+              </v-list-item-subtitle>
+            </v-list-item-header>
+            <v-btn
+              id="message.id"
               style="float: right; top: 50%; bottom: 50%"
               flat
               class="mx-2 font-weight-regular"
               color="dark"
-              @click="copyMessage(message.content)"
+              @click="copyMessage(message.content, message.id)"
             >
-              <v-icon size="small" color="secondary"
-                >mdi-clipboard-text-multiple</v-icon
-              ></v-btn
+              <v-icon size="small" color="secondary">{{
+                !clicked[message.id]
+                  ? "mdi-clipboard-text-multiple"
+                  : "mdi-clipboard-check-outline"
+              }}</v-icon></v-btn
             >
-      </v-list-item>
-      
-  <v-divider></v-divider>
+          </v-list-item>
 
-    </v-list>
+          <v-divider></v-divider>
+        </v-list>
+      </v-col>
+      <v-col cols="4">
+        <div v-if="Object.keys(ENSMessages).length > 0">
+          <v-card-title>Messages Recieved</v-card-title
+          ><v-card-text>{{ ENSMessages[0].id }}</v-card-text>
+        </div>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
 <script>
-import "@/assets/styles.css";
+import "@/assets/custom-styles.css";
 
 export default {
   name: "ActivityLogModule",
@@ -92,6 +110,7 @@ export default {
   data: () => ({
     subscribed: false,
     ENSMessages: [],
+    clicked: [],
   }),
   beforeUpdate() {
     if (this.clientKey && !this.subscribed) {
@@ -114,16 +133,15 @@ export default {
         content: message.payload[0],
       };
     },
-    async copyMessage(value) {
+    async copyMessage(value, i) {
       try {
         await navigator.clipboard.writeText(JSON.stringify(value, null, 2));
+        this.clicked[i] = true;
       } catch ($e) {
         alert("Cannot copy");
       }
     },
-    doNothing(){
-
-    }
+    doNothing() {},
   },
 };
 </script>
