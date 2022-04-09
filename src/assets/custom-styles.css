@@ -24,3 +24,10 @@
     min-width: 0;
     min-height: 0;
   }
+  .v-row-top {
+    margin: 5px;
+  }
+  .max-v-list-height {
+    max-height: 300px;
+    overflow-y: auto;
+}

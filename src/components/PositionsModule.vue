@@ -12,7 +12,7 @@
                   style="float: left"
                   size="small"
                   color="primary"
-                  >mdi-ballot-recount</v-icon
+                  >mdi-finance</v-icon
                 ></Transition
               ></span
             >
@@ -35,7 +35,7 @@
       </div>
       <div class="font-weight-bold text-h6">&nbsp;&nbsp;Positions</div>
     </v-card-header>
-    <v-table density="compact">
+    <v-table density="compact" class="max-v-list-height">
       <thead>
         <tr>
           <th class="text-left">Account</th>

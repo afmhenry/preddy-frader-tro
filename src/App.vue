@@ -16,8 +16,8 @@
         class="d-flex flex-column fill-height"
         v-if="loggedIn && openapiService"
       >
-        <v-row style="height: 60%; max-height: 60%; min-height: 60%">
-          <v-col style="width: 20%; max-width: 20%; " class=""
+        <v-row style="height: 50%;" class="v-row-top">
+          <v-col style="width: 20%; max-width: 20%;" class=""
             ><InstrumentModule
               @selectInstrument="selectInstrument"
               :loggedIn="loggedIn"
@@ -43,8 +43,8 @@
               /></TradeModule>
           </v-col>
         </v-row>
-        <v-row style="">
-          <v-col class="d-flex flex-column">
+        <v-row class="v-row-top">
+          <v-col>
             <v-row>
               <v-col>
                 <OrdersModule :clientKey="clientKey"
@@ -54,7 +54,7 @@
                   ></DevModeModule></OrdersModule
               ></v-col>
             </v-row>
-            <v-row>
+            <v-row class="">
               <v-col><PositionsModule :clientKey="clientKey"
                   ><DevModeModule
                     :devMode="devMode"
@@ -62,16 +62,21 @@
                   ></DevModeModule></PositionsModule
               ></v-col>
             </v-row>
-            <v-row style="height: 40px; max-height: 40px; min-height: 40px">
-              <v-col>Account stuff</v-col>
+            <v-row>
+              <v-col><BalancesModule :clientKey="clientKey"
+                  ><DevModeModule
+                    :devMode="devMode"
+                    :parentModule="'PositionsModule'"
+                  ></DevModeModule></BalancesModule
+              ></v-col>
             </v-row>
           </v-col>
           <v-col style="width: 30%; max-width: 30%"
-            ><ActivityLogModule :clientKey="clientKey"
+            ><EventNotitficationModule :clientKey="clientKey"
               ><DevModeModule
                 :devMode="devMode"
-                :parentModule="'ActivityLogModule'"
-              ></DevModeModule></ActivityLogModule
+                :parentModule="'EventNotitficationModule'"
+              ></DevModeModule></EventNotitficationModule
           ></v-col>
         </v-row>
       </v-container>
@@ -89,10 +94,11 @@ import DevSwitch from "./components/DevSwitch.vue";
 import TradeModule from "./components/TradeModule.vue";
 import getOpenapiService from "./services/openapiService";
 import LoginButton from "./components/LoginButton.vue";
-import EventNotificationLog from "./components/EventNotificationLog.vue";
+import EventNotitficationModule from "./components/EventNotificationModule.vue";
 import DevModeModule from "./components/DevModeModule.vue";
 import OrdersModule from "./components/OrdersModule.vue";
 import PositionsModule from "./components/PositionsModule.vue";
+import BalancesModule from "./components/BalancesModule.vue";
 
 export default {
   name: "App",
@@ -104,10 +110,11 @@ export default {
     DevSwitch,
     TradeModule,
     LoginButton,
-    EventNotificationLog,
+    EventNotitficationModule,
     DevModeModule,
     OrdersModule,
-    PositionsModule
+    PositionsModule,
+    BalancesModule
   },
 
   data: () => ({

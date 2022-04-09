@@ -1,5 +1,5 @@
 <template>
-  <v-card >
+  <v-card>
     <slot></slot>
     <v-text-field
       class="ma-2"
@@ -105,11 +105,3 @@ export default {
   },
 };
 </script>
-
-
-<style scoped>
-.max-v-list-height {
-    max-height: 50%;
-    overflow-y: auto;
-}
-</style>

@@ -87,6 +87,9 @@ const getOpenapiService = () => {
                 }
             })
         } else {
+            //not an array, simply merge
+            console.log(snapshot,payload)
+
             snapshot = _.merge(snapshot, payload)
         }
         return snapshot
@@ -192,6 +195,20 @@ const getOpenapiService = () => {
                     }
                 ).then(result => result.data.Snapshot.Data)
                 subscriptions[referenceId] = subscriptionHandler(snapshot, callback, "PositionId")
+            },
+            async subscribeBalances(callback, clientKey) {
+                const referenceId = "balances_ref_" + Date.now()
+                const snapshot = await client.post('/port/v1/balances/subscriptions',
+                    {
+                        "Arguments": {
+                            "ClientKey": clientKey,
+                            "FieldGroups": ["CalculateCashForTrading"]
+                        },
+                        "ContextId": contextId,
+                        "ReferenceId": referenceId
+                    }
+                ).then(result => result.data.Snapshot)
+                subscriptions[referenceId] = subscriptionHandler(snapshot, callback, "Balances")
             },
             async subscribeENS(callback) {
                 const referenceId = "ens_ref_" + Date.now()
