@@ -55,7 +55,12 @@
               ></v-col>
             </v-row>
             <v-row>
-              <v-col>Positions</v-col>
+              <v-col><PositionsModule :clientKey="clientKey"
+                  ><DevModeModule
+                    :devMode="devMode"
+                    :parentModule="'PositionsModule'"
+                  ></DevModeModule></PositionsModule
+              ></v-col>
             </v-row>
             <v-row style="height: 40px; max-height: 40px; min-height: 40px">
               <v-col>Account stuff</v-col>
@@ -84,9 +89,10 @@ import DevSwitch from "./components/DevSwitch.vue";
 import TradeModule from "./components/TradeModule.vue";
 import getOpenapiService from "./services/openapiService";
 import LoginButton from "./components/LoginButton.vue";
-import ActivityLogModule from "./components/EventNotificationLog.vue";
+import EventNotificationLog from "./components/EventNotificationLog.vue";
 import DevModeModule from "./components/DevModeModule.vue";
 import OrdersModule from "./components/OrdersModule.vue";
+import PositionsModule from "./components/PositionsModule.vue";
 
 export default {
   name: "App",
@@ -98,9 +104,10 @@ export default {
     DevSwitch,
     TradeModule,
     LoginButton,
-    ActivityLogModule,
+    EventNotificationLog,
     DevModeModule,
     OrdersModule,
+    PositionsModule
   },
 
   data: () => ({
