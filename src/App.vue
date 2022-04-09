@@ -190,27 +190,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-@keyframes glowing {
-
-  0% {
-    background-color: #52d88800;
-    box-shadow:  0px 0px 15px #52d88819;
-    border-radius: 50%;
-  }
-  50% {
-    background-color: #52d88852;
-    box-shadow:  0px 0px 15px #52d888ff;
-    border-radius: 50%;
-  }
-  100% {
-    background-color: #52d88800;
-    box-shadow:  0px 0px 15px #52d88819;
-    border-radius: 50%;
-  }
-}
-.glow-green {
-  animation: glowing 2000ms infinite;
-}
-</style>

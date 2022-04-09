@@ -49,7 +49,9 @@ export default {
 };
 </script>
 
+<!--this, if not scoped, will affect the login page. Not sure if ok?-->
 <style scoped>
+
 .v-overlay__scrim {
   opacity: 0% !important;
 }
