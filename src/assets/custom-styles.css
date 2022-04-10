@@ -19,6 +19,7 @@
   .glow-green {
     animation: glowing-green 1000ms infinite;
   }
+  
 @keyframes glowing-purple {
 
     0% {

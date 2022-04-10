@@ -40,17 +40,15 @@
     <v-divider></v-divider>
     <v-container>
       <v-row>
-        <v-col cols="8">
-          <v-card-header-text>Messages</v-card-header-text>
+        <v-col cols="12">
           <v-list dense class="max-v-list-height">
             <v-list-item
               v-for="message in ENSMessages"
               :key="message.id"
               two-line
               class="py-0 px-3"
-              active-color="secondary"
-              rounded="shaped"
-              border= "3px"
+              rounded="xl"
+              border="3px"
               @click="copyMessage(message.content, message.id)"
             >
               <v-row>
@@ -61,7 +59,7 @@
                   <v-icon size="medium" :color="message.iconColor">
                     {{ message.icon }}
                   </v-icon>
-                </v-col>  
+                </v-col>
                 <v-col>
                   <v-list-item-header>
                     <v-list-item-title
@@ -87,24 +85,21 @@
                   </v-list-item-header>
                 </v-col>
                 <v-col cols="3" style="display: flex; align-items: center">
-
-                    <v-icon size="small" :color="!clicked[message.id] ? 'light' : 'primary'">{{
+                  <v-icon
+                    size="small"
+                    :color="!clicked[message.id] ? 'light' : 'primary'"
+                    >{{
                       !clicked[message.id]
                         ? "mdi-clipboard-text-multiple"
                         : "mdi-clipboard-check-outline"
-                    }}</v-icon>
+                    }}</v-icon
+                  >
                 </v-col>
               </v-row>
             </v-list-item>
           </v-list>
         </v-col>
 
-        <v-col cols="4">
-          <v-card-header-text>Total Recieved</v-card-header-text>
-            <div v-if="Object.keys(ENSMessages).length > 0">
-              <v-card-text>{{ ENSMessages[0].id }}</v-card-text>
-            </div>
-        </v-col>
       </v-row>
     </v-container>
   </v-card>
@@ -121,6 +116,7 @@ export default {
     subscribed: false,
     ENSMessages: [],
     clicked: [],
+    beats: 0,
   }),
   beforeUpdate() {
     if (this.clientKey && !this.subscribed) {
@@ -130,9 +126,11 @@ export default {
   },
 
   methods: {
-    handleENSMessage(newENSMessage) {
-      if (newENSMessage.messageId) {
-        this.ENSMessages.unshift(this.parseENS(newENSMessage));
+    handleENSMessage(newENSMessage, heartbeat) {
+      if (heartbeat) {
+        this.beats += 1;
+      } else if (newENSMessage[0]) {
+        this.ENSMessages.unshift(this.parseENS(newENSMessage.pop()));
       }
     },
     parseENS(message) {
@@ -149,7 +147,6 @@ export default {
           break;
         case "Placed":
           icon = "mdi-rocket-launch";
-          iconColor = "primary";
           break;
       }
       return {

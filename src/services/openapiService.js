@@ -39,14 +39,17 @@ const getOpenapiService = () => {
         if (referenceId === "_heartbeat") {
             referenceId = newMessage["payload"][0]["Heartbeats"][0]["OriginatingReferenceId"]
             //todo: somehow manifest heartbeats in the UI, maybe per ref?
+            console.log("Heartbeat for refId: ", referenceId, newMessage["payload"][0]["Heartbeats"][0]["Reason"])
+            
+            //lets process this anyway. 
+            newMessage = newMessage["payload"][0]          
 
-            console.log("Heartbeat for ref: ", referenceId, newMessage["payload"][0]["Heartbeats"][0]["Reason"])
         } else {
-            console.log("Message for ref", referenceId, newMessage)
+            console.log("Message for refId", referenceId, newMessage)
 
-            const handler = subscriptions[referenceId]
-            handler.newMessage(newMessage)
         }
+        const handler = subscriptions[referenceId]
+        handler.newMessage(newMessage)
 
     }
 
@@ -56,10 +59,18 @@ const getOpenapiService = () => {
         callback(snapshot)
 
         const newMessage = function (newMessage) {
-            snapshot = mergeMessageWithSnapshot(newMessage, snapshot, identifier)
-            callback(snapshot)
-        }
 
+            // if we want to catch the heartbeats, 
+            // we can return an identical snapshot, 
+            // and add this parameter to the callback 
+            if(newMessage["Heartbeats"]){
+                callback(snapshot,"heartbeat")
+            }else{
+                snapshot = mergeMessageWithSnapshot(newMessage, snapshot, identifier)
+                callback(snapshot)
+            }
+        }
+        
         return {
             newMessage
         }
@@ -68,9 +79,9 @@ const getOpenapiService = () => {
     const mergeMessageWithSnapshot = (message, snapshot, identifier) => {
         const payload = message.payload
         if (identifier === "ENS") {
-            return message
-        }
-        if (Array.isArray(payload)) {
+            //ENS provides full message of new events, so no merge neede
+            snapshot.push(message)
+        } else if (Array.isArray(payload)) {
             // Loop over array items and merge
             payload.forEach(item => {
                 // Handle deleted based on provided identifier

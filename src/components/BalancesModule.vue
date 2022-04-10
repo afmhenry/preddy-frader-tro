@@ -103,8 +103,6 @@ export default {
         Currency: balanceSnapshot.Currency,
       };
       this.refresh = !this.refresh;
-
-      console.log("foo", this.balance);
     },
   },
 };
