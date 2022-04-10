@@ -36,22 +36,38 @@
     </v-card-header>
     <v-row>
       <v-col>
-                 Total Value: {{ balance.TotalValue }} {{balance.Currency}}
-
+        <v-card>
+          <v-card-title>
+            Value:
+            <v-card-subtitle>
+              {{ balance.TotalValue }} {{ balance.Currency }}
+            </v-card-subtitle></v-card-title
+          >
+        </v-card>
       </v-col>
       <v-col>
-                 Cash Balance: {{ balance.CashBalance }} {{balance.Currency}}
+        <v-card>
+          <v-card-title>
+            Cash Balance:
+            <v-card-subtitle>
+              {{ balance.CashBalance }} {{ balance.Currency }}
+            </v-card-subtitle></v-card-title
+          >
+        </v-card>
       </v-col>
       <v-col>
-          Other
-      </v-col>
-      <v-col>
+        <v-card>
+          <v-card-title>
+            Active Orders:
+            <v-card-subtitle>
+              {{ balance.OpenOrders }}
+            </v-card-subtitle></v-card-title
+          >
+        </v-card>
       </v-col>
     </v-row>
-    <div>
-    </div>
-    <div>
-    </div>
+    <div></div>
+    <div></div>
   </v-card>
   <div v-if="refresh" />
 </template>

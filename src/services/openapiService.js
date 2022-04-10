@@ -34,17 +34,19 @@ const getOpenapiService = () => {
     const subscriptions = {}
 
     const handleMessage = (newMessage) => {
-        console.log("HandleMessage", newMessage, newMessage["payload"].length)
+        //for each new message, print.
         let referenceId = newMessage.referenceId
         if (referenceId === "_heartbeat") {
             referenceId = newMessage["payload"][0]["Heartbeats"][0]["OriginatingReferenceId"]
-            console.log("This message is a heartbeat: ", referenceId, newMessage["payload"][0]["Heartbeats"][0]["Reason"])
+            //todo: somehow manifest heartbeats in the UI, maybe per ref?
+
+            console.log("Heartbeat for ref: ", referenceId, newMessage["payload"][0]["Heartbeats"][0]["Reason"])
         } else {
+            console.log("Message for ref", referenceId, newMessage)
+
             const handler = subscriptions[referenceId]
             handler.newMessage(newMessage)
         }
-
-        //make sure to actually handle heartbeats...im skipping that
 
     }
 
@@ -71,25 +73,23 @@ const getOpenapiService = () => {
         if (Array.isArray(payload)) {
             // Loop over array items and merge
             payload.forEach(item => {
-                // Handle deleted
+                // Handle deleted based on provided identifier
                 if (item.__meta_deleted) {
                     snapshot = snapshot.filter(snapshotItem => snapshotItem[identifier] !== item[identifier])
                 } else {
                     // Handle new or updated
                     const index = snapshot.findIndex(snapshotItem => snapshotItem[identifier] === item[identifier])
                     if (index >= 0) {
-                        // Update
+                        // Update existing entry in array
                         snapshot[index] = _.merge(snapshot[index], item)
                     } else {
-                        // Insert new
+                        // Insert new item, since it doesnt exist
                         snapshot.push(item)
                     }
                 }
             })
         } else {
             //not an array, simply merge
-            console.log(snapshot,payload)
-
             snapshot = _.merge(snapshot, payload)
         }
         return snapshot
@@ -157,10 +157,9 @@ const getOpenapiService = () => {
                 }
 
                 if (MarketOrLimit === "Limit") {
-                    request_object.OrderDuration.DurationType = "GoodTillCancel"
-                    request_object.OrderPrice = price
-                    request_object.OrderType = MarketOrLimit
-                    console.log(price)
+                    request_object["OrderDuration"]["DurationType"] = "GoodTillCancel"
+                    request_object["OrderPrice"] = price
+                    request_object["OrderType"] = MarketOrLimit
                 }
 
                 return client.post(`trade/v2/orders`, request_object).then(result => result.data)
@@ -194,6 +193,8 @@ const getOpenapiService = () => {
                         "ReferenceId": referenceId
                     }
                 ).then(result => result.data.Snapshot.Data)
+
+                //not tested
                 subscriptions[referenceId] = subscriptionHandler(snapshot, callback, "PositionId")
             },
             async subscribeBalances(callback, clientKey) {
@@ -225,15 +226,14 @@ const getOpenapiService = () => {
             }
         }
     }
-
     return {
         openapiService,
         reauthorizeStreaming
     }
 }
 
-
 export default getOpenapiService
+
 export {
     getAuthUrl,
     getLogoutUrl

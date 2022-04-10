@@ -48,10 +48,10 @@
               :key="message.id"
               two-line
               class="py-0 px-3"
-              active-color="warning"
+              active-color="secondary"
               rounded="shaped"
               border= "3px"
-              @click="doNothing()"
+              @click="copyMessage(message.content, message.id)"
             >
               <v-row>
                 <v-col cols="1" style="display: flex; align-items: center">
@@ -87,19 +87,12 @@
                   </v-list-item-header>
                 </v-col>
                 <v-col cols="3" style="display: flex; align-items: center">
-                  <v-btn
-                    id="message.id"
-                    flat
-                    class="mx-2 font-weight-regular"
-                    color="dark"
-                    @click="copyMessage(message.content, message.id)"
-                  >
-                    <v-icon size="small" color="secondary">{{
+
+                    <v-icon size="small" :color="!clicked[message.id] ? 'light' : 'primary'">{{
                       !clicked[message.id]
                         ? "mdi-clipboard-text-multiple"
                         : "mdi-clipboard-check-outline"
-                    }}</v-icon></v-btn
-                  >
+                    }}</v-icon>
                 </v-col>
               </v-row>
             </v-list-item>
@@ -149,7 +142,7 @@ export default {
       switch (message.payload[0].Status || null) {
         case "Cancelled":
           icon = "mdi-delete-alert";
-          iconColor = "error";
+          iconColor = "warning";
           break;
         case "Modify":
           icon = "mdi-cog-transfer";
