@@ -9,15 +9,15 @@
         @refreshedToken="handleRefreshedToken"
     /></TopBar>
 
-    <v-main>
+    <v-main style="height: 100vh">
       <v-container
         fluid
-        style="overflow: hidden"
+        style="overflow: auto"
         class="d-flex flex-column fill-height"
         v-if="loggedIn && openapiService"
       >
-        <v-row style="height: 50%" class="v-row-top">
-          <v-col style="width: 20%; max-width: 20%" class=""
+        <v-row class="v-row-top">
+          <v-col cols="3"
             ><InstrumentModule
               @selectInstrument="selectInstrument"
               :loggedIn="loggedIn"
@@ -26,14 +26,14 @@
                 :parentModule="'InstrumentModule'"
               ></DevModeModule></InstrumentModule
           ></v-col>
-          <v-col class=""
+          <v-col cols="6"
             ><ProductModule :instrumentDetails="instrumentDetails"
               ><DevModeModule
                 :devMode="devMode"
                 :parentModule="'ProductModule'"
               /> </ProductModule
           ></v-col>
-          <v-col style="width: 20%; max-width: 20%" class=""
+          <v-col cols="3"
             ><TradeModule
               :instrumentDetails="instrumentDetails"
               :accountKeys="accountKeys"
@@ -42,43 +42,38 @@
           </v-col>
         </v-row>
         <v-row class="v-row-top">
-          <v-col>
-            <v-row>
-              <v-col>
-                <OrdersModule :clientKey="clientKey"
-                  ><DevModeModule
-                    :devMode="devMode"
-                    :parentModule="'OrdersModule'"
-                  ></DevModeModule></OrdersModule
-              ></v-col>
-            </v-row>
-            <v-row class="">
-              <v-col
-                ><PositionsModule
-                  :clientKey="clientKey"
-                  @selectInstrument="selectInstrument"
-                  ><DevModeModule
-                    :devMode="devMode"
-                    :parentModule="'PositionsModule'"
-                  ></DevModeModule></PositionsModule
-              ></v-col>
-            </v-row>
-            <v-row>
-              <v-col
-                ><BalancesModule :clientKey="clientKey"
-                  ><DevModeModule
-                    :devMode="devMode"
-                    :parentModule="'BalancesModule'"
-                  ></DevModeModule></BalancesModule
-              ></v-col>
-            </v-row>
+          <v-col cols="4"
+            ><PositionsModule
+              :clientKey="clientKey"
+              @selectInstrument="selectInstrument"
+              ><DevModeModule
+                :devMode="devMode"
+                :parentModule="'PositionsModule'"
+              ></DevModeModule></PositionsModule
+          ></v-col>
+          <v-col cols="4">
+            <OrdersModule :clientKey="clientKey"
+              ><DevModeModule
+                :devMode="devMode"
+                :parentModule="'OrdersModule'"
+              ></DevModeModule
+            ></OrdersModule>
           </v-col>
-          <v-col style="width: 30%; max-width: 30%"
+          <v-col cols="4"
             ><EventNotitficationModule :clientKey="clientKey"
               ><DevModeModule
                 :devMode="devMode"
                 :parentModule="'EventNotitficationModule'"
               ></DevModeModule></EventNotitficationModule
+          ></v-col>
+        </v-row>
+        <v-row style="height: 10%">
+          <v-col cols="12"
+            ><BalancesModule :clientKey="clientKey"
+              ><DevModeModule
+                :devMode="devMode"
+                :parentModule="'BalancesModule'"
+              ></DevModeModule></BalancesModule
           ></v-col>
         </v-row>
       </v-container>

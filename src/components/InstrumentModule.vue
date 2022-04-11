@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%">
+  <v-card>
     <slot></slot>
     <v-text-field
       class="ma-2"
@@ -16,57 +16,48 @@
     </v-text-field>
     <v-divider></v-divider>
 
-    <div class="max-v-list-height" style="overflow: auto">
-      <v-list dense>
-        <v-list-item
-          v-for="instrument in search_result"
-          :key="instrument.Identifier"
-          two-line
-          class="py-0 px-3"
-          active-color="primary"
-          @click="
-            $emit(
-              'selectInstrument',
-              instrument.Identifier,
-              instrument.AssetType
-            )
-          "
-        >
-          <v-list-item-header>
-            <v-list-item-title
-              style="font-size: 0.8rem"
-              class="font-weight-bold"
-            >
-              {{ instrument.Description }}
-            </v-list-item-title>
-            <v-list-item-subtitle style="font-size: 0.7rem">
-              <span>
-                {{ instrument.Symbol }}
-                &nbsp;-&nbsp;
-                {{ instrument.CurrencyCode }}
-              </span>
+    <v-list dense>
+      <v-list-item
+        v-for="instrument in search_result"
+        :key="instrument.Identifier"
+        two-line
+        class="py-0 px-3"
+        active-color="primary"
+        @click="
+          $emit('selectInstrument', instrument.Identifier, instrument.AssetType)
+        "
+      >
+        <v-list-item-header>
+          <v-list-item-title style="font-size: 0.8rem" class="font-weight-bold">
+            {{ instrument.Description }}
+          </v-list-item-title>
+          <v-list-item-subtitle style="font-size: 0.7rem">
+            <span>
+              {{ instrument.Symbol }}
               &nbsp;-&nbsp;
-              <span v-if="instrument.IssuerCountry">
-                <i
-                  :class="[
-                    'em',
-                    'em-flag-' + instrument.IssuerCountry.toLowerCase(),
-                  ]"
-                  style="height: 1.4em; position: relative; top: -0.5px"
-                >
-                </i>
-              </span>
-              <span v-else>
-                <i
-                  :class="['mr-1', 'em', 'em-globe_with_meridians']"
-                  style="height: 1.4em; position: relative; top: -0.5px"
-                ></i>
-              </span>
-            </v-list-item-subtitle>
-          </v-list-item-header>
-        </v-list-item>
-      </v-list>
-    </div>
+              {{ instrument.CurrencyCode }}
+            </span>
+            &nbsp;-&nbsp;
+            <span v-if="instrument.IssuerCountry">
+              <i
+                :class="[
+                  'em',
+                  'em-flag-' + instrument.IssuerCountry.toLowerCase(),
+                ]"
+                style="height: 1.4em; position: relative; top: -0.5px"
+              >
+              </i>
+            </span>
+            <span v-else>
+              <i
+                :class="['mr-1', 'em', 'em-globe_with_meridians']"
+                style="height: 1.4em; position: relative; top: -0.5px"
+              ></i>
+            </span>
+          </v-list-item-subtitle>
+        </v-list-item-header>
+      </v-list-item>
+    </v-list>
   </v-card>
 </template>
 

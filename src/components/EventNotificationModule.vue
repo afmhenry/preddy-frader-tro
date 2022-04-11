@@ -33,9 +33,7 @@
           <span>ENS Subscription Inactive</span>
         </v-tooltip>
       </div>
-      <div class="font-weight-bold text-h6">
-        &nbsp;&nbsp;Event Notifications
-      </div>
+      <div class="font-weight-bold text-h6">&nbsp;&nbsp;Events</div>
     </v-card-header>
     <v-divider></v-divider>
     <v-container>

@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card style="height: 100%">
     <slot></slot>
     <v-card-header style="width: 70%">
       <div v-if="subscribed">
@@ -35,27 +35,19 @@
       </div>
       <div class="font-weight-bold text-h6">&nbsp;&nbsp;Positions</div>
     </v-card-header>
-    <v-table density="compact" class="max-v-list-height">
+    <v-table density="compact" style="overflow: auto">
       <thead>
         <tr>
-          <th class="text-left">Account</th>
           <th class="text-left">Instrument</th>
-          <th class="text-left">Ticker</th>
-          <th class="text-left">Type</th>
           <th class="text-left">Amount</th>
-          <th class="text-left">Open Price</th>
           <th class="text-left">Position Id</th>
           <th class="text-left"></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="position in positions" :key="position.PositionId">
-          <td>{{ position.PositionBase.AccountId }}</td>
           <td>{{ position.DisplayAndFormat.Description }}</td>
-          <td>{{ position.DisplayAndFormat.Symbol }}</td>
-          <td>{{ position.PositionBase.AssetType }}</td>
           <td>{{ position.PositionBase.Amount }}</td>
-          <td>{{ position.PositionBase.OpenPrice }}</td>
           <td>{{ position.PositionId }}</td>
           <td>
             <v-icon

@@ -54,16 +54,25 @@
 }
 
 .v-row-top {
-  margin: 5px;
+  margin: 5px 0px;
+  height: 40%;
+}
+
+
+.v-col {
+  max-height: 100%
+}
+
+.v-card {
+  height: 100%;
 }
 
 .max-v-list-height {
-  height: 200px;
   overflow-y: auto;
 }
 
-.max-v-list-height-ens {
-  min-height: 300px;
-  max-height: 425px;
+.v-table,
+.v-list {
   overflow-y: auto;
+  height: 100%;
 }
