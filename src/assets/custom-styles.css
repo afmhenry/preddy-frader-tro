@@ -54,13 +54,19 @@
 }
 
 .v-row-top {
-  margin: 5px 0px;
-  height: 40%;
+  margin: 1px 0px;
+  height: 45%;
+}
+
+.v-row-bot {
+  margin: 1px 0px;
+  height: 10%;
 }
 
 
 .v-col {
-  max-height: 100%
+  max-height: 100%;
+  padding: 5px 5px;
 }
 
 .v-card {

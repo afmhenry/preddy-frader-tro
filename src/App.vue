@@ -67,7 +67,7 @@
               ></DevModeModule></EventNotitficationModule
           ></v-col>
         </v-row>
-        <v-row style="height: 10%">
+        <v-row class="v-row-bot">
           <v-col cols="12"
             ><BalancesModule :clientKey="clientKey"
               ><DevModeModule
