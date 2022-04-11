@@ -41,7 +41,7 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-          <v-list dense class="max-v-list-height">
+          <v-list dense class="max-v-list-height-ens">
             <v-list-item
               v-for="message in ENSMessages"
               :key="message.id"
@@ -67,13 +67,12 @@
                       class="font-weight-bold"
                     >
                       {{ message.content.Status || "No Status" }} -
-                      {{ message.ENSType }}
+                      {{ message.ENSType }} - {{ message.content?.Symbol }}
                     </v-list-item-title>
                     <v-list-item-subtitle style="font-size: 0.7rem">
                       <span>
                         {{ message.content?.BuySell }}
                         {{ message.content?.AssetType }}
-                        {{ message.content?.Symbol }}
                         {{ message.content?.Uic }}
                         {{
                           message.content.ActivityTime.split("T")[1].split(
@@ -99,7 +98,6 @@
             </v-list-item>
           </v-list>
         </v-col>
-
       </v-row>
     </v-container>
   </v-card>

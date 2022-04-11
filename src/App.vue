@@ -16,8 +16,8 @@
         class="d-flex flex-column fill-height"
         v-if="loggedIn && openapiService"
       >
-        <v-row style="height: 50%;" class="v-row-top">
-          <v-col style="width: 20%; max-width: 20%;" class=""
+        <v-row style="height: 50%" class="v-row-top">
+          <v-col style="width: 20%; max-width: 20%" class=""
             ><InstrumentModule
               @selectInstrument="selectInstrument"
               :loggedIn="loggedIn"
@@ -33,14 +33,12 @@
                 :parentModule="'ProductModule'"
               /> </ProductModule
           ></v-col>
-          <v-col style="width: 20%; max-width: 20%; " class=""
+          <v-col style="width: 20%; max-width: 20%" class=""
             ><TradeModule
               :instrumentDetails="instrumentDetails"
               :accountKeys="accountKeys"
-            ><DevModeModule
-                :devMode="devMode"
-                :parentModule="'TradeModule'"
-              /></TradeModule>
+              ><DevModeModule :devMode="devMode" :parentModule="'TradeModule'"
+            /></TradeModule>
           </v-col>
         </v-row>
         <v-row class="v-row-top">
@@ -55,7 +53,10 @@
               ></v-col>
             </v-row>
             <v-row class="">
-              <v-col><PositionsModule :clientKey="clientKey"
+              <v-col
+                ><PositionsModule
+                  :clientKey="clientKey"
+                  @selectInstrument="selectInstrument"
                   ><DevModeModule
                     :devMode="devMode"
                     :parentModule="'PositionsModule'"
@@ -63,7 +64,8 @@
               ></v-col>
             </v-row>
             <v-row>
-              <v-col><BalancesModule :clientKey="clientKey"
+              <v-col
+                ><BalancesModule :clientKey="clientKey"
                   ><DevModeModule
                     :devMode="devMode"
                     :parentModule="'BalancesModule'"
@@ -114,7 +116,7 @@ export default {
     DevModeModule,
     OrdersModule,
     PositionsModule,
-    BalancesModule
+    BalancesModule,
   },
 
   data: () => ({
@@ -157,7 +159,7 @@ export default {
         // Set openapiService
         const { openapiService, reauthorizeStreaming } = getOpenapiService();
         this.openapiService = openapiService;
-        this.reauthorizeStreaming = reauthorizeStreaming
+        this.reauthorizeStreaming = reauthorizeStreaming;
 
         //default instrument so we have something to look at
         this.instrument = { uic: 211, assetType: "Stock" };
@@ -171,7 +173,7 @@ export default {
         }
       } else {
         if (this.openapiService) {
-          this.openapiService().teardown()
+          this.openapiService().teardown();
         }
       }
 
@@ -184,9 +186,9 @@ export default {
 
     handleRefreshedToken() {
       if (this.reauthorizeStreaming) {
-        this.reauthorizeStreaming()
+        this.reauthorizeStreaming();
       }
-    }
+    },
   },
 };
 </script>

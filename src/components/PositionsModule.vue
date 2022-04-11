@@ -52,22 +52,28 @@
       </thead>
       <tbody>
         <tr v-for="position in positions" :key="position.PositionId">
-          <td>{{ position.AccountId }}</td>
+          <td>{{ position.PositionBase.AccountId }}</td>
           <td>{{ position.DisplayAndFormat.Description }}</td>
           <td>{{ position.DisplayAndFormat.Symbol }}</td>
-          <td>{{ position.AssetType }}</td>
+          <td>{{ position.PositionBase.AssetType }}</td>
           <td>{{ position.BuySell }}</td>
-          <td>{{ position.Amount }}</td>
+          <td>{{ position.PositionBase.Amount }}</td>
           <td>{{ position.OpenOrderType }}</td>
           <td>{{ position.Price }}</td>
           <td>{{ position.OrderId }}</td>
           <td>
-                <v-icon
-                  size='large'
-                  color="error"
-                  @click="deleteOrder(position.OrderId, position.AccountKey)"
-                  >mdi-close-circle-outline</v-icon
-                >
+            <v-icon
+              size="large"
+              color="secondary"
+              @click="
+                $emit(
+                  'selectInstrument',
+                  position.PositionBase.Uic,
+                  position.PositionBase.AssetType
+                )
+              "
+              >mdi-currency-usd</v-icon
+            >
           </td>
         </tr>
       </tbody>
@@ -82,6 +88,7 @@ import "@/assets/custom-styles.css";
 export default {
   name: "PositionsModule",
   props: ["devMode", "clientKey"],
+  emits: ["selectInstrument"],
   inject: ["openapiService"],
   data: () => ({
     subscribed: false,
@@ -100,9 +107,9 @@ export default {
   methods: {
     handlePositionStreaming(positionSnapshot) {
       this.positions = positionSnapshot;
+      console.log(this.positions[0], this.positions[0]);
       this.refresh = !this.refresh;
     },
-
   },
 };
 </script>

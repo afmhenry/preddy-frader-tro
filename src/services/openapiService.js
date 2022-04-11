@@ -40,9 +40,9 @@ const getOpenapiService = () => {
             referenceId = newMessage["payload"][0]["Heartbeats"][0]["OriginatingReferenceId"]
             //todo: somehow manifest heartbeats in the UI, maybe per ref?
             console.log("Heartbeat for refId: ", referenceId, newMessage["payload"][0]["Heartbeats"][0]["Reason"])
-            
+
             //lets process this anyway. 
-            newMessage = newMessage["payload"][0]          
+            newMessage = newMessage["payload"][0]
 
         } else {
             console.log("Message for refId", referenceId, newMessage)
@@ -63,14 +63,14 @@ const getOpenapiService = () => {
             // if we want to catch the heartbeats, 
             // we can return an identical snapshot, 
             // and add this parameter to the callback 
-            if(newMessage["Heartbeats"]){
-                callback(snapshot,"heartbeat")
-            }else{
+            if (newMessage["Heartbeats"]) {
+                callback(snapshot, "heartbeat")
+            } else {
                 snapshot = mergeMessageWithSnapshot(newMessage, snapshot, identifier)
                 callback(snapshot)
             }
         }
-        
+
         return {
             newMessage
         }
@@ -198,7 +198,7 @@ const getOpenapiService = () => {
                     {
                         "Arguments": {
                             "ClientKey": clientKey,
-                            "FieldGroups": ["DisplayAndFormat"]
+                            "FieldGroups": ["DisplayAndFormat", "PositionBase"]
                         },
                         "ContextId": contextId,
                         "ReferenceId": referenceId

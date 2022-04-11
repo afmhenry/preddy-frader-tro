@@ -1,56 +1,69 @@
 @keyframes glowing-green {
 
-    0% {
-      background-color: #52d88800;
-      box-shadow:  0px 0px 15px #52d88819;
-      border-radius: 50%;
-    }
-    50% {
-      background-color: #52d88852;
-      box-shadow:  0px 0px 15px #52d888ff;
-      border-radius: 50%;
-    }
-    100% {
-      background-color: #52d88800;
-      box-shadow:  0px 0px 15px #52d88819;
-      border-radius: 50%;
-    }
+  0% {
+    background-color: #52d88800;
+    box-shadow: 0px 0px 15px #52d88819;
+    border-radius: 50%;
   }
-  .glow-green {
-    animation: glowing-green 1000ms infinite;
+
+  50% {
+    background-color: #52d88852;
+    box-shadow: 0px 0px 15px #52d888ff;
+    border-radius: 50%;
   }
-  
+
+  100% {
+    background-color: #52d88800;
+    box-shadow: 0px 0px 15px #52d88819;
+    border-radius: 50%;
+  }
+}
+
+.glow-green {
+  animation: glowing-green 1000ms infinite;
+}
+
 @keyframes glowing-purple {
 
-    0% {
-      background-color: #8a9fff31;
-      box-shadow:  0px 0px 15px #8a9fff71;
-      border-radius: 50%;
-    }
-    50% {
-      background-color: #8a9fff55;
-      box-shadow:  0px 0px 15px #6b67be;
-      border-radius: 50%;
-    }
-    100% {
-      background-color: #8a9fff2b;
-      box-shadow:  0px 0px 15px #8a9fff75;
-      border-radius: 50%;
-    }
-  }
-  .glow-purple {
-    animation: glowing-purple 2000ms infinite;
+  0% {
+    background-color: #8a9fff31;
+    box-shadow: 0px 0px 15px #8a9fff71;
+    border-radius: 50%;
   }
 
-  .v-btn {
-    min-width: 0;
-    min-height: 0;
+  50% {
+    background-color: #8a9fff55;
+    box-shadow: 0px 0px 15px #6b67be;
+    border-radius: 50%;
   }
-  .v-row-top {
-    margin: 5px;
+
+  100% {
+    background-color: #8a9fff2b;
+    box-shadow: 0px 0px 15px #8a9fff75;
+    border-radius: 50%;
   }
-  .max-v-list-height {
-    min-height:200px;
-    max-height:350px;
-    overflow-y: auto;
+}
+
+.glow-purple {
+  animation: glowing-purple 2000ms infinite;
+}
+
+.v-btn {
+  min-width: 0;
+  min-height: 0;
+}
+
+.v-row-top {
+  margin: 5px;
+}
+
+.max-v-list-height {
+  height: 200px;
+  overflow-y: auto;
+}
+
+.max-v-list-height-ens {
+  min-height: 300px;
+  max-height: 425px;
+  overflow-y: auto;
 }
