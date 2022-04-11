@@ -97,12 +97,12 @@ export default {
     dates: [],
     refresh: false,
     chartOptions: {
-      displayErrors: true,
       title: null,
       legend: {
         enabled: false,
       },
       yAxis: {
+        title: null,
         labels: {
           style: {
             color: "#FFFFFF",
@@ -152,6 +152,7 @@ export default {
       };
       this.chartOptions.title =
         "Prices for " + this.instrumentDetails.Description;
+      console.log(this.chartOptions.title);
       Highcharts.chart("highcharts", this.chartOptions);
     },
   },
