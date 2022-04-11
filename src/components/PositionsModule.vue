@@ -42,11 +42,9 @@
           <th class="text-left">Instrument</th>
           <th class="text-left">Ticker</th>
           <th class="text-left">Type</th>
-          <th class="text-left">Buy/Sell</th>
           <th class="text-left">Amount</th>
-          <th class="text-left">Order Type</th>
-          <th class="text-left">Price</th>
-          <th class="text-left">ID</th>
+          <th class="text-left">Open Price</th>
+          <th class="text-left">Position Id</th>
           <th class="text-left"></th>
         </tr>
       </thead>
@@ -56,11 +54,9 @@
           <td>{{ position.DisplayAndFormat.Description }}</td>
           <td>{{ position.DisplayAndFormat.Symbol }}</td>
           <td>{{ position.PositionBase.AssetType }}</td>
-          <td>{{ position.BuySell }}</td>
           <td>{{ position.PositionBase.Amount }}</td>
-          <td>{{ position.OpenOrderType }}</td>
-          <td>{{ position.Price }}</td>
-          <td>{{ position.OrderId }}</td>
+          <td>{{ position.PositionBase.OpenPrice }}</td>
+          <td>{{ position.PositionId }}</td>
           <td>
             <v-icon
               size="large"
