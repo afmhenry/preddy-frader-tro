@@ -77,8 +77,10 @@
   overflow-y: auto;
 }
 
+.tbody,
 .v-table,
 .v-list {
   overflow-y: auto;
   height: 100%;
+
 }

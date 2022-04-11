@@ -152,6 +152,9 @@ const getOpenapiService = () => {
             searchInstrumentPrice(uic, assetType) {
                 return client.get(`/trade/v1/infoprices/?Uic=${uic}&AssetType=${assetType}`).then(result => result.data)
             },
+            getInstrumentChart(uic, assetType) {
+                return client.get(`chart/v1/charts?Uic=${uic}&AssetType=${assetType}&Count=50&FieldGroups=Data&Horizon=10080`).then(result => result.data)
+            },
             placeOrder(uic, assetType, BuyOrSell, MarketOrLimit, price, amount, accountKey) {
                 var request_object =
                 {

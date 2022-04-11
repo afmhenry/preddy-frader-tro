@@ -35,7 +35,7 @@
       </div>
       <div class="font-weight-bold text-h6">&nbsp;&nbsp;Positions</div>
     </v-card-header>
-    <v-table density="compact" style="overflow: auto">
+    <v-table density="compact">
       <thead>
         <tr>
           <th class="text-left">Instrument</th>
@@ -95,7 +95,6 @@ export default {
   methods: {
     handlePositionStreaming(positionSnapshot) {
       this.positions = positionSnapshot;
-      console.log(this.positions[0], this.positions[0]);
       this.refresh = !this.refresh;
     },
   },

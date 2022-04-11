@@ -82,6 +82,11 @@ export default {
       }
     },
   },
+  created() {
+    if (this.keyword) {
+      this.search(this.keyword);
+    }
+  },
   methods: {
     search: _.debounce(async function (value) {
       const search_result = await this.openapiService().searchInstrument(value);

@@ -1,6 +1,6 @@
 <template>
   <v-card height="100%">
-   <slot></slot>
+    <slot></slot>
     <div v-if="!instrumentDetails">
       <v-card-title>Select an instrument...</v-card-title>
       <v-divider></v-divider>
@@ -78,49 +78,108 @@
             }}
           </span>
         </div>
-        <!-- <div><highcharts :options="chartOptions"></highcharts></div> -->
+        <div v-if="refresh"></div>
       </v-card-text>
+      <div class="fill-height" id="highcharts"></div>
     </div>
   </v-card>
 </template>
 
 <script>
+import Highcharts from "highcharts";
+
 export default {
   name: "ProductModule",
   props: ["instrumentDetails", "devMode"],
+  inject: ["openapiService"],
   data: () => ({
+    prices: [],
+    dates: [],
+    refresh: false,
     chartOptions: {
+      displayErrors: true,
       title: null,
       legend: {
         enabled: false,
       },
       yAxis: {
-        title: {
-          text: null,
+        labels: {
+          style: {
+            color: "#FFFFFF",
+            fontSize: "12px",
+          },
         },
       },
       series: [
         {
-          name: "Close",
-          data: [
-            1, 2, 3, 6, 21, 5, 89, 0, 3, 12, 45, 7, 1, 21, 6, 8, 5, 23, 4, 8, 0,
-          ], // sample data
+          name: "Price",
+          data: [],
+          color: "#6661D4",
         },
       ],
       credits: {
         enabled: false,
       },
       chart: {
-        height: "auto",
+        backgroundColor: "#18263bb7",
+        height: "30%",
         style: {
           fontFamily: "courier",
         },
       },
     },
   }),
+  beforeUpdate() {
+    this.getInstrumentChart();
+  },
+  watch: {
+    prices: function () {
+      (this.chartOptions.series[0].name =
+        "Price in " + this.instrumentDetails.CurrencyCode),
+        (this.chartOptions.series[0].data = this.prices);
+      this.chartOptions["xAxis"] = {
+        type: "datetime",
+        tickPixelInterval: 100,
+        tickInterval: 10,
+        categories: this.dates,
+        labels: {
+          format: "{value:%Y}",
+          style: {
+            color: "#FFFFFF",
+            fontSize: "12px",
+          },
+        },
+      };
+      this.chartOptions.title =
+        "Prices for " + this.instrumentDetails.Description;
+      Highcharts.chart("highcharts", this.chartOptions);
+    },
+  },
   methods: {
+    async getInstrumentChart() {
+      if (this.instrumentDetails.Uic) {
+        console.log(this.instrumentDetails);
+        const response = await this.openapiService().getInstrumentChart(
+          this.instrumentDetails.Uic,
+          this.instrumentDetails.AssetType
+        );
+        var temp_prices = [];
+        var temp_dates = [];
+        for (var i in response.Data) {
+          temp_dates.push(
+            Highcharts.dateFormat(
+              "%Y-%m-%d",
+              new Date(response.Data[i]["Time"]).getTime()
+            )
+          );
+          temp_prices.push(response.Data[i]["Close"]);
+        }
+      }
+      this.prices = temp_prices;
+      this.dates = temp_dates;
+      this.refresh = !this.refresh;
+    },
     parse_exchange_state(sessions) {
-      //console.log(sessions);
       var displayText = "";
       switch (sessions[0].State) {
         case "Closed":
