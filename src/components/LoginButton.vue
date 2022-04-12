@@ -32,7 +32,7 @@
       <v-toolbar color="primary">
         <v-card-header class="font-weight-bold text-h6">Login</v-card-header>
       </v-toolbar>
-      <v-card-text>Select your environment<br /></v-card-text>
+      <v-card-text>Select your environment:<br /></v-card-text>
       <v-card-actions class="d-flex">
         <v-btn
           color="primary"
@@ -56,7 +56,7 @@
 
       <br />
       <v-card-text>
-        If you don't have an account, get one for free:
+        If you don't have an account, get a free SIM Developer account here:
         <a target="_blank" href="https://www.developer.saxo/accounts/sim/signup"
           >Developer Account</a
         >

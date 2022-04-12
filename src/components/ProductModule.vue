@@ -169,7 +169,12 @@ export default {
               new Date(response.Data[i]["Time"]).getTime()
             )
           );
-          temp_prices.push(response.Data[i]["Close"]);
+          if (this.instrumentDetails.AssetType === "FxSpot") {
+            temp_prices.push(response.Data[i]["CloseBid"]);
+          }
+          if (this.instrumentDetails.AssetType === "Stock") {
+            temp_prices.push(response.Data[i]["Close"]);
+          }
         }
       }
       this.prices = temp_prices;
