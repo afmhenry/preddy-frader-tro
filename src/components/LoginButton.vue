@@ -99,7 +99,7 @@ function parseAndStoreAccessToken(hash) {
 export default {
   name: "LoginButton",
   props: ["loggedIn"],
-  emits: ["loggedIn", "clientKey", "refreshedToken"],
+  emits: ["loginStatus", "clientKey", "refreshedToken"],
   inject: ["openapiService"],
   data: () => ({
     dialog: false,
@@ -116,7 +116,7 @@ export default {
       window.localStorage.removeItem("accessToken");
       window.localStorage.removeItem("expiresIn");
       this.clientDetails = null;
-      this.$emit("loggedIn", false);
+      this.$emit("loginStatus", false);
       window.open(getLogoutUrl(environment));
     },
     refresh() {
@@ -173,7 +173,7 @@ export default {
 
       if (window.location.hash.includes("access_token")) {
         parseAndStoreAccessToken(window.location.hash);
-        this.$emit("loggedIn", true);
+        this.$emit("loginStatus", true);
         removeHash();
         this.refresh();
       }
@@ -182,7 +182,7 @@ export default {
 
       window.localStorage.removeItem("accessToken");
       window.localStorage.removeItem("expiresIn");
-      this.$emit("loggedIn", false);
+      this.$emit("loginStatus", false);
     }
   },
 };

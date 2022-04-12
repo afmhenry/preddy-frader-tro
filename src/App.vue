@@ -4,7 +4,7 @@
       ><DevSwitch :devMode="devMode" @click="devMode = !devMode"></DevSwitch>
       <LoginButton
         :loggedIn="loggedIn"
-        @loggedIn="handleLoggedInChange"
+        @loginStatus="handleLoggedInChange"
         @clientKey="setClientKey"
         @refreshedToken="handleRefreshedToken"
       />
@@ -61,7 +61,9 @@
             ></OrdersModule>
           </v-col>
           <v-col cols="4"
-            ><EventNotitficationModule :clientKey="clientKey"
+            ><EventNotitficationModule
+              :clientKey="clientKey"
+              :loggedIn="loggedIn"
               ><DevModeModule
                 :devMode="devMode"
                 :parentModule="'EventNotitficationModule'"
@@ -168,6 +170,7 @@ export default {
           this.accountKeys.push(unparsed_accounts[i]["AccountKey"]);
         }
       } else {
+        this.loggedIn = loggedIn;
         if (this.openapiService) {
           this.openapiService().teardown();
         }
