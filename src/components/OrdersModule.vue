@@ -39,8 +39,7 @@
       <thead>
         <tr>
           <th class="text-left">Instrument</th>
-          <th class="text-left">Buy/Sell</th>
-          <th class="text-left">Amount</th>
+          <th class="text-left">Type</th>
           <th class="text-left">Order Type</th>
           <th class="text-left">ID</th>
           <th class="text-left"></th>
@@ -49,9 +48,9 @@
       <tbody>
         <tr v-for="order in orders" :key="order.OrderId">
           <td>{{ order.DisplayAndFormat.Description }}</td>
-          <td>{{ order.BuySell }}</td>
-          <td>{{ order.Amount }}</td>
-          <td>{{ order.OpenOrderType }}</td>
+          <td>
+            {{ order.BuySell }}: {{ order.Amount }} @ {{ order.OpenOrderType }}
+          </td>
           <td>{{ order.OrderId }}</td>
           <td>
             <v-icon

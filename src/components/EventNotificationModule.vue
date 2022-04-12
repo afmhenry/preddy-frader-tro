@@ -38,7 +38,7 @@
     <v-divider></v-divider>
     <v-container>
       <v-row>
-        <v-col cols="12">
+        <v-col>
           <v-list dense class="max-v-list-height-ens">
             <v-list-item
               v-for="message in ENSMessages"
@@ -57,7 +57,7 @@
                 >
                   {{ message.id }}
                 </v-col>
-                <v-col cols="2" style="display: flex; align-items: center">
+                <v-col cols="1" style="display: flex; align-items: center">
                   <v-icon size="medium" :color="message.iconColor">
                     {{ message.icon }}
                   </v-icon>
@@ -68,8 +68,11 @@
                       style="font-size: 0.8rem"
                       class="font-weight-bold"
                     >
-                      {{ message.content.Status || "No Status" }} -
-                      {{ message.ENSType }} - {{ message.content?.Symbol }}
+                      {{
+                        message.content.Status ||
+                        "Filled: " + message.content.FillAmount
+                      }}
+                      - {{ message.ENSType }} - {{ message.content?.Symbol }}
                     </v-list-item-title>
                     <v-list-item-subtitle style="font-size: 0.7rem">
                       <span>
@@ -85,7 +88,7 @@
                     </v-list-item-subtitle>
                   </v-list-item-header>
                 </v-col>
-                <v-col cols="3" style="display: flex; align-items: center">
+                <v-col cols="1" style="display: flex; align-items: center">
                   <v-icon
                     size="small"
                     :color="!clicked[message.id] ? 'light' : 'primary'"
@@ -96,6 +99,7 @@
                     }}</v-icon
                   >
                 </v-col>
+                <v-col cols="1"></v-col>
               </v-row>
             </v-list-item>
           </v-list>
