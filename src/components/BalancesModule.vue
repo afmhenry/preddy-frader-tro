@@ -9,7 +9,7 @@
                 <Transition>
                   <v-icon
                     class="glow-green mr-3"
-                    style="float: left"
+                    style="float: right"
                     size="small"
                     color="primary"
                   >
@@ -149,7 +149,9 @@
         </v-card>
       </v-col>
 
-      <slot></slot>
+      <v-col>
+        <slot></slot>
+      </v-col>
     </v-row>
   </v-card>
   <div v-if="refresh" />

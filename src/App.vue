@@ -13,7 +13,6 @@
     <v-main style="height: 100vh">
       <v-container
         fluid
-        style="overflow: auto"
         class="d-flex flex-column fill-height"
         v-if="loggedIn && openapiService"
       >
