@@ -6,12 +6,14 @@ import streamer from './streamer'
 
 const apps = {
     sim: {
-        AppKey: "698b5ebc5f5c4ef0a2de3b59655e187a",
-        AuthorizationEndpoint: "https://sim.logonvalidation.net/authorize",
-        TokenEndpoint: "https://sim.logonvalidation.net/token",
-        LogoutEndpoint: "https://sim.logonvalidation.net/oidclogout",
-        OpenApiBaseUrl: "https://gateway.saxobank.com/sim/openapi",
+        "AppName": "Saxo Trader Dev",
+        "AppKey": "8607589a93f5404a9f0b3d25e64842d6",
+        "AuthorizationEndpoint": "https://sim.logonvalidation.net/authorize",
+        "TokenEndpoint": "https://sim.logonvalidation.net/token",
+        "LogoutEndpoint": "https://sim.logonvalidation.net/oidclogout",
+        "OpenApiBaseUrl": "https://gateway.saxobank.com/sim/openapi",
     },
+
     live: {
 
     }
