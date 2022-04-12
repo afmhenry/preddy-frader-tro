@@ -50,7 +50,11 @@
               @click="copyMessage(message.content, message.id)"
             >
               <v-row>
-                <v-col cols="1" style="display: flex; align-items: center">
+                <v-col
+                  cols="1"
+                  style="display: flex; align-items: center"
+                  class="ml-3"
+                >
                   {{ message.id }}
                 </v-col>
                 <v-col cols="2" style="display: flex; align-items: center">

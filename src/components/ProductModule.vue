@@ -53,26 +53,22 @@
             </span>
           </span>
           <span style="float: right; line-height: 2rem">
-            <i
+            <v-icon
               v-if="
                 instrumentDetails.TradingSessions.Sessions[0].State ==
                 'AutomatedTrading'
               "
-              class="em em-zap mr-1"
-              style="height: 1.4em; position: relative; top: -0.5px"
-            ></i>
-            <i
+              color="primary"
+              >mdi-refresh-circle</v-icon
+            >
+            <v-icon
               v-else-if="
                 instrumentDetails.TradingSessions.Sessions[0].State == 'Closed'
               "
-              class="em em-first_quarter_moon_with_face mr-1"
-              style="height: 1.4em; position: relative; top: -0.5px"
-            ></i>
-            <i
-              v-else
-              class="em em-small_orange_diamond mr-1"
-              style="height: 1.4em; position: relative; top: -0.5px"
-            ></i>
+              color="warning"
+              >mdi-bank-off-outline</v-icon
+            >
+            <v-icon v-else color="orange">mdi-rhombus-outline</v-icon>
             {{
               parse_exchange_state(instrumentDetails.TradingSessions.Sessions)
             }}

@@ -1,17 +1,14 @@
 <template>
   <div v-if="clientDetails">
     <v-btn variant="outlined">
-      <i
-        class="em em-bust_in_silhouette mr-1"
-        style="height: 1.4em; position: relative; top: -0.5px"
-      >
-      </i>
+      <v-icon left>mdi-account-box-outline</v-icon>
+
       {{ clientDetails.Name }}
     </v-btn>
     <v-btn
       flat
       class="mx-2 font-weight-regular"
-      color="orange"
+      color="warning"
       variant="outlined"
       @click="logout"
       ><v-icon left>mdi-account-arrow-right</v-icon>Logout</v-btn
@@ -24,8 +21,10 @@
       color="light"
       variant="outlined"
       @click="dialog = true"
-      ><v-icon left>mdi-account-arrow-right</v-icon>Login</v-btn
     >
+      <v-icon left>mdi-account-arrow-right</v-icon>
+      Login
+    </v-btn>
   </div>
 
   <v-dialog v-model="dialog">
@@ -41,11 +40,7 @@
           class="flex-grow-1"
           @click="() => login('sim')"
         >
-          <i
-            class="em em-dna mr-1"
-            style="height: 1.4em; position: relative; top: -0.5px"
-          >
-          </i>
+          <v-icon left>mdi-test-tube</v-icon>
           SIM
         </v-btn>
         <v-btn
@@ -54,12 +49,8 @@
           class="flex-grow-1"
           @click="dialog = false"
         >
-          <i
-            class="em em-zap mr-1"
-            style="height: 1.4em; position: relative; top: -0.5px"
-          >
-          </i
-          >LIVE</v-btn
+          <v-icon left>mdi-flash-outline</v-icon>
+          LIVE</v-btn
         >
       </v-card-actions>
 
