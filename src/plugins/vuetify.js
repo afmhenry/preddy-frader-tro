@@ -21,7 +21,6 @@ const SaxoTheme = {
     success: '#4CAF50',
     warning: '#FB8C00',
   }
-  
 }
 
 export default createVuetify({
