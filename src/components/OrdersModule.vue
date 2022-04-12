@@ -49,7 +49,7 @@
         <tr v-for="order in orders" :key="order.OrderId">
           <td>{{ order.DisplayAndFormat.Description }}</td>
           <td>
-            {{ order.BuySell }}: {{ order.Amount }} @ {{ order.OpenOrderType }}
+            {{ order.BuySell }} {{ order.Amount }} @ {{ order.OpenOrderType }}
           </td>
           <td>{{ order.OrderId }}</td>
           <td>

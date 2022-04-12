@@ -40,6 +40,7 @@
     <v-table density="compact">
       <thead>
         <th>Instrument</th>
+        <th>Price</th>
         <th>Amount</th>
         <th>Position Id</th>
         <th></th>
@@ -47,6 +48,7 @@
       <tbody>
         <tr v-for="position in positions" :key="position.PositionId">
           <td>{{ position.DisplayAndFormat.Description }}</td>
+          <td>{{ position.PositionBase.OpenPrice }}</td>
           <td>{{ position.PositionBase.Amount }}</td>
           <td>{{ position.PositionId }}</td>
           <td>
