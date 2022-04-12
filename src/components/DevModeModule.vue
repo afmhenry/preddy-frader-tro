@@ -1,14 +1,16 @@
 <template>
   <Transition>
-    <v-icon
-      v-if="devMode"
-      @click="dialog = true"
-      style="float: right; margin: 12px 5px"
-      size="large"
-      color="secondary"
-      >mdi-information-outline</v-icon
-    ></Transition
-  >
+    <v-button>
+      <v-icon
+        v-if="devMode"
+        @click="dialog = true"
+        style="float: right; margin: 12px 5px"
+        size="large"
+        color="secondary"
+        >mdi-information-outline
+      </v-icon>
+    </v-button>
+  </Transition>
 
   <v-dialog v-model="dialog">
     <v-card>
@@ -41,8 +43,9 @@
             color="primary"
             :href="content[parentModule]['githubLink']"
             target="_blank"
-            >The code</v-btn
           >
+            The code
+          </v-btn>
         </v-col>
         <v-col col="4">
           <v-btn
@@ -53,9 +56,7 @@
           >
         </v-col>
         <v-col col="3">
-          <v-btn color="warning" width="100%" @click="dialog = false"
-            >Close</v-btn
-          >
+          <v-btn color="warning" @click="dialog = false">Close</v-btn>
         </v-col>
         <v-col col="1"></v-col>
       </v-row>
