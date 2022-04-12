@@ -83,6 +83,24 @@
               class="text-overline text-primary"
               style="font-size: 0.7rem !important; line-height: 0.8rem"
             >
+              Positions Value
+            </div>
+          </v-card-header>
+          <v-card-text>
+            <div class="font-weight-bold text-h6">
+              {{ balance.NonMarginPositionsValue }}
+              <span class="text-overline">{{ balance.Currency }}</span>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card class="mt-3">
+          <v-card-header>
+            <div
+              class="text-overline text-primary"
+              style="font-size: 0.7rem !important; line-height: 0.8rem"
+            >
               Margin Usage
             </div>
           </v-card-header>
@@ -168,6 +186,7 @@ export default {
         TotalValue: balanceSnapshot.TotalValue,
         Currency: balanceSnapshot.Currency,
         MarginUtilizationPct: balanceSnapshot.MarginUtilizationPct,
+        NonMarginPositionsValue: balanceSnapshot.NonMarginPositionsValue,
       };
       this.refresh = !this.refresh;
     },
