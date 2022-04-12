@@ -42,7 +42,6 @@
       <thead>
         <th>Instrument</th>
         <th>Type</th>
-        <th>Order Type</th>
         <th>ID</th>
         <th></th>
       </thead>
