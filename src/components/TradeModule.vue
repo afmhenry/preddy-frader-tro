@@ -15,22 +15,30 @@
           <div class="font-weight-bold text-h6">
             {{ instrumentDetails.Description }}
           </div>
-          <div v-if="ask">
-            <span>
-              Ask&nbsp;|&nbsp;{{ ask }}&nbsp;{{
-                instrumentDetails.CurrencyCode
-              }}</span
-            >
-            <br />
-            <span>
-              Bid&nbsp;|&nbsp;{{ bid }} &nbsp;{{
-                instrumentDetails.CurrencyCode
-              }}</span
-            >
-          </div>
         </div>
       </div>
     </v-card-header>
+    <v-card-text>
+      <div v-if="ask">
+        <span>
+          Bid
+          <span
+            class="text-primary"
+            style="font-family: monospace; font-size: 20px"
+            >{{ bid }}</span
+          ></span
+        >
+        <span>
+          //
+          <span
+            class="text-primary"
+            style="font-family: monospace; font-size: 20px"
+            >{{ ask }}</span
+          ></span
+        >
+        Ask ({{ instrumentDetails.CurrencyCode }})
+      </div>
+    </v-card-text>
 
     <v-card-text v-if="!orderId">
       <v-text-field
