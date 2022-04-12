@@ -88,7 +88,7 @@
           </v-card-header>
           <v-card-text>
             <div class="font-weight-bold text-h6">
-              {{ balance.InitialMargin.MarginUtilizationPct }}
+              {{ balance.MarginUtilizationPct }}
               <span class="text-overline">%</span>
             </div>
           </v-card-text>
