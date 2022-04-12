@@ -1,62 +1,137 @@
 <template>
   <v-card>
     <v-row>
-      <v-col>
-        <v-card-header style="width: 100%">
-          <div v-if="subscribed">
-            <v-tooltip anchor="end">
-              <template v-slot:activator="{ props }">
-                <span v-bind="props"
-                  ><Transition>
-                    <v-icon
-                      class="glow-green"
-                      style="float: left"
-                      size="small"
-                      color="primary"
-                      >mdi-cash-multiple</v-icon
-                    ></Transition
-                  ></span
+      <v-card-header>
+        <div v-if="subscribed">
+          <v-tooltip anchor="end">
+            <template v-slot:activator="{ props }">
+              <span v-bind="props">
+                <Transition>
+                  <v-icon
+                    class="glow-green mr-3"
+                    style="float: left"
+                    size="small"
+                    color="primary"
+                  >
+                    mdi-cash-multiple
+                  </v-icon>
+                </Transition>
+              </span>
+            </template>
+            <span>Active</span>
+          </v-tooltip>
+        </div>
+        <div v-else>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ props }">
+              <span v-bind="props">
+                <v-icon
+                  style="float: left"
+                  size="small"
+                  color="error"
+                  class="mr-3"
                 >
-              </template>
-              <span>Active</span>
-            </v-tooltip>
-          </div>
-          <div v-else>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ props }">
-                <span v-bind="props"
-                  ><v-icon style="float: left" size="small" color="error"
-                    >mdi-alert-decagram
-                  </v-icon></span
-                >
-              </template>
-              <span>Balance Subscription Inactive</span>
-            </v-tooltip>
-          </div>
-          <div class="font-weight-bold text-h6">&nbsp;&nbsp;Balances</div>
-        </v-card-header></v-col
-      >
+                  mdi-alert-decagram
+                </v-icon>
+              </span>
+            </template>
+            <span>Balance Subscription Inactive</span>
+          </v-tooltip>
+        </div>
+      </v-card-header>
+
       <v-col>
-        <v-card-title> Value: </v-card-title>
-        <v-card-subtitle>
-          {{ balance.TotalValue }} {{ balance.Currency }}
-        </v-card-subtitle></v-col
-      >
-      <v-col>
-        <v-card-title> Cash: </v-card-title>
-        <v-card-subtitle>
-          {{ balance.CashBalance }} {{ balance.Currency }}
-        </v-card-subtitle></v-col
-      >
-      <v-col>
-        <v-card-title> Active Orders: </v-card-title>
-        <v-card-subtitle>
-          {{ balance.OpenOrders }}
-        </v-card-subtitle></v-col
-      >
-      <v-col>
-        <slot></slot>
+        <v-card class="mt-3">
+          <v-card-header>
+            <div
+              class="text-overline text-primary"
+              style="font-size: 0.7rem !important; line-height: 0.8rem"
+            >
+              Account Value
+            </div>
+          </v-card-header>
+          <v-card-text>
+            <div class="font-weight-bold text-h6">
+              {{ balance.TotalValue }}
+              <span class="text-overline">{{ balance.Currency }}</span>
+            </div>
+          </v-card-text>
+        </v-card>
       </v-col>
+      <v-col>
+        <v-card class="mt-3">
+          <v-card-header>
+            <div
+              class="text-overline text-primary"
+              style="font-size: 0.7rem !important; line-height: 0.8rem"
+            >
+              Cash
+            </div>
+          </v-card-header>
+          <v-card-text>
+            <div class="font-weight-bold text-h6">
+              {{ balance.CashBalance }}
+              <span class="text-overline">{{ balance.Currency }}</span>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card class="mt-3">
+          <v-card-header>
+            <div
+              class="text-overline text-primary"
+              style="font-size: 0.7rem !important; line-height: 0.8rem"
+            >
+              Margin Usage
+            </div>
+          </v-card-header>
+          <v-card-text>
+            <div class="font-weight-bold text-h6">
+              {{ balance.InitialMargin.MarginUtilizationPct }}
+              <span class="text-overline">%</span>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card class="mt-3">
+          <v-card-header>
+            <div
+              class="text-overline text-primary"
+              style="font-size: 0.7rem !important; line-height: 0.8rem"
+            >
+              Orders
+            </div>
+          </v-card-header>
+          <v-card-text>
+            <div class="font-weight-bold text-h6">
+              {{ balance.OrdersCount }}
+              <span class="text-overline">#</span>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card class="mt-3">
+          <v-card-header>
+            <div
+              class="text-overline text-primary"
+              style="font-size: 0.7rem !important; line-height: 0.8rem"
+            >
+              Positions
+            </div>
+          </v-card-header>
+          <v-card-text>
+            <div class="font-weight-bold text-h6">
+              {{ balance.OpenPositionsCount }}
+              <span class="text-overline">#</span>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <slot></slot>
     </v-row>
   </v-card>
   <div v-if="refresh" />
