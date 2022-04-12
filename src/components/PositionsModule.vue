@@ -1,7 +1,7 @@
 <template>
   <v-card style="height: 100%">
     <slot></slot>
-    <v-card-header style="width: 70%">
+    <v-card-header >
       <div v-if="subscribed">
         <v-tooltip anchor="end">
           <template v-slot:activator="{ props }">

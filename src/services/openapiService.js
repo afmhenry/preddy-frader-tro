@@ -155,7 +155,7 @@ const getOpenapiService = () => {
                 return client.get(`/trade/v1/infoprices/?Uic=${uic}&AssetType=${assetType}`).then(result => result.data)
             },
             getInstrumentChart(uic, assetType) {
-                return client.get(`chart/v1/charts?Uic=${uic}&AssetType=${assetType}&Count=50&FieldGroups=Data&Horizon=10080`).then(result => result.data)
+                return client.get(`/chart/v1/charts?Uic=${uic}&AssetType=${assetType}&Count=50&FieldGroups=Data&Horizon=10080`).then(result => result.data)
             },
             placeOrder(uic, assetType, BuyOrSell, MarketOrLimit, price, amount, accountKey) {
                 var request_object =
@@ -178,10 +178,10 @@ const getOpenapiService = () => {
                     request_object["OrderType"] = MarketOrLimit
                 }
 
-                return client.post(`trade/v2/orders`, request_object).then(result => result.data)
+                return client.post(`/trade/v2/orders`, request_object).then(result => result.data)
             },
             deleteOrder(orderId, accountKey) {
-                return client.delete(`trade/v2/orders/` + orderId + "?AccountKey=" + accountKey).then(result => result.data)
+                return client.delete(`/trade/v2/orders/` + orderId + "?AccountKey=" + accountKey).then(result => result.data)
             },
             async subscribeOrders(callback, clientKey) {
                 const referenceId = "orders_ref_" + Date.now()

@@ -1,46 +1,49 @@
 <template>
-  <v-card>
+  <v-card height="100%">
+    <slot></slot>
     <v-row>
-      <v-card-header>
-        <div v-if="subscribed">
-          <v-tooltip anchor="end">
-            <template v-slot:activator="{ props }">
-              <span v-bind="props">
-                <Transition>
+      <v-col cols="2">
+        <v-card-header>
+          <div v-if="subscribed">
+            <v-tooltip anchor="end">
+              <template v-slot:activator="{ props }">
+                <span v-bind="props">
+                  <Transition>
+                    <v-icon
+                      class="glow-green mr-3"
+                      style="float: right"
+                      size="small"
+                      color="primary"
+                    >
+                      mdi-cash-multiple
+                    </v-icon>
+                  </Transition>
+                </span>
+              </template>
+              <span>Active</span>
+            </v-tooltip>
+          </div>
+          <div v-else>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ props }">
+                <span v-bind="props">
                   <v-icon
-                    class="glow-green mr-3"
-                    style="float: right"
+                    style="float: left"
                     size="small"
-                    color="primary"
+                    color="error"
+                    class="mr-3"
                   >
-                    mdi-cash-multiple
+                    mdi-alert-decagram
                   </v-icon>
-                </Transition>
-              </span>
-            </template>
-            <span>Active</span>
-          </v-tooltip>
-        </div>
-        <div v-else>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ props }">
-              <span v-bind="props">
-                <v-icon
-                  style="float: left"
-                  size="small"
-                  color="error"
-                  class="mr-3"
-                >
-                  mdi-alert-decagram
-                </v-icon>
-              </span>
-            </template>
-            <span>Balance Subscription Inactive</span>
-          </v-tooltip>
-        </div>
-      </v-card-header>
-
-      <v-col>
+                </span>
+              </template>
+              <span>Balance Subscription Inactive</span>
+            </v-tooltip>
+          </div>
+          <div class="font-weight-bold text-h6">&nbsp;&nbsp;Account Value</div>
+        </v-card-header>
+      </v-col>
+      <v-col cols="2">
         <v-card class="mt-3">
           <v-card-header>
             <div
@@ -58,7 +61,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col>
+      <v-col cols="2">
         <v-card class="mt-3">
           <v-card-header>
             <div
@@ -76,7 +79,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col>
+      <v-col cols="2">
         <v-card class="mt-3">
           <v-card-header>
             <div
@@ -94,7 +97,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col>
+      <v-col cols="2">
         <v-card class="mt-3">
           <v-card-header>
             <div
@@ -112,7 +115,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col>
+      <v-col cols="1">
         <v-card class="mt-3">
           <v-card-header>
             <div
@@ -130,7 +133,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col>
+      <v-col cols="1">
         <v-card class="mt-3">
           <v-card-header>
             <div
@@ -147,10 +150,6 @@
             </div>
           </v-card-text>
         </v-card>
-      </v-col>
-
-      <v-col>
-        <slot></slot>
       </v-col>
     </v-row>
   </v-card>
