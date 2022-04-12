@@ -43,7 +43,7 @@
           </v-col>
         </v-row>
         <v-row class="v-row-top">
-          <v-col cols="4"
+          <v-col cols="5"
             ><PositionsModule
               :clientKey="clientKey"
               @selectInstrument="selectInstrument"
@@ -60,7 +60,7 @@
               ></DevModeModule
             ></OrdersModule>
           </v-col>
-          <v-col cols="4"
+          <v-col cols="3"
             ><EventNotitficationModule
               :clientKey="clientKey"
               :loggedIn="loggedIn"

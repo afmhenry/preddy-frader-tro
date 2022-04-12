@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card style="height: 100%">
     <slot></slot>
     <v-card-header style="width: 70%">
       <div v-if="subscribed">
@@ -35,23 +35,22 @@
       </div>
       <div class="font-weight-bold text-h6">&nbsp;&nbsp;Active Orders</div>
     </v-card-header>
+    <v-divider></v-divider>
+
     <v-table density="compact">
       <thead>
-        <tr>
-          <th class="text-left">Instrument</th>
-          <th class="text-left">Buy/Sell</th>
-          <th class="text-left">Amount</th>
-          <th class="text-left">Order Type</th>
-          <th class="text-left">ID</th>
-          <th class="text-left"></th>
-        </tr>
+        <th>Instrument</th>
+        <th>Type</th>
+        <th>Order Type</th>
+        <th>ID</th>
+        <th></th>
       </thead>
       <tbody>
         <tr v-for="order in orders" :key="order.OrderId">
           <td>{{ order.DisplayAndFormat.Description }}</td>
-          <td>{{ order.BuySell }}</td>
-          <td>{{ order.Amount }}</td>
-          <td>{{ order.OpenOrderType }}</td>
+          <td>
+            {{ order.BuySell }}: {{ order.Amount }} @ {{ order.OpenOrderType }}
+          </td>
           <td>{{ order.OrderId }}</td>
           <td>
             <v-icon

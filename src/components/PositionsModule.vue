@@ -35,14 +35,14 @@
       </div>
       <div class="font-weight-bold text-h6">&nbsp;&nbsp;Positions</div>
     </v-card-header>
+    <v-divider></v-divider>
+
     <v-table density="compact">
       <thead>
-        <tr>
-          <th class="text-left">Instrument</th>
-          <th class="text-left">Amount</th>
-          <th class="text-left">Position Id</th>
-          <th class="text-left"></th>
-        </tr>
+        <th>Instrument</th>
+        <th>Amount</th>
+        <th>Position Id</th>
+        <th></th>
       </thead>
       <tbody>
         <tr v-for="position in positions" :key="position.PositionId">
