@@ -11,7 +11,7 @@
     <v-btn
       flat
       class="mx-2 font-weight-regular"
-      color="light"
+      color="orange"
       variant="outlined"
       @click="logout"
       ><v-icon left>mdi-account-arrow-right</v-icon>Logout</v-btn
@@ -31,9 +31,9 @@
   <v-dialog v-model="dialog">
     <v-card>
       <v-toolbar color="primary">
-        <v-card-header class="font-weight-bold text-h6"> Login </v-card-header>
+        <v-card-header class="font-weight-bold text-h6">Login</v-card-header>
       </v-toolbar>
-      <v-card-text> Select your environment <br /> </v-card-text>
+      <v-card-text>Select your environment<br /></v-card-text>
       <v-card-actions class="d-flex">
         <v-btn
           color="primary"

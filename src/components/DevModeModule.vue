@@ -3,7 +3,6 @@
     <v-icon
       v-if="devMode"
       @click="dialog = true"
-      class="glow-purple"
       style="float: right; margin: 12px 5px"
       size="large"
       color="secondary"

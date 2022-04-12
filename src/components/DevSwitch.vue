@@ -1,5 +1,10 @@
 <template>
-  <v-btn flat class="mx-2 font-weight-regular" color="light" variant="outlined">
+  <v-btn
+    flat
+    class="mx-2 font-weight-regular"
+    color="secondary"
+    variant="outlined"
+  >
     <v-icon left color="secondary">mdi-magnify-scan</v-icon>Dev Mode</v-btn
   >
 </template>
