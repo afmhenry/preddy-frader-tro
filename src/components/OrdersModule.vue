@@ -5,17 +5,18 @@
       <div v-if="subscribed">
         <v-tooltip anchor="end">
           <template v-slot:activator="{ props }">
-            <span v-bind="props"
-              ><Transition>
+            <span v-bind="props">
+              <Transition>
                 <v-icon
                   class="glow-green"
                   style="float: left"
                   size="small"
                   color="primary"
-                  >mdi-ballot-recount</v-icon
-                ></Transition
-              ></span
-            >
+                >
+                  mdi-ballot-recount
+                </v-icon>
+              </Transition>
+            </span>
           </template>
           <span>Active</span>
         </v-tooltip>
@@ -24,11 +25,11 @@
       <div v-else>
         <v-tooltip bottom>
           <template v-slot:activator="{ props }">
-            <span v-bind="props"
-              ><v-icon style="float: left" size="small" color="error"
-                >mdi-alert-decagram
-              </v-icon></span
-            >
+            <span v-bind="props">
+              <v-icon style="float: left" size="small" color="error">
+                mdi-alert-decagram
+              </v-icon>
+            </span>
           </template>
           <span>Order Subscription Inactive</span>
         </v-tooltip>
