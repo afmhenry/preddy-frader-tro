@@ -7,7 +7,8 @@
         @loggedIn="handleLoggedInChange"
         @clientKey="setClientKey"
         @refreshedToken="handleRefreshedToken"
-    /></TopBar>
+      />
+    </TopBar>
 
     <v-main style="height: 100vh">
       <v-container
