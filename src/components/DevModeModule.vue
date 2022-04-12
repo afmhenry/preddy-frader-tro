@@ -40,6 +40,7 @@
         <v-col col="1"></v-col>
         <v-col col="3">
           <v-btn
+            class="d-flex flex-column text-center"
             color="primary"
             :href="content[parentModule]['githubLink']"
             target="_blank"
@@ -49,6 +50,7 @@
         </v-col>
         <v-col col="4">
           <v-btn
+            class="d-flex flex-column text-center"
             color="secondary"
             :href="content[parentModule]['devLink']"
             target="_blank"
@@ -56,7 +58,12 @@
           >
         </v-col>
         <v-col col="3">
-          <v-btn color="warning" @click="dialog = false">Close</v-btn>
+          <v-btn
+            class="d-flex flex-column text-center"
+            color="warning"
+            @click="dialog = false"
+            >Close</v-btn
+          >
         </v-col>
         <v-col col="1"></v-col>
       </v-row>
