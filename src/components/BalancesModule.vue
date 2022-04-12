@@ -163,9 +163,11 @@ export default {
     handleBalanceMessage(balanceSnapshot) {
       this.balance = {
         CashBalance: balanceSnapshot.CashBalance,
-        OpenOrders: balanceSnapshot.OrdersCount,
+        OrdersCount: balanceSnapshot.OrdersCount,
+        OpenPositionsCount: balanceSnapshot.OpenPositionsCount,
         TotalValue: balanceSnapshot.TotalValue,
         Currency: balanceSnapshot.Currency,
+        MarginUtilizationPct: balanceSnapshot.MarginUtilizationPct,
       };
       this.refresh = !this.refresh;
     },
