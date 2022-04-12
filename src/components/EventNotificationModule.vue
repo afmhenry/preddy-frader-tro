@@ -103,6 +103,7 @@
       </v-row>
     </v-container>
   </v-card>
+  <div v-if="refresh"></div>
 </template>
 
 <script>
@@ -110,18 +111,22 @@ import "@/assets/custom-styles.css";
 
 export default {
   name: "ActivityLogModule",
-  props: ["devMode", "clientKey"],
+  props: ["clientKey", "loggedIn"],
   inject: ["openapiService"],
   data: () => ({
     subscribed: false,
+    refresh: false,
     ENSMessages: [],
     clicked: [],
     beats: 0,
   }),
   beforeUpdate() {
-    if (this.clientKey && !this.subscribed) {
+    if (this.clientKey && !this.subscribed && this.loggedIn) {
       this.openapiService().subscribeENS(this.handleENSMessage);
       this.subscribed = true;
+    } else {
+      this.subscribed = false;
+      this.refresh = !this.refresh;
     }
   },
 
