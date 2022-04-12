@@ -18,6 +18,7 @@
         </div>
       </div>
     </v-card-header>
+    <v-divider></v-divider>
     <v-card-text>
       <div v-if="ask">
         <span>
@@ -116,11 +117,19 @@
         </v-row>
       </v-container>
     </v-card-text>
+
     <v-card-text v-else>
-      Your order {{ orderId }} has been placed.
-      <v-btn color="secondary" @click="prepareAnotherOrder()"
-        >Place Another Order</v-btn
-      >
+      <div>
+        Your order <span class="text-primary">{{ orderId }}</span> has been
+        placed.
+      </div>
+      <v-divider></v-divider>
+      <br />
+      <div>
+        <v-btn color="secondary" @click="prepareAnotherOrder()"
+          >Place Another Order</v-btn
+        >
+      </div>
     </v-card-text>
   </v-card>
 </template>
