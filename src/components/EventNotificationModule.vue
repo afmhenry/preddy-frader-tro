@@ -36,76 +36,66 @@
       <div class="font-weight-bold text-h6">&nbsp;&nbsp;Events</div>
     </v-card-header>
     <v-divider></v-divider>
-    <v-container>
-      <v-row>
-        <v-col>
-          <v-list dense class="max-v-list-height-ens">
-            <v-list-item
-              v-for="message in ENSMessages"
-              :key="message.id"
-              two-line
-              class="py-0 px-3"
-              rounded="xl"
-              border="3px"
-              @click="copyMessage(message.content, message.id)"
+    <v-list dense>
+      <v-list-item
+        v-for="message in ENSMessages"
+        :key="message.id"
+        two-line
+        class="py-0 px-3"
+        rounded="xl"
+        border="3px"
+        @click="copyMessage(message.content, message.id)"
+      >
+        <v-row>
+          <v-col
+            cols="1"
+            style="display: flex; align-items: center"
+            class="ml-3"
+          >
+            {{ message.id }}
+          </v-col>
+          <v-col cols="1" style="display: flex; align-items: center">
+            <v-icon size="medium" :color="message.iconColor">
+              {{ message.icon }}
+            </v-icon>
+          </v-col>
+          <v-col>
+            <v-list-item-header>
+              <v-list-item-title
+                style="font-size: 0.8rem"
+                class="font-weight-bold"
+              >
+                {{
+                  message.content.Status ||
+                  "Filled: " + message.content.FillAmount
+                }}
+                - {{ message.ENSType }} - {{ message.content?.Symbol }}
+              </v-list-item-title>
+              <v-list-item-subtitle style="font-size: 0.7rem">
+                <span>
+                  {{ message.content?.BuySell }}
+                  {{ message.content?.AssetType }}
+                  {{ message.content?.Uic }}
+                  {{ message.content.ActivityTime.split("T")[1].split(".")[0] }}
+                </span>
+              </v-list-item-subtitle>
+            </v-list-item-header>
+          </v-col>
+          <v-col cols="1" style="display: flex; align-items: center">
+            <v-icon
+              size="small"
+              :color="!clicked[message.id] ? 'light' : 'primary'"
+              >{{
+                !clicked[message.id]
+                  ? "mdi-clipboard-text-multiple"
+                  : "mdi-clipboard-check-outline"
+              }}</v-icon
             >
-              <v-row>
-                <v-col
-                  cols="1"
-                  style="display: flex; align-items: center"
-                  class="ml-3"
-                >
-                  {{ message.id }}
-                </v-col>
-                <v-col cols="1" style="display: flex; align-items: center">
-                  <v-icon size="medium" :color="message.iconColor">
-                    {{ message.icon }}
-                  </v-icon>
-                </v-col>
-                <v-col>
-                  <v-list-item-header>
-                    <v-list-item-title
-                      style="font-size: 0.8rem"
-                      class="font-weight-bold"
-                    >
-                      {{
-                        message.content.Status ||
-                        "Filled: " + message.content.FillAmount
-                      }}
-                      - {{ message.ENSType }} - {{ message.content?.Symbol }}
-                    </v-list-item-title>
-                    <v-list-item-subtitle style="font-size: 0.7rem">
-                      <span>
-                        {{ message.content?.BuySell }}
-                        {{ message.content?.AssetType }}
-                        {{ message.content?.Uic }}
-                        {{
-                          message.content.ActivityTime.split("T")[1].split(
-                            "."
-                          )[0]
-                        }}
-                      </span>
-                    </v-list-item-subtitle>
-                  </v-list-item-header>
-                </v-col>
-                <v-col cols="1" style="display: flex; align-items: center">
-                  <v-icon
-                    size="small"
-                    :color="!clicked[message.id] ? 'light' : 'primary'"
-                    >{{
-                      !clicked[message.id]
-                        ? "mdi-clipboard-text-multiple"
-                        : "mdi-clipboard-check-outline"
-                    }}</v-icon
-                  >
-                </v-col>
-                <v-col cols="1"></v-col>
-              </v-row>
-            </v-list-item>
-          </v-list>
-        </v-col>
-      </v-row>
-    </v-container>
+          </v-col>
+          <v-col cols="1"></v-col>
+        </v-row>
+      </v-list-item>
+    </v-list>
   </v-card>
   <div v-if="refresh"></div>
 </template>
