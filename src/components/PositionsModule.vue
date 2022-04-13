@@ -1,5 +1,5 @@
 <template>
-  <v-card style="height: 100%">
+  <v-card style="max-height: 100%">
     <slot></slot>
     <v-card-header>
       <div v-if="subscribed">
@@ -37,12 +37,12 @@
     </v-card-header>
     <v-divider></v-divider>
 
-    <v-table density="compact">
+    <v-table density="compact" style="overflow-y: auto">
       <thead>
         <th>Instrument</th>
         <th>Price</th>
         <th>Amount</th>
-        <th>Position Id</th>
+        <th>Id</th>
         <th></th>
       </thead>
       <tbody>
@@ -52,9 +52,8 @@
           <td>{{ position.PositionBase.Amount }}</td>
           <td>{{ position.PositionId }}</td>
           <td>
-            <v-icon
-              size="large"
-              color="secondary"
+            <v-btn
+              style="max-width: 0%"
               @click="
                 $emit(
                   'selectInstrument',
@@ -62,8 +61,9 @@
                   position.PositionBase.AssetType
                 )
               "
-              >mdi-currency-usd</v-icon
             >
+              <v-icon size="large" color="secondary">mdi-currency-usd</v-icon>
+            </v-btn>
           </td>
         </tr>
       </tbody>

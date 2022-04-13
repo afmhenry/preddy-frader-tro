@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%">
+  <v-card height="100%" class="overflow-y-auto">
     <slot></slot>
     <v-card-header>
       <div>
@@ -39,96 +39,94 @@
         >
         Ask ({{ instrumentDetails.CurrencyCode }})
       </div>
-    </v-card-text>
+      <div v-if="!orderId">
+        <v-text-field
+          class="ma-2"
+          v-model="quantity"
+          type="number"
+          density="compact"
+          label="Quantity"
+          variant="outlined"
+          hide-details="true"
+          append-inner-icon="mdi-counter"
+        ></v-text-field>
 
-    <v-card-text v-if="!orderId">
-      <v-text-field
-        class="ma-2"
-        v-model="quantity"
-        type="number"
-        density="compact"
-        label="Quantity"
-        variant="outlined"
-        hide-details="true"
-        append-inner-icon="mdi-counter"
-      ></v-text-field>
+        <v-autocomplete
+          class="ma-2"
+          v-model="orderType"
+          :items="items"
+          density="compact"
+          label="Order Type"
+          variant="outlined"
+          hide-details="true"
+          append-inner-icon="mdi-axis-x-arrow"
+        ></v-autocomplete>
 
-      <v-autocomplete
-        class="ma-2"
-        v-model="orderType"
-        :items="items"
-        density="compact"
-        label="Order Type"
-        variant="outlined"
-        hide-details="true"
-        append-inner-icon="mdi-axis-x-arrow"
-      ></v-autocomplete>
+        <v-text-field
+          v-if="orderType === 'Limit'"
+          class="ma-2"
+          v-model="orderPrice"
+          type="number"
+          density="compact"
+          label="Limit Price"
+          variant="outlined"
+          hide-details="true"
+          append-inner-icon="mdi-counter"
+        ></v-text-field>
 
-      <v-text-field
-        v-if="orderType === 'Limit'"
-        class="ma-2"
-        v-model="orderPrice"
-        type="number"
-        density="compact"
-        label="Limit Price"
-        variant="outlined"
-        hide-details="true"
-        append-inner-icon="mdi-counter"
-      ></v-text-field>
-
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-btn
-              color="error"
-              :disabled="BuySellDisabled"
-              @click="
-                placeOrder(
-                  this.instrumentDetails.Uic,
-                  this.instrumentDetails.AssetType,
-                  'Sell',
-                  this.orderType,
-                  this.orderPrice,
-                  this.quantity,
-                  this.accountKeys[0]
-                )
-              "
-              >Sell</v-btn
-            >
-          </v-col>
-          <v-col>
-            <v-btn
-              color="primary"
-              :disabled="BuySellDisabled"
-              @click="
-                placeOrder(
-                  this.instrumentDetails.Uic,
-                  this.instrumentDetails.AssetType,
-                  'Buy',
-                  this.orderType,
-                  this.orderPrice,
-                  this.quantity,
-                  this.accountKeys[0]
-                )
-              "
-              >Buy</v-btn
-            >
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card-text>
-
-    <v-card-text v-else>
-      <div>
-        Your order <span class="text-primary">{{ orderId }}</span> has been
-        placed.
+        <v-container>
+          <v-row>
+            <v-col>
+              <v-btn
+                color="error"
+                :disabled="BuySellDisabled"
+                @click="
+                  placeOrder(
+                    this.instrumentDetails.Uic,
+                    this.instrumentDetails.AssetType,
+                    'Sell',
+                    this.orderType,
+                    this.orderPrice,
+                    this.quantity,
+                    this.accountKeys[0]
+                  )
+                "
+                >Sell</v-btn
+              >
+            </v-col>
+            <v-col>
+              <v-btn
+                color="primary"
+                :disabled="BuySellDisabled"
+                @click="
+                  placeOrder(
+                    this.instrumentDetails.Uic,
+                    this.instrumentDetails.AssetType,
+                    'Buy',
+                    this.orderType,
+                    this.orderPrice,
+                    this.quantity,
+                    this.accountKeys[0]
+                  )
+                "
+                >Buy</v-btn
+              >
+            </v-col>
+          </v-row>
+        </v-container>
       </div>
-      <v-divider></v-divider>
-      <br />
-      <div>
-        <v-btn color="secondary" @click="prepareAnotherOrder()"
-          >Place Another Order</v-btn
-        >
+      <div v-else>
+        <div>
+          Your order <span class="text-primary">{{ orderId }}</span> has been
+          placed.
+        </div>
+        <v-divider></v-divider>
+        <br />
+        <div>
+          <v-btn color="secondary" @click="prepareAnotherOrder()"
+            >Place Another Order</v-btn
+          >
+        </div>
       </div>
     </v-card-text>
   </v-card>

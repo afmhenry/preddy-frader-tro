@@ -76,7 +76,13 @@
         </div>
         <div v-if="refresh"></div>
       </v-card-text>
-      <div class="fill-height" id="highcharts"></div>
+      <v-card-header-text>
+        <div
+          class="fill-height"
+          style="width: 100%; height: 100%"
+          id="highcharts"
+        ></div>
+      </v-card-header-text>
     </div>
   </v-card>
 </template>

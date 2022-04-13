@@ -1,5 +1,5 @@
 <template>
-  <v-app class="fill-height">
+  <v-app class="fill-height" style="height: 100vh overflow-y: auto">
     <TopBar
       ><DevSwitch :devMode="devMode" @click="devMode = !devMode"></DevSwitch>
       <LoginButton
@@ -10,10 +10,11 @@
       />
     </TopBar>
 
-    <v-main style="height: 100vh">
+    <v-main style="height: 100vh; overflow-y: auto; background-color: #000000">
       <v-container
         fluid
         class="d-flex flex-column fill-height"
+        style="height: 100vh"
         v-if="loggedIn && openapiService"
       >
         <v-row class="v-row-top">

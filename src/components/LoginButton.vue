@@ -33,25 +33,44 @@
         <v-card-header class="font-weight-bold text-h6">Login</v-card-header>
       </v-toolbar>
       <v-card-text>Select your environment:<br /></v-card-text>
-      <v-card-actions class="d-flex">
-        <v-btn
-          color="primary"
-          variant="outlined"
-          class="flex-grow-1"
-          @click="() => login('sim')"
-        >
-          <v-icon left>mdi-test-tube</v-icon>
-          SIM
-        </v-btn>
-        <v-btn
-          color="warning"
-          variant="outlined"
-          class="flex-grow-1"
-          @click="dialog = false"
-        >
-          <v-icon left>mdi-flash-outline</v-icon>
-          LIVE</v-btn
-        >
+      <v-card-actions>
+        <v-row>
+          <v-col cols="1"></v-col>
+          <v-col cols="5">
+            <v-btn
+              width="100%"
+              color="primary"
+              variant="outlined"
+              class="flex-grow-1"
+              @click="() => login('sim')"
+            >
+              <v-icon left>mdi-test-tube</v-icon>
+              SIM
+            </v-btn>
+          </v-col>
+          <v-col cols="5">
+            <v-tooltip anchor="top">
+              <template v-slot:activator="{ props }">
+                <div v-bind="props" width="50%">
+                  <v-btn
+                    width="100%"
+                    disabled
+                    color="warning"
+                    title=""
+                    variant="contained-text"
+                    class="flex-grow-1"
+                    @click="dialog = false"
+                  >
+                    <v-icon left>mdi-flash-outline</v-icon>
+                    LIVE</v-btn
+                  >
+                </div>
+              </template>
+              <span>Live not enabled yet</span>
+            </v-tooltip></v-col
+          >
+          <v-col cols="1"></v-col>
+        </v-row>
       </v-card-actions>
 
       <br />

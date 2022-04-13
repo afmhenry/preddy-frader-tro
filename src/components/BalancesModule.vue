@@ -2,7 +2,7 @@
   <v-card height="100%">
     <slot></slot>
     <v-row>
-      <v-col cols="2">
+      <v-col cols="2" style="padding: 10px 5px">
         <v-card-header>
           <div v-if="subscribed">
             <v-tooltip anchor="end">
@@ -40,7 +40,7 @@
               <span>Balance Subscription Inactive</span>
             </v-tooltip>
           </div>
-          <div class="font-weight-bold text-h6">&nbsp;&nbsp;Account Value</div>
+          <div class="font-weight-bold text-h6">Account Value</div>
         </v-card-header>
       </v-col>
       <v-col cols="2">

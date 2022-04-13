@@ -53,12 +53,14 @@
           </td>
           <td>{{ order.OrderId }}</td>
           <td>
-            <v-icon
-              size="large"
-              color="error"
+            <v-btn
+              style="max-width: 0%"
               @click="deleteOrder(order.OrderId, order.AccountKey)"
-              >mdi-close-circle-outline</v-icon
             >
+              <v-icon size="large" color="error"
+                >mdi-close-circle-outline</v-icon
+              >
+            </v-btn>
           </td>
         </tr>
       </tbody>
