@@ -66,7 +66,7 @@
                   >
                 </div>
               </template>
-              <span>Live not enabled yet</span>
+              <span>Live not enabled yet!</span>
             </v-tooltip></v-col
           >
           <v-col cols="1"></v-col>
