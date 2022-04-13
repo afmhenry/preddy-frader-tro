@@ -18,7 +18,7 @@
               </Transition>
             </span>
           </template>
-          <span>Active</span>
+          <span>Streaming connection active!</span>
         </v-tooltip>
       </div>
 
