@@ -40,7 +40,7 @@
               <span>Balance Subscription Inactive</span>
             </v-tooltip>
           </div>
-          <div class="font-weight-bold text-h6">Account Value</div>
+          <div class="font-weight-bold text-h6">Account</div>
         </v-card-header>
       </v-col>
       <v-col cols="2">
