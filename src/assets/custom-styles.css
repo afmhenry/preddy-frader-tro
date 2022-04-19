@@ -62,7 +62,7 @@
 .v-row-bot {
   margin: 1px 0px;
   height: 10%;
-  min-height: 80px
+  min-height: 80px !important
 }
 
 

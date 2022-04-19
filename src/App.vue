@@ -1,5 +1,5 @@
 <template>
-  <v-app class="fill-height" style="height: 100vh overflow-y: auto">
+  <v-app class="fill-height overflow-y-auto" style="height: 100vh">
     <TopBar
       ><DevSwitch :devMode="devMode" @click="devMode = !devMode"></DevSwitch>
       <LoginButton
@@ -10,7 +10,10 @@
       />
     </TopBar>
 
-    <v-main style="height: 100vh; overflow-y: auto; background-color: #000000">
+    <v-main
+      class="fill-height overflow-y-auto"
+      style="height: 100vh; background-color: #000000"
+    >
       <v-container
         fluid
         class="d-flex flex-column fill-height"
