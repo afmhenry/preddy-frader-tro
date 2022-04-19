@@ -56,11 +56,13 @@
 .v-row-top {
   margin: 1px 0px;
   height: 45%;
+  min-height: 200px
 }
 
 .v-row-bot {
   margin: 1px 0px;
   height: 10%;
+  min-height: 80px
 }
 
 

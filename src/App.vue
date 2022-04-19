@@ -27,7 +27,7 @@
                 :parentModule="'InstrumentModule'"
               ></DevModeModule></InstrumentModule
           ></v-col>
-          <v-col cols="6"
+          <v-col cols="6" class="overflow-y-auto"
             ><ProductModule :instrumentDetails="instrumentDetails"
               ><DevModeModule
                 :devMode="devMode"
@@ -66,7 +66,7 @@
               :loggedIn="loggedIn"
               ><DevModeModule
                 :devMode="devMode"
-                :parentModule="'EventNotitficationModule'"
+                :parentModule="'EventNotificationModule'"
               ></DevModeModule></EventNotitficationModule
           ></v-col>
         </v-row>

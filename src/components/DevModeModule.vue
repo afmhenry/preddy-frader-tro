@@ -114,6 +114,78 @@ export default {
           githubLink:
             "https://github.com/afmhenry/preddy-frader-tro/blob/b141092cb8d40aec6ad9ac1eef7ee26e8112e521/src/services/openapiService.js#L184",
         },
+        EventNotificationModule: {
+          title: "Event Notification Module",
+          endpoints: ["/ens/v1/activities/subscriptions"],
+          description1:
+            "This module references the ENS service group, and implements \
+            the streaming endpoint of the activities resource. As ENS sends \
+            messages of new events, no snapshot is maintained, and new messages are simply added",
+          description2:
+            "Read more about \
+            the ENS service group in our developer documentation.",
+          devLink: "https://www.developer.saxo/openapi/referencedocs/ens",
+          githubLink:
+            "https://github.com/afmhenry/preddy-frader-tro/blob/b141092cb8d40aec6ad9ac1eef7ee26e8112e521/src/services/openapiService.js#L228",
+        },
+        PositionsModule: {
+          title: "Positions Module",
+          endpoints: ["/port/v1/positions/subscriptions"],
+          description1:
+            "This module references the Port service group, \
+            the streaming endpoint of the positions resource. The snapshot \
+             is constantly updated, creating, modifying, or removing positions",
+          description2:
+            "Read more about \
+            positions in our developer documentation.",
+          devLink:
+            "https://www.developer.saxo/openapi/referencedocs/port/v1/positions",
+          githubLink:
+            "https://github.com/afmhenry/preddy-frader-tro/blob/b141092cb8d40aec6ad9ac1eef7ee26e8112e521/src/services/openapiService.js#L198",
+        },
+        TradeModule: {
+          title: "Trade Module",
+          endpoints: ["/trade/v2/orders"],
+          description1:
+            "This module references the Trade service group, \
+            of the orders resource. Currently only simple trading is possible.",
+          description2:
+            "Read more about \
+            orders in our developer documentation.",
+          devLink:
+            "https://www.developer.saxo/openapi/referencedocs/trade/v2/orders",
+          githubLink:
+            "https://github.com/afmhenry/preddy-frader-tro/blob/b141092cb8d40aec6ad9ac1eef7ee26e8112e521/src/services/openapiService.js#L158",
+        },
+        ProductModule: {
+          title: "Product Module",
+          endpoints: ["/trade/v1/infoprices", "/ref/v1/instruments/details/"],
+          description1:
+            "This module references the Trade and Reference Data service group, \
+            to get prices and instrument details and descriptors",
+          description2:
+            "Read more about \
+            product in our developer documentation.",
+          devLink:
+            "https://www.developer.saxo/openapi/referencedocs/trade/v2/orders",
+          githubLink:
+            "https://github.com/afmhenry/preddy-frader-tro/blob/b141092cb8d40aec6ad9ac1eef7ee26e8112e521/src/services/openapiService.js#L158",
+        },
+        InstrumentModule: {
+          title: "Instrument Module",
+          endpoints: ["/ref/v1/instruments"],
+          description1:
+            "This module references the Reference Data service group, \
+            to show instruments matching the searched keyword. We make \
+            sure to only query once the user is done typing!",
+          description2:
+            "Read more about \
+            instruments in our developer documentation.",
+          devLink:
+            "https://www.developer.saxo/openapi/referencedocs/ref/v1/instruments",
+          githubLink:
+            "https://github.com/afmhenry/preddy-frader-tro/blob/b141092cb8d40aec6ad9ac1eef7ee26e8112e521/src/services/openapiService.js#L140",
+        },
       },
     };
   },

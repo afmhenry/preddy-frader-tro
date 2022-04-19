@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%">
+  <v-card height="100%" class="overflow-y-auto">
     <slot></slot>
     <div v-if="!instrumentDetails">
       <v-card-title>Select an instrument...</v-card-title>
@@ -76,13 +76,13 @@
         </div>
         <div v-if="refresh"></div>
       </v-card-text>
-      <v-card-header-text>
+      <v-card-text>
         <div
-          class="fill-height"
-          style="width: 100%; height: 100%"
+          class="fill-height overflow-y-auto"
+          style="width: 100%"
           id="highcharts"
         ></div>
-      </v-card-header-text>
+      </v-card-text>
     </div>
   </v-card>
 </template>
@@ -124,7 +124,7 @@ export default {
       },
       chart: {
         backgroundColor: "#18263bb7",
-        height: "30%",
+        height: "25%",
         style: {
           fontFamily: "courier",
         },
